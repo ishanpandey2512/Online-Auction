@@ -3,8 +3,17 @@ from .models import Product
 from django.views import generic
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+class BuyerView(generic.ListView):
+
+    template_name = 'app/buyer.html'
+    context_object_name = 'product_list'
+
+    def get_queryset(self):
+
+        return Product.objects.order_by('name')
+
+
+
 
 class ProductView(generic.DetailView):
 
