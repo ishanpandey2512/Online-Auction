@@ -10,7 +10,7 @@ class BuyerView(generic.ListView):
 
     def get_queryset(self):
 
-        return Product.objects.order_by('name')
+        return Product.objects.order_by('id')
 
 
 
