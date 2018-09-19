@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from .models import Product
+from .models import Product, buyer
 from django.views import generic
 
 
@@ -17,5 +17,5 @@ class BuyerView(generic.ListView):
 
 class ProductView(generic.DetailView):
 
-    model = Product
+    model = Product, buyer
     template_name = 'app/product.html'

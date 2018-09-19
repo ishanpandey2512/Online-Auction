@@ -15,6 +15,7 @@ class Product(models.Model):
     start = models.DateTimeField(default=timezone.now(), null=True)
     end_date = models.DateTimeField(default=datetime.date.today() + datetime.timedelta(days=1),)
     end_time = models.TimeField(blank=True, null=True)
+    current_bid = models.IntegerField(default=0)
 
 
     def __str__(self):
