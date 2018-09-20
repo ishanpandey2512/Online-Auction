@@ -5,6 +5,14 @@ from django.core.validators import MinValueValidator
 from django.utils import timezone
 
 
+class Buyer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
+    bid_amount = models.IntegerField(validators=[MinValueValidator(1)],default=0,  null=True)
+
+#    def __str__(self):
+#        return self.user.username
+
+
 class Product(models.Model):
 
     name = models.CharField(max_length=50, blank=False)
@@ -13,24 +21,16 @@ class Product(models.Model):
     category = models.CharField(max_length=50, blank=True,null=True)
     minimum_price = models.IntegerField(blank=True, validators=[MinValueValidator(1)],default=1)
     start = models.DateTimeField(default=timezone.now(), null=True)
-    end_date = models.DateTimeField(default=datetime.date.today() + datetime.timedelta(days=1),)
+    end_date = models.DateTimeField(default=datetime.date.today() + datetime.timedelta(days=1))
     end_time = models.TimeField(blank=True, null=True)
     current_bid = models.IntegerField(default=0)
-
+#   buy_product = models.ForeignKey(Buyer, on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return self.name
 
 
 
-class buyer(models.Model):
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    bid_amount = models.IntegerField(validators=[MinValueValidator(1)])
-
-    def __str__(self):
-        return self.user.username
 
 
 # class Bidsmade(models.Model):
