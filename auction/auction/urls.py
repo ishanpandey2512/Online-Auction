@@ -1,7 +1,11 @@
 """auction URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
+<<<<<<< HEAD
     https://docs.djangoproject.com/en/dev/topics/http/urls/
+=======
+    https://docs.djangoproject.com/en/2.1/topics/http/urls/
+>>>>>>> fcfaf312d92b6b2403bb6b1a5ebf0d5cf848678e
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -23,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 
 

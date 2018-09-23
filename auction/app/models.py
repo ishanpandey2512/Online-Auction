@@ -9,7 +9,7 @@ from django.dispatch import receiver
 # Create your models here.
 
 # functions to be used inside models are declared above
-#profile_imagefile_name assigns a unique imagename/id to the uploaded image.
+# profile_imagefile_name assigns a unique imagename/id to the uploaded image.
 
 # def profile_imagefile_name(instance, filename):
 #     ext = filename.split('.')[-1]
