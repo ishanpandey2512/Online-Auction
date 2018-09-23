@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+{% block content %}
+<center>
+<h2>login</h2>
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+    </p>
+    {% endfor %}
+
+    {% for error in messages %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+
+    <button type="submit">Log In</button>
+
+</form>
+</center>
+{% endblock %}
+</body>
+</html>

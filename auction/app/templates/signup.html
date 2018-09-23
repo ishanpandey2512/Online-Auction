@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+<body>
+{% block content %}
+<h2>Sign up</h2>
+<center>
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <p>
+        {{ field.label_tag }}<br>
+        {{ field }}<br><br>
+
+
+        {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+
+    </p>
+    {% endfor %}
+    <button type="submit" style= "color: green">Sign up</button>
+
+</form>
+</center>
+{% endblock %}
+</body>
+</html>

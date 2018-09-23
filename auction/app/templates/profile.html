@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+<body>
+{% load staticfiles %}
+{% block content %}
+<div style="text-align:center">
+<h1>Profile</h1>
+<br>
+
+
+<img style="width: 20vw; height: 20vh;" alt="avatar" src="{{ user.myprofile.avatar.url }}"/>
+<br>
+
+    <label>First name :{{ user.myprofile.first_name }}</label>
+    <br>
+    <label>Last name: {{ user.myprofile.last_name }}</label>
+    <br>
+    <label>Gender: {{ user.myprofile.gender }}</label>
+    <br>
+    <label>Contact no.: {{ user.myprofile.phone_number }}</label>
+    <br>
+    <br>
+
+
+    <label>Username :{{ user.username }}</label>
+    <br>
+    <br>
+    <label>Email : {{ user.email }}</label>
+    <br>
+    <br>
+
+
+    <p><a href="{% url 'logout' %}" style="margin-bottom:80vw"> log out</a>
+   </p>
+    <p>
+    <a href="{% url 'edit_profile' %}" style="margin-bottom:80vw">Edit profile</a>
+    </p>
+<br>
+</div>
+{% endblock %}
+</body>
+</html>

@@ -1,19 +1,33 @@
-{% extends 'base.html' %}
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online-Auction</title>
+</head>
+<body>
+{% for error in messages %}
+<p style="color: red">{{ error }}!!</p>
+{% endfor %}
+<center><h1> Online-Auction </h1></center>
+<center><h2><i>Sell and Buy here....... </i></h2></center>
 
-{% block title %}Home{% endblock %}
+<table align="center">
+    <tr>
 
-{% block content %}
+    <a href="{% url 'signup' %}"> Sign Up</a>
+    <br>
 
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-<p><a href="{% url 'logout' %}">logout</a></p>
+    {% if request.user.is_authenticated %}
 
-{% else %}
-  <h1>ONLINE-AUCTION</h1>
-  <p>Hey user,You are not logged in. Kindly login to enjoy our service.</p>
-  <a href="{% url 'login' %}">login</a>
-  <p>OR,come join us. Be a part of RE-use, RE-duce</p>
-  <a href="{% url 'signup' %}">SignUp</a>
-{% endif %}
+        <td><a href="{% url 'profile' %}"> View Profile </a></td>
+            <br>
+        <a href="{% url 'logout' %}"> log out</a>
 
-{% endblock %}
+    {% else %}
+    <a href="{% url 'login' %}"> Log In</a>
+
+    {% endif %}
+    </tr>
+</table>
+</body>
+</html>

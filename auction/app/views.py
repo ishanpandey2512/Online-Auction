@@ -1,125 +1,115 @@
-from django.db import models
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse, reverse_lazy
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+
+from django.contrib.auth import login, authenticate,logout
+from django.contrib.auth.decorators import login_required
+
+from .forms import SignupForm, LoginForm, EditProfileForm
+
+from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import ContactForm, LoginForm
 
-from django.core.mail import send_mail
-from auction import *
-
-from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
+from auction.settings import EMAIL_HOST_USER
+from .models import MyProfile
 
-from .forms import SignupForm
-from django.contrib.auth.forms import User, UserCreationForm
-from django.views.generic import View
-from django.views.generic.edit import FormView
-from .forms import *
-from .models import *
-# Create your views here.
+def home(request):
+    return render(request, 'home.html')
 
-class Signup(FormView):
-    form_class  = ContactForm
-    template_name = 'registration/signup.html'
+# Signup using Email Verification
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        if request.method == 'POST':
+            form = SignupForm(request.POST)
+            if form.is_valid():
+                    user = form.save(commit=False)
+                    user.is_active = False
+                    user.save()
+                    current_site = get_current_site(request)
+                    subject = 'Your Online-Auction Email Verification is here..'
+                    message = render_to_string('acc_active_email.html', {
 
-    def get(self, request, *args, **kwargs):
-        try:
-            form = self.form_class
-            # inside request.session is a variable which is dict-like object.
-            # to use request, add 'django.core.context_processors.request' to TEMPLATE_CONTEXT_PROCESSORS.
-            if (request.session['inSession'] is False or None):
-                return render(request, self.template_name, {'form': form})
-            else:
-                return HttpResponseRedirect(reverse('index'))
-        except KeyError:
-            return render(request, self.template_name, {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class[request.POST]       # INSTANCE OF SUBMITTED POST FORM.
-
-        # firstly, check if form is valid
-        # otherwise, redirect it to signup page with errors.
-
-        if form.is_valid():
-            pass
+                        'user': user,
+                        'domain': current_site.domain,
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode,
+                        'token': account_activation_token.make_token(user),
+                    })
+                    from_mail = EMAIL_HOST_USER
+                    to_mail = [user.email]
+                    send_mail(subject, message, from_mail, to_mail, fail_silently=False)
+                    messages.success(request, 'Confirm your email to complete registering with ONLINE-AUCTION.')
+                    return redirect('home')
         else:
-            # display messages if any, or, redirect it
+            form = SignupForm()
+        return render(request, 'signup.html', {'form': form})
 
 
-            # to the referer view of current request.
-            # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            return HttpResponseRedirect('registration/signup.html')
+#account activation function
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        messages.success(request, 'EMAIL VERIFIED!!!! HURRAY....')
+        return redirect('home')
+    else:
+        return HttpResponse('Activation Link is Invalid. Try once more...')
 
-        # if form is valid, new person is created, but not saved, since commit=false
-        new_Person = form.save(commit=False)
 
-        # retrieving all objects that exist in db, to find out if email already exists.
-        # if that email does not exist, then a email verification is sent.
-        try:
-            if_email = Person.objects.get(email=new_Person.email)
-            except Person.DoesNotExist:
-            try:
-                    if_username = Person.objects.get(userName = Person.userName)
-                    except Person.DoesNotExist:
-                    new_Person.save()
-                    try:
-                                    #EmailMessage can also be used.
-                                    #params of send_mail: context, message, from, recipient_list, fail_silently, auth_user, auth_password, connection, html_meassage.
-                                    #fail_silently = False -> raises error from SMTPLib
-                                    #fail_silently = True -> no error if email isn't sent successfully, its for beginners.
-                                    send_mail("Registration successful",
-                                              "Now, Enjoy our services by Signing-In",
-                                              settings.EMAIL_HOST_USER,
-                                              [new_Person.email],
-                                              fail_silently= True,
-                                              html_message="<p><i>You have successfully registered.</i></p>",
-                                               )
-                    except:
-                        pass
-                        #some message
-                        #redirecting to index as it is our profile page.
-                        return HttpResponseRedirect(reverse('app:index'))
-            else:
-#unsuccessful signup due to username already exists.
-                return HttpResponseRedirect(reverse('app: signup'))
-        else:
-# unsuccessful signup due to email already exists.
-        return HttpResponseRedirect(reverse('app:signup'))
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'You are  logged out')
+    return redirect('home')
 
-class LoginView(View):
-    def post(self, request):
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-
         if user is not None:
             if user.is_active:
                 login(request, user)
-
-                return HttpResponseRedirect('/form')
+                return render(request, 'home.html')
             else:
-                return HttpResponse("Inactive user.")
+                return HttpResponse('Please! Verify your Email first')
         else:
-            return HttpResponseRedirect(settings.LOGIN_URL)
+            messages.error(request, 'Username or Password is incorrect')
+            return redirect('login')
 
-        return render(request, "index.html")
-
-
-
-class LogoutView(View):
-    def get(self, request):
-        logout(request)
-        return HttpResponseRedirect(settings.LOGIN_URL)
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
 
 
 
 
 
+@login_required
+def profile_view(request):
+    return render(request, 'profile.html')
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, request.FILES, instance=request.user.myprofile)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = EditProfileForm(instance=request.user.myprofile)
+    return render(request, 'edit_profile.html', {'form': form})
 
 
