@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="page-header">
+            <a href="{% url 'add_product' %}" class="top-menu">
+                <span class="glyphicon glyphicon-plus"></span></a>
+            <h1><a href="/">ENTER YOUR PRODUCT</a></h1>
+        </div>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+
+</body>
+</html>

@@ -163,3 +163,12 @@ class ProductView(DetailView,FormMixin):
     #
     #     return self.p.current_bid
 
+def add_product(request):
+    if(request.method=="POST"):
+        form=PostForm(request.POST)
+        if form.is_valid():
+            product_item=form.save(commit=False)
+            product_item.save()
+    else:
+        form=PostForm()
+    return render(request,'app/product_form.html',{'form':form})

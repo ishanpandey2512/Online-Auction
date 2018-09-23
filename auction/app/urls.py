@@ -16,6 +16,7 @@ urlpatterns = [
 
     url(r'^profile/$', views.profile_view, name='profile'),
     url(r'^profile/edit/$', views.edit_profile, name='edit_profile'),
+    path('seller/', views.add_product, name='add_product'),
 
     # url(r'^VisaForm/$', views.VisaForm.as_view(), name='VisaForm'),
 

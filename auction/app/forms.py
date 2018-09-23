@@ -51,3 +51,9 @@ class Make_Bids(forms.Form):
         field = ('bid_amount',)
 
 
+class PostForm(forms.ModelForm):
+
+    class Meta:
+        model = product
+        fields = ('user1', 'product_name','image','category','description',
+                  'minimum_price',)

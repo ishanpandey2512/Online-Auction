@@ -27,6 +27,8 @@ from django.utils import timezone
     # ext = filename.split('.')[-1]
     # filename = "%s_%s.%s" % (instance..userid.id, instance., ext)
     # return '/'.join(['app/static/app/images', filename])
+from django.db import models
+from time import time
 
 class MyProfile(models.Model):
 
@@ -103,3 +105,33 @@ class Product(models.Model):
 #         return self.product.name
 
 
+def getImage(instance, filename):
+    return "static/images/image_{0}_{1}".format(str(time()), filename)
+
+
+class seller(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
+class product(models.Model):
+    choice_of_category = (("Jwellery", "Jwellery"), ("Clothes", "Clothes"), ("fruits", "fruits"),
+                          ("crocery", "crocery"), ("footwear", "footwear"),)
+
+    user1 = models.ForeignKey(seller, on_delete=models.CASCADE)
+    product_name = models.CharField(max_length=100, null=True)
+    image = models.ImageField(upload_to="images", default='static/images/apple.jpg')
+    category = models.CharField(max_length=20, choices=choice_of_category, null=True)
+    description = models.TextField(max_length=300, null=True)
+    minimum_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    created = models.DateTimeField('created', auto_now_add=True)
+    '''
+    price = models.PositiveSmallIntegerField(default=0)
+
+    modified = models.DateTimeField('modified',auto_now=True)'''
+
+    def __str__(self):
+        return str(self.product_name)
