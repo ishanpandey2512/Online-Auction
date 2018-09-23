@@ -1,17 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BIDDING AREA</title>
+</head>
+<body>
+{% block content %}
+
+   <h2>{{ product.name }}</h2>
+   <br>
+   <br>
+
+   <h4>DESCRIPTION:-{{ product.desp}}</h4>
+   <br>
+
+   <h4>CATEGORY:-{{ product.category}}</h4>
+   <br>
+
+   <h4>MINIMUM BID:-{{ product.minimum_price}}</h4>
+   <br>
+
+   <h4>BID START :-{{ product.start}}</h4>
+   <br>
+
+   <h4>BID END:-{{ product.end_date}}</h4>
+   <br>
+
+   <h4>CURRENT BID:-{{ product.current_bid }}</h4>
 
 
-<h2>{{ product.name }}</h2>
-<br>
-<br>
-<h4>DESCRIPTION:-{{ product.desp}}</h4>
-<br>
-<h4>CATEGORY:-{{ product.category}}</h4>
-<br>
-<h4>MINIMUM BID:-{{ product.minimum_price}}</h4>
-<br>
-<h4>BID START :-{{ product.start}}</h4>
-<br>
-<h4>BID END:-{{ product.end_date}}</h4>
-<br>
-<h4>CURRENT BID:-{{ product.current_bid }}</h4>
+<!--<form method="post" class="bid">-->
 
+    <!--{% csrf_token %}-->
+
+    <!--<label>BID :- {{ product.buy_product.bid_amount }}</label>-->
+
+    <!--<button type="submit">SUBMIT BID</button>-->
+
+<!--</form>-->
+
+{% endblock %}
+
+</body>
+</html>
