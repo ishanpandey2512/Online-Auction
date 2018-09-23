@@ -1,0 +1,9 @@
+{% if product_list %}
+    <ul>
+    {% for product in product_list %}
+        <li><h3><a href="{% url 'product' product.id %}">{{ product.name }}</a></h3></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No bids are available.</p>
+{% endif %}
