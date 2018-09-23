@@ -2,10 +2,14 @@
 
 The `urlpatterns` list routes URLs to views. For more information please see:
 <<<<<<< HEAD
+<<<<<<< HEAD
     https://docs.djangoproject.com/en/dev/topics/http/urls/
 =======
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
 >>>>>>> fcfaf312d92b6b2403bb6b1a5ebf0d5cf848678e
+=======
+    https://docs.djangoproject.com/en/2.1/topics/http/urls/
+>>>>>>> a4af1d00283fb766ff8537be5ed1082455fb0442
 Examples:
 Function views
     1. Add an import:  from my_app import views

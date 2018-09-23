@@ -1,3 +1,4 @@
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -39,3 +40,14 @@ class LoginForm(forms.ModelForm):
 #
 #     # class Meta:
 #     #     model=
+
+from .models import Bids
+from django import forms
+
+
+class Make_Bids(forms.Form):
+    class Meta:
+        model = Bids
+        field = ('bid_amount',)
+
+

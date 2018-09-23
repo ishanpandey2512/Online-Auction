@@ -1,3 +1,4 @@
+
 from django.conf.urls import url
 from django.urls import path
 from . import views
@@ -18,4 +19,13 @@ urlpatterns = [
 
     # url(r'^VisaForm/$', views.VisaForm.as_view(), name='VisaForm'),
 
+    #---------------------------------------------------------------------------
+
+    path('buyer/<int:pk>/', views.ProductView.as_view(), name='product'),
+   # path('', views.IndexView.as_view(), name='index'),
+    path('buyer/', views.BuyerView.as_view(), name='buyer')
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
