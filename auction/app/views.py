@@ -20,6 +20,11 @@ from .tokens import account_activation_token
 from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
 from .models import MyProfile
+from .forms import PostForm
+from .models import Product, Bids
+from django.views.generic import DetailView,FormView,ListView
+from django.views.generic.edit import FormMixin
+from .forms import Make_Bids
 
 
 
@@ -129,14 +134,7 @@ def edit_profile(request):
 #             form = self.form_class
 #
 
-
-
-from .models import Product, Bids
-from django.views.generic import DetailView,FormView,ListView
-from django.views.generic.edit import FormMixin
-from .forms import Make_Bids
-
-
+#@login_required
 class BuyerView(ListView):
 
     template_name = 'app/buyer.html'
@@ -147,7 +145,8 @@ class BuyerView(ListView):
         return Product.objects.order_by('id')
 
 
-class ProductView(DetailView,FormMixin):
+#@login_required
+class ProductView(DetailView):
 
     model = Product
     template_name = 'app/product.html'
@@ -163,12 +162,13 @@ class ProductView(DetailView,FormMixin):
     #
     #     return self.p.current_bid
 
+@login_required
 def add_product(request):
-    if(request.method=="POST"):
-        form=PostForm(request.POST)
+    if request.method == "POST":
+        form = PostForm(request.POST)
         if form.is_valid():
-            product_item=form.save(commit=False)
+            product_item = form.save(commit=False)
             product_item.save()
     else:
-        form=PostForm()
-    return render(request,'app/product_form.html',{'form':form})
+        form = PostForm()
+    return render(request, 'app/product_form.html', {'form':form})
