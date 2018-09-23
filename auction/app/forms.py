@@ -31,3 +31,11 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password')
+
+# class VisaForm(forms.Form):
+#     # user form pre build class
+# 	visaNum = forms.CharField(max_length = 10, label="Visa Number", help_text='16 Digits Required')
+# 	expDate= forms.DateTimeField(label="Expiry Date:",widget=forms.DateTimeInput(attrs={'placeholder':'YYYY-MM-DD', 'type' : 'date'}))
+#
+#     # class Meta:
+#     #     model=

@@ -9,6 +9,8 @@ from .forms import SignupForm, LoginForm, EditProfileForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+from django.views import generic
+
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -111,5 +113,18 @@ def edit_profile(request):
     else:
         form = EditProfileForm(instance=request.user.myprofile)
     return render(request, 'edit_profile.html', {'form': form})
+
+# --------------------------------------------------------------------------------------------
+
+# @login_required
+# class VisaForm(generic.edit.FormView):
+#     form_class = VisaForm
+#     template_name = 'templates/visa.html'
+#
+#     def get(self, request, *args, **kwargs):
+#         try:
+#             form = self.form_class
+#
+
 
 

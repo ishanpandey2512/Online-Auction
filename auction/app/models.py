@@ -50,13 +50,10 @@ class MyProfile(models.Model):
         instance.myprofile.save()
 
 # class Visa(models.Model):
-#
-# 	def __str__(self):
-# 		return str(self.id)
-#
-# 	userid=models.ForeignKey(MyProfile, on_delete=models.CASCADE)
-# 	visaNum = models.CharField(max_length = 10)
+# 	userid =models.ForeignKey(MyProfile, on_delete=models.CASCADE)
+# 	visaNum = models.CharField(max_length = 16)
 # 	expDate=models.DateTimeField()
-
+#     def __str__(self):
+#         return str(self.id)
 
 
