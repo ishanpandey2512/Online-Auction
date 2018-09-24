@@ -29,7 +29,7 @@ from .forms import Make_Bids
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'app/home.html')
 
 # Signup using Email Verification
 def signup(request):
@@ -44,7 +44,7 @@ def signup(request):
                     user.save()
                     current_site = get_current_site(request)
                     subject = 'Your Online-Auction Email Verification is here..'
-                    message = render_to_string('acc_active_email.html', {
+                    message = render_to_string('app/acc_active_email.html', {
 
                         'user': user,
                         'domain': current_site.domain,
@@ -58,7 +58,7 @@ def signup(request):
                     return redirect('home')
         else:
             form = SignupForm()
-        return render(request, 'signup.html', {'form': form})
+        return render(request, 'app/signup.html', {'form': form})
 
 
 #account activation function
@@ -92,7 +92,7 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return render(request, 'home.html')
+                return render(request, 'app/home.html')
             else:
                 return HttpResponse('Please! Verify your Email first')
         else:
@@ -101,7 +101,7 @@ def login_view(request):
 
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'app/login.html', {'form': form})
 
 
 
@@ -109,7 +109,7 @@ def login_view(request):
 
 @login_required
 def profile_view(request):
-    return render(request, 'profile.html')
+    return render(request, 'app/profile.html')
 
 @login_required
 def edit_profile(request):
@@ -120,7 +120,7 @@ def edit_profile(request):
             return redirect('home')
     else:
         form = EditProfileForm(instance=request.user.myprofile)
-    return render(request, 'edit_profile.html', {'form': form})
+    return render(request, 'app/edit_profile.html', {'form': form})
 
 # --------------------------------------------------------------------------------------------
 
@@ -162,13 +162,14 @@ class ProductView(DetailView):
     #
     #     return self.p.current_bid
 
-@login_required
+#@login_required
 def add_product(request):
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
             product_item = form.save(commit=False)
             product_item.save()
+            return redirect('home')
     else:
         form = PostForm()
-    return render(request, 'app/product_form.html', {'form':form})
+    return render(request, 'app/product_form.html', {'form' : form})

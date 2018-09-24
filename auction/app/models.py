@@ -5,13 +5,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from django.utils import timezone
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
-from django.utils import timezone
 from django.db import models
+
 from time import time
 
 
@@ -51,13 +51,9 @@ class MyProfile(models.Model):
 #         return str(self.id)
 
 
-class Bids(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    bid_amount = models.IntegerField(validators=[MinValueValidator(1)], default=0,  null=True)
-
 
 class Product(models.Model):
-    user = models.ForeignKey(Bids,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=False)
     desp = models.TextField(max_length=500, blank=False, null=True)
     image = models.ImageField(upload_to='../static/images/', blank=True, null=True)
@@ -66,13 +62,18 @@ class Product(models.Model):
     start = models.DateTimeField(default=timezone.now(), null=True)
     end_date = models.DateTimeField(default=datetime.date.today() + datetime.timedelta(days=1))
     current_bid = models.IntegerField(default=0)
-    buy_product = models.ForeignKey(Bids, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.name
 
     def getimage(instance, filename):
          return "static/images/image_{0}_{1}".format(str(time()), filename)
+
+class Bids(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bid_amount = models.IntegerField(validators=[MinValueValidator(1)], default=0,  null=True)
+    buy_product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
 
 # class Bidsmade(models.Model):
 #

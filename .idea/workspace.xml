@@ -2,21 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad1b0052-a58e-40cf-852d-3196cff07b30" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auction/app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auction/app/migrations/0002_auto_20180920_1944.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auction/app/migrations/0002_auto_20180923_0625.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auction/app/migrations/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/auction/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/templates/acc_active_email.html" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/templates/app/acc_active_email.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/templates/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/templates/edit_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/templates/app/edit_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/templates/app/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/templates/app/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/templates/app/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/templates/app/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/templates/visa.html" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/templates/app/visa.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auction/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auction/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/auction/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/auction/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,28 +80,35 @@
     <session id="-2126458788">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="307" />
+          <entry key="gitignore" value="8" />
+          <entry key="py" value="554" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="307" />
+          <entry key="PLAIN_TEXT" value="8" />
+          <entry key="Python" value="554" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="6" />
+          <entry key="gitignore" value="1" />
+          <entry key="py" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="6" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -115,11 +116,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/auction/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="147" column="1" selection-start-line="147" selection-start-column="1" selection-end-line="147" selection-end-column="1" />
+            <state relative-caret-position="332">
+              <caret line="174" column="62" selection-start-line="174" selection-start-column="62" selection-end-line="174" selection-end-column="62" />
               <folding>
                 <element signature="e#1#37#0" expanded="true" />
               </folding>
@@ -131,7 +132,7 @@
         <entry file="file://$PROJECT_DIR$/auction/app/admin.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -152,7 +153,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/auction/app/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
+            <state relative-caret-position="884">
               <caret line="55" column="19" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
               <folding>
                 <element signature="e#1#25#0" expanded="true" />
@@ -164,10 +165,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/auction/app/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+            <state relative-caret-position="255">
+              <caret line="19" selection-start-line="19" selection-end-line="20" />
               <folding>
-                <element signature="e#5#33#0" expanded="true" />
+                <element signature="e#1#33#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -176,12 +177,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/auction/app/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret lean-forward="true" />
+            <state relative-caret-position="349">
+              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
               <folding>
                 <element signature="e#1#12#0" expanded="true" />
-                <marker date="1537715090157" expanded="true" signature="2677:2682" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="102" column="6" lean-forward="true" selection-start-line="102" selection-start-column="6" selection-end-line="102" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -207,17 +216,18 @@
         <option value="$PROJECT_DIR$/auction/app/templates/app/bid.html" />
         <option value="$PROJECT_DIR$/auction/app/templates/app/product.html" />
         <option value="$PROJECT_DIR$/auction/app/templates/app/index.html" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/auction/auction/settings.py" />
-        <option value="$PROJECT_DIR$/auction/app/urls.py" />
         <option value="$PROJECT_DIR$/auction/app/admin.py" />
-        <option value="$PROJECT_DIR$/auction/app/models.py" />
         <option value="$PROJECT_DIR$/auction/app/forms.py" />
+        <option value="$PROJECT_DIR$/auction/app/urls.py" />
+        <option value="$PROJECT_DIR$/auction/app/migrations/0001_initial.py" />
         <option value="$PROJECT_DIR$/auction/app/views.py" />
+        <option value="$PROJECT_DIR$/auction/app/models.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
     <option name="y" value="20" />
     <option name="width" value="1346" />
@@ -238,33 +248,6 @@
             <path>
               <item name="Online-Auction" type="b2602c69:ProjectViewProjectNode" />
               <item name="Online-Auction" type="462c0819:PsiDirectoryNode" />
-              <item name="auction" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Online-Auction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Online-Auction" type="462c0819:PsiDirectoryNode" />
-              <item name="auction" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Online-Auction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Online-Auction" type="462c0819:PsiDirectoryNode" />
-              <item name="auction" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Online-Auction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Online-Auction" type="462c0819:PsiDirectoryNode" />
-              <item name="auction" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Online-Auction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Online-Auction" type="462c0819:PsiDirectoryNode" />
-              <item name="auction" type="462c0819:PsiDirectoryNode" />
               <item name="auction" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -313,7 +296,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15773809" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1532738" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -324,7 +307,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49925596" visible="true" weight="0.28196722" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49925596" visible="true" weight="0.29344264" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50074404" side_tool="true" weight="0.25409836" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -332,7 +315,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15773809" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1532738" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -343,7 +326,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49925596" visible="true" weight="0.18360655" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49925596" visible="true" weight="0.43278688" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50074404" side_tool="true" weight="0.25409836" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -367,9 +350,7 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/auction/app/templates/app/bid.html" />
-    <entry file="file://$PROJECT_DIR$/auction/app/templates/app/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/auction/app/templates/app/.gitignore" />
     <entry file="file://$PROJECT_DIR$/auction/app/templates/app/product.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -394,13 +375,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="84" column="4" lean-forward="true" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -408,25 +382,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/auction/app/tests.py">
+    <entry file="file://$PROJECT_DIR$/auction/app/migrations/0001_initial.py" />
+    <entry file="file://$PROJECT_DIR$/auction/app/apps.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/auction/app/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/auction/app/apps.py">
+    <entry file="file://$PROJECT_DIR$/auction/app/tests.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/auction/app/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
+        <state relative-caret-position="884">
           <caret line="55" column="19" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
           <folding>
             <element signature="e#1#25#0" expanded="true" />
@@ -436,32 +401,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/auction/app/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        <state relative-caret-position="255">
+          <caret line="19" selection-start-line="19" selection-end-line="20" />
           <folding>
-            <element signature="e#5#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/auction/app/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-          <folding>
-            <element signature="e#1#12#0" expanded="true" />
-            <marker date="1537715090157" expanded="true" signature="2677:2682" ph="..." />
+            <element signature="e#1#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/auction/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="147" column="1" selection-start-line="147" selection-start-column="1" selection-end-line="147" selection-end-column="1" />
+        <state relative-caret-position="332">
+          <caret line="174" column="62" selection-start-line="174" selection-start-column="62" selection-end-line="174" selection-end-column="62" />
           <folding>
             <element signature="e#1#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auction/app/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auction/app/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="e#1#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="102" column="6" lean-forward="true" selection-start-line="102" selection-start-column="6" selection-end-line="102" selection-end-column="6" />
         </state>
       </provider>
     </entry>
