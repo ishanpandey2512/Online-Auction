@@ -53,7 +53,7 @@ class MyProfile(models.Model):
 
 
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=False)
     desp = models.TextField(max_length=500, blank=False, null=True)
     image = models.ImageField(upload_to='../static/images/', blank=True, null=True)
@@ -62,7 +62,7 @@ class Product(models.Model):
     start = models.DateTimeField(default=timezone.now(), null=True)
     end_date = models.DateTimeField(default=datetime.date.today() + datetime.timedelta(days=1))
     current_bid = models.IntegerField(default=0)
-
+    #buy_product = models.ForeignKey(Bids, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
