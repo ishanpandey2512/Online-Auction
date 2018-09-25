@@ -55,3 +55,12 @@ class PostForm(forms.ModelForm):
         model = Product
         fields = ('name', 'desp', 'image', 'category', 'minimum_price',)
 
+class categoryForm(forms.ModelForm):
+
+    class Meta:
+        widgets = {
+            'name': Textarea(attrs={'cols': 80, 'rows': 20}),
+        }
+
+        model = Product
+        fields=('name')

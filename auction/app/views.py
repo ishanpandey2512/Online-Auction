@@ -20,7 +20,7 @@ from .tokens import account_activation_token
 from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
 from .models import MyProfile
-from .forms import PostForm
+from .forms import PostForm,categoryForm
 from .models import Product, Bids
 from django.views.generic import DetailView,FormView,ListView
 from django.views.generic.edit import FormMixin
@@ -173,3 +173,28 @@ def add_product(request):
     else:
         form = PostForm()
     return render(request, 'app/product_form.html', {'form' : form})
+'''
+def category_product(request):
+    if request.method == "POST":
+        form = categoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+            
+            return redirect('home')
+    else:
+        form = categoryForm()
+    return render(request, 'app/category_search.html', {'form' : form})
+'''
+def category_product(request):
+    if request.method=="POST":
+        item=request.POST['item']
+        if item:
+            match=Product.objects.filter(Q(name__icontains=item))
+            if match:
+                return render(request,category_search.html,{'sr':match})
+            else:
+                messages.error(request,'no results')
+        else:
+            return HttpResponseRedirect('/category/')
+    return render(request,'category_search.html')
