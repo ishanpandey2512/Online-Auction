@@ -62,13 +62,14 @@ class Product(models.Model):
     start = models.DateTimeField(default=timezone.now(), null=True)
     end_date = models.DateTimeField(default=datetime.date.today() + datetime.timedelta(days=1))
     current_bid = models.IntegerField(default=0)
-    #buy_product = models.ForeignKey(Bids, on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return self.name
 
     def getimage(instance, filename):
-         return "static/images/image_{0}_{1}".format(str(time()), filename)
+        return "static/images/image_{0}_{1}".format(str(time()), filename)
+
 
 class Bids(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

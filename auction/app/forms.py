@@ -4,8 +4,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import MyProfile, Product, Bids
 
+
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=50, help_text='Required')
+
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2',)
@@ -21,10 +23,10 @@ class SignupForm(UserCreationForm):
 
 
 class EditProfileForm(forms.ModelForm):
-     # date_of_birth = forms.DateField(widgets={ 'date_of_birth': DateInput(attrs={'type': 'date'})})
-     class Meta:
+
+    class Meta:
         model = MyProfile
-        fields=('avatar', 'first_name', 'last_name', 'gender', 'date_of_birth', 'phone_number')
+        fields = ('avatar', 'first_name', 'last_name', 'gender', 'date_of_birth', 'phone_number')
 
 
 class LoginForm(forms.ModelForm):
@@ -34,22 +36,15 @@ class LoginForm(forms.ModelForm):
         model = User
         fields = ('username', 'password')
 
-# class VisaForm(forms.Form):
-#     # user form pre build class
-# 	visaNum = forms.CharField(max_length = 10, label="Visa Number", help_text='16 Digits Required')
-# 	expDate= forms.DateTimeField(label="Expiry Date:",widget=forms.DateTimeInput(attrs={'placeholder':'YYYY-MM-DD', 'type' : 'date'}))
-#
-#     # class Meta:
-#     #     model=
 
+class BidsForm(forms.ModelForm):
 
-class Make_Bids(forms.Form):
     class Meta:
         model = Bids
-        field = ('bid_amount',)
+        fields = ('bid_amount',)
 
 
-class PostForm(forms.ModelForm):
+class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product

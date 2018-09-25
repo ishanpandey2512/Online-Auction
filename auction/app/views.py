@@ -21,11 +21,11 @@ from .tokens import account_activation_token
 from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
 from .models import MyProfile
-from .forms import PostForm
+from .forms import ProductForm
 from .models import Product, Bids
 from django.views.generic import DetailView,FormView,ListView
 from django.views.generic.edit import FormMixin
-from .forms import Make_Bids
+from .forms import BidsForm
 from django.views import View
 
 
@@ -137,24 +137,58 @@ class BuyerView(ListView):
 
 class ProductView(View):
 
-    model = Product
     template_name = 'app/product.html'
-    
 
     def get(self, request,*args,**kwargs):
 
-        return render(request, self.template_name)
+        p = Product.objects.get(id=kwargs['pk'])
+        form = BidsForm()
+        context = {
+            'name': p.name,
+            'desp': p.desp,
+            'start': p.start,
+            'minbid': p.minimum_price,
+            'end': p.end_date,
+            'category': p.category,
+            'currentbid': p.current_bid,
+            'form': form
+        }
+        return render(request, self.template_name,context)
 
+    def post(self,request,*args,**kwargs):
+        p = Product.objects.get(id=kwargs['pk'])
+        form = BidsForm()
 
+        if request.method == 'POST':
+            if form.is_valid():
+                #Bids.bid_amount = form.save(commit=False)
 
-#@login_required
+                if p.minimum_price < (request.POST['bid_amount']) and \
+                        p.current_bid < (request.POST['bid_amount']):
+                    p.current_bid = (request.POST['bid_amount'])
+                    p.save()
+
+        context = {
+            'name': p.name,
+            'desp': p.desp,
+            'start': p.start,
+            'minbid': p.minimum_price,
+            'end': p.end_date,
+            'category': p.category,
+            'currentbid': p.current_bid,
+            'form': form
+        }
+
+        return render(request, self.template_name, context)
+
+@login_required
 def add_product(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = ProductForm(request.POST)
         if form.is_valid():
             product_item = form.save(commit=False)
             product_item.save()
             return redirect('home')
     else:
-        form = PostForm()
+        form = ProductForm()
     return render(request, 'app/product_form.html', {'form' : form})
