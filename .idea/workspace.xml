@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad1b0052-a58e-40cf-852d-3196cff07b30" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/migrations/0002_auto_20180924_2004.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auction/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/auction/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/auction/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -98,14 +89,14 @@
         <counts>
           <entry key="gitignore" value="8" />
           <entry key="html" value="219" />
-          <entry key="py" value="3486" />
+          <entry key="py" value="3537" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="219" />
           <entry key="PLAIN_TEXT" value="8" />
-          <entry key="Python" value="3486" />
+          <entry key="Python" value="3537" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -127,24 +118,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/auction/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="186" lean-forward="true" selection-start-line="186" selection-end-line="186" />
+            <state relative-caret-position="147">
+              <caret line="184" column="15" selection-start-line="184" selection-start-column="15" selection-end-line="184" selection-end-column="15" />
               <folding>
                 <element signature="e#1#37#0" expanded="true" />
-                <marker date="1537974035787" expanded="true" signature="4998:5002" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/auction/app/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="221">
+              <caret line="44" column="15" lean-forward="true" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
               <folding>
                 <element signature="e#1#25#0" expanded="true" />
               </folding>
@@ -162,15 +152,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
               <caret line="16" column="45" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/auction/app/templates/app/product_sold.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -351,7 +332,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14880952" />
@@ -509,23 +490,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/auction/app/views.py">
+    <entry file="file://$PROJECT_DIR$/auction/app/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="186" lean-forward="true" selection-start-line="186" selection-end-line="186" />
+        <state relative-caret-position="221">
+          <caret line="44" column="15" lean-forward="true" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
           <folding>
-            <element signature="e#1#37#0" expanded="true" />
-            <marker date="1537974035787" expanded="true" signature="4998:5002" ph="..." />
+            <element signature="e#1#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/auction/app/forms.py">
+    <entry file="file://$PROJECT_DIR$/auction/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        <state relative-caret-position="147">
+          <caret line="184" column="15" selection-start-line="184" selection-start-column="15" selection-end-line="184" selection-end-column="15" />
           <folding>
-            <element signature="e#1#25#0" expanded="true" />
+            <element signature="e#1#37#0" expanded="true" />
           </folding>
         </state>
       </provider>

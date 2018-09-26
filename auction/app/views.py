@@ -175,14 +175,13 @@ class ProductView(View):
     def post(self, request, *args, **kwargs):
 
         p = Product.objects.get(id=kwargs["pk"])
-        print(p.name)
+
         form = BidsForm(request.POST)
         if form.is_valid():
-            print(12)
+
             if p.minimum_price < int((request.POST['bidder_amount'])) and \
                     p.current_bid < int((request.POST['bidder_amount'])):
                 p.current_bid = int((request.POST['bidder_amount']))
-                print(p.current_bid)
                 p.save()
 
         context = {
