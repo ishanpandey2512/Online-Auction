@@ -21,7 +21,8 @@ urlpatterns = [
     # path(r'^VisaForm/$', views.VisaForm.as_view(), name='VisaForm'),
 
     path('buyer/<int:pk>/', views.ProductView.as_view(), name='product'),
-    path('buyer/', views.BuyerView.as_view(), name='buyer')
+    path('buyer/', views.BuyerView.as_view(), name='buyer'),
+    # path('buyer/<int:pk>/sold',views.ProductSold.as_view(), name='sold')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

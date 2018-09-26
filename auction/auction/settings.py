@@ -143,8 +143,8 @@ LOGIN_REDIRECT_URL = 'home'
 # we have used gmail smtp server, it says allow less secure apps.
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'ishan.parasar.3359@gmail.com'
-EMAIL_HOST_PASSWORD = 'Firefox9825'
+EMAIL_HOST_USER = 'onlineauction.si18@gmail.com'
+EMAIL_HOST_PASSWORD = 'onlineauctionhpi'
 EMAIL_PORT = 587
 
 

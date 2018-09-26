@@ -125,7 +125,19 @@ def edit_profile(request):
 
 # --------------------------------------------------------------------------------------------
 
+@login_required
+def add_product(request):
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            product_item = form.save(commit=False)
+            product_item.save()
+            return redirect('home')
+    else:
+        form = ProductForm()
+    return render(request, 'app/product_form.html', {'form' : form})
 
+# ---------------------------------------------------------------------------------------------------
 class BuyerView(ListView):
 
     template_name = 'app/buyer.html'
@@ -152,21 +164,26 @@ class ProductView(View):
             'category': p.category,
             'currentbid': p.current_bid,
             'form': form
-        }
-        return render(request, self.template_name,context)
 
-    def post(self,request,*args,**kwargs):
-        p = Product.objects.get(id=kwargs['pk'])
-        form = BidsForm()
+            }
 
-        if request.method == 'POST':
-            if form.is_valid():
-                #Bids.bid_amount = form.save(commit=False)
+        if p.product_sold == 'False':
+            return render(request, 'app/product_sold.html', context)
+        else:
+            return render(request, self.template_name, context)
 
-                if p.minimum_price < (request.POST['bid_amount']) and \
-                        p.current_bid < (request.POST['bid_amount']):
-                    p.current_bid = (request.POST['bid_amount'])
-                    p.save()
+    def post(self, request, *args, **kwargs):
+
+        p = Product.objects.get(id=kwargs["pk"])
+        print(p.name)
+        form = BidsForm(request.POST)
+        if form.is_valid():
+            print(12)
+            if p.minimum_price < int((request.POST['bidder_amount'])) and \
+                    p.current_bid < int((request.POST['bidder_amount'])):
+                p.current_bid = int((request.POST['bidder_amount']))
+                print(p.current_bid)
+                p.save()
 
         context = {
             'name': p.name,
@@ -181,14 +198,23 @@ class ProductView(View):
 
         return render(request, self.template_name, context)
 
-@login_required
-def add_product(request):
-    if request.method == "POST":
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            product_item = form.save(commit=False)
-            product_item.save()
-            return redirect('home')
-    else:
-        form = ProductForm()
-    return render(request, 'app/product_form.html', {'form' : form})
+#
+# class ProductSold:
+#
+#     template_name = 'app/sold.html'
+#
+#     def get(self, request, *args, **kwargs):
+#         p = Product.objects.get(id=kwargs['pk'])
+#         form = BidsForm()
+#         context = {
+#             'name': p.name,
+#             'desp': p.desp,
+#             'start': p.start,
+#             'minbid': p.minimum_price,
+#             'end': p.end_date,
+#             'category': p.category,
+#             'currentbid': p.current_bid,
+#         }
+#
+
+

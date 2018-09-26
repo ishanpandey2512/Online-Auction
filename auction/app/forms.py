@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import MyProfile, Product, Bids
+from django.core.validators import MinValueValidator
 
 
 class SignupForm(UserCreationForm):
@@ -37,11 +38,12 @@ class LoginForm(forms.ModelForm):
         fields = ('username', 'password')
 
 
-class BidsForm(forms.ModelForm):
+class BidsForm(forms.Form):
+
+    bidder_amount = forms.IntegerField(validators=[MinValueValidator(1)])
 
     class Meta:
-        model = Bids
-        fields = ('bid_amount',)
+        fields = ('bidder_amount',)
 
 
 class ProductForm(forms.ModelForm):
