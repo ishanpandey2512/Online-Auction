@@ -1,5 +1,6 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.decorators import login_required
@@ -12,6 +13,7 @@ from django.contrib import messages
 from django.utils.decorators import method_decorator
 
 from django.contrib.sites.shortcuts import get_current_site
+from django.utils import dateparse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -19,12 +21,15 @@ from .tokens import account_activation_token
 from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
 from .models import MyProfile
-from .forms import ProductForm
+from .forms import ProductForm, VisaForm
 from .models import Product, Bids
+
 from django.views.generic import DetailView,FormView,ListView
 from django.views.generic.edit import FormMixin
+
 from .forms import BidsForm
 from django.views import View
+from .models import MyProfile
 
 
 
@@ -92,7 +97,7 @@ class Activate(View):
             return redirect('home')
 
         else:
-            messages.error(request, "Activation Email Link is Invalid!!")
+            messages.error(request, "Activation Email Link is Invalid.Please try again!!")
             return redirect('home')
 
 
@@ -163,9 +168,53 @@ class ProfileEdit(View):
         }
         return render(request, 'app/edit_profile.html', context)
 
-# --------------------------------------------------------------------------------------------
+# -------------using generic views-------------------------------------------------------------------------------
+class VisaForm(FormView):
+    form_class = VisaForm
+    template_name = 'app/visa.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            form = self.form_class
+            current_user = request.user.id
+
+            # using queryset, Visa model -> so, visa_set.
+            # verifying if user already has a visacard in database
+            context = {
+                "form": form,
+                "first_name": MyProfile.first_name,
+                # as in models.
+                "occurrence": occurrence,
+            }
+            if current_user.visa_set.count() == 0:
+                return render(request, self.template_name, context)
+            else:
+                return render(request, self.template_name, context)
+
+        except:
+            return HttpResponseRedirect(reverse('VisaForm'))
+
+    def post(self, request, *args, **kwargs):
+        try:
+            current_user = request.user.id
+            try:
+                expDate = dateparse.parse_date(request.POST['exp_date'])
+                if(expDate.today() > expDate):
+                    return  HttpResponse("Visa has already expired")
+            except ValueError:
+                messages.error(request, "Enter correct Date")
+                return HttpResponseRedirect(reverse('VisaForm'))
+            #create applies database changes for all types of fields immediately.
+            current_user.visa_set.create(visaNum=request.POST['visa_card_number'], expDate=request.POST['exp_date'])
+            messages.success(request, "Visa has been registered successfully")
+            return HttpResponseRedirect(reverse('home'))
+
+        except MyProfile.DoesNotExist:
+            messages.error(request, "You are not logged in.")
+            return HttpResponseRedirect(reverse('login'))
 
 
+# ---------------------------------------------------------------------------------------------
 class AddProduct(View):
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):

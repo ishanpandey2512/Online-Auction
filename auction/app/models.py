@@ -43,12 +43,13 @@ class MyProfile(models.Model):
     def save_MyProfile(sender, instance, **kwargs):
         instance.myprofile.save()
 
-# class Visa(models.Model):
-# 	userid =models.ForeignKey(MyProfile, on_delete=models.CASCADE)
-# 	visaNum = models.CharField(max_length = 16)
-# 	expDate=models.DateTimeField()
-#     def __str__(self):
-#         return str(self.id)
+
+class Visa(models.Model):
+
+	userid =models.ForeignKey(MyProfile, on_delete=models.CASCADE)
+	visaNum = models.CharField(max_length = 16)
+	expDate=models.DateField()
+
 
 
 class Product(models.Model):

@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^profile/(?P<user_id>[0-9]+)/edit/$', views.ProfileEdit.as_view(), name='edit_profile'),
     url('seller/', views.AddProduct.as_view(), name='add_product'),
 
-    # path(r'^VisaForm/$', views.VisaForm.as_view(), name='VisaForm'),
+    path('VisaForm/', views.VisaForm.as_view(), name='VisaForm'),
 
     path('buyer/<int:pk>/', views.ProductView.as_view(), name='product'),
     path('buyer/', views.BuyerView.as_view(), name='buyer'),

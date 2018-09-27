@@ -13,6 +13,9 @@
 
     <p>UserName : {{user.username }}</p>
     <p>Email:  {{ user.email }}</p>
+    <img style="width: 20vw; height: 20vh;" alt="avatar" src="{{ user.myprofile.avatar.url }}" />
+    <br><br>
+
 
     {% for field in form %}
     <p>

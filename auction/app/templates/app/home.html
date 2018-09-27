@@ -12,22 +12,23 @@
 <center><h2><i>Sell and Buy here....... </i></h2></center>
 
 <table align="center">
-    <tr>
 
-    <a href="{% url 'signup' %}"> Sign Up</a>
-    <br>
-
+<tr>
     {% if request.user.is_authenticated %}
 
         <td><a href="{% url 'profile' user.id %}"> View Profile </a></td>
-            <br>
-        <a href="{% url 'logout' %}"> log out</a>
+
+        <td><a href="{% url 'logout' %}"> log out</a></td>
 
     {% else %}
-    <a href="{% url 'login' %}"> Log In</a>
+
+        <td><a style="margin-bottom: 30vw" href="{% url 'signup' %}"> Sign Up</a></td>
+
+
+        <td><a href="{% url 'login' %}"> Log In</a></td>
 
     {% endif %}
-    </tr>
+</tr>
 </table>
 </body>
 </html>
