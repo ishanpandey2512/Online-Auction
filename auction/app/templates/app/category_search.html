@@ -5,9 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" action="/category">
+
+{% block content %}
+<form method="post" action="/category/">
     {% csrf_token %}
-    <div class ="category">
+    <div>
         <input type="text" name="item" class="category_product" placeholder="enter category">
         <label>
             <button type="submit" class="btn-btn-danger">Search</button></label>
@@ -31,5 +33,10 @@
               <td>Name</td>
               <td>{{k.name}}</td>
           </tr>
+      </table>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
 </body>
 </html>

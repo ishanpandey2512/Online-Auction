@@ -1,5 +1,5 @@
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from django.contrib.auth import login, authenticate,logout
@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 from django.views import generic
+from django.utils.decorators import method_decorator
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -20,12 +21,13 @@ from .tokens import account_activation_token
 from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
 from .models import MyProfile
-from .forms import PostForm,categoryForm
+from .forms import ProductForm
 from .models import Product, Bids
 from django.views.generic import DetailView,FormView,ListView
 from django.views.generic.edit import FormMixin
-from .forms import Make_Bids
-
+from .forms import BidsForm
+from django.views import View
+from django.db.models import Q
 
 
 def home(request):
@@ -134,45 +136,77 @@ def edit_profile(request):
 #             form = self.form_class
 #
 
-#@login_required
+
 class BuyerView(ListView):
 
     template_name = 'app/buyer.html'
     context_object_name = 'product_list'
 
     def get_queryset(self):
-
         return Product.objects.order_by('id')
 
 
-#@login_required
-class ProductView(DetailView):
+class ProductView(View):
 
-    model = Product
     template_name = 'app/product.html'
-    # form_class = Make_Bids
 
-    # def __bidupdate__(self):
-    #     p = Product.objects.get('id')
-    #     #b= Product.buy_product.objects.get(User.username)
-    #
-    #     if p.buy_product.bid_amount > p.minimum_price:
-    #         if p.buy_product.bid_amount > p.current_bid:
-    #             p.current_bid = p.buy_product.bid_amount
-    #
-    #     return self.p.current_bid
+    def get(self, request,*args,**kwargs):
 
-#@login_required
+        p = Product.objects.get(id=kwargs['pk'])
+        form = BidsForm()
+        context = {
+            'name': p.name,
+            'desp': p.desp,
+            'start': p.start,
+            'minbid': p.minimum_price,
+            'end': p.end_date,
+            'category': p.category,
+            'currentbid': p.current_bid,
+            'form': form
+        }
+        return render(request, self.template_name,context)
+
+    def post(self,request,*args,**kwargs):
+        p = Product.objects.get(id=kwargs['pk'])
+        form = BidsForm()
+
+        if request.method == 'POST':
+            if form.is_valid():
+                #Bids.bid_amount = form.save(commit=False)
+
+                if p.minimum_price < (request.POST['bid_amount']) and \
+                        p.current_bid < (request.POST['bid_amount']):
+                    p.current_bid = (request.POST['bid_amount'])
+                    p.save()
+
+        context = {
+            'name': p.name,
+            'desp': p.desp,
+            'start': p.start,
+            'minbid': p.minimum_price,
+            'end': p.end_date,
+            'category': p.category,
+            'currentbid': p.current_bid,
+            'form': form
+        }
+
+        return render(request, self.template_name, context)
+
+@login_required
 def add_product(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = ProductForm(request.POST)
         if form.is_valid():
             product_item = form.save(commit=False)
             product_item.save()
             return redirect('home')
     else:
-        form = PostForm()
+        form = ProductForm()
     return render(request, 'app/product_form.html', {'form' : form})
+
+
+
+
 '''
 def category_product(request):
     if request.method == "POST":
@@ -186,15 +220,19 @@ def category_product(request):
         form = categoryForm()
     return render(request, 'app/category_search.html', {'form' : form})
 '''
+
 def category_product(request):
+
     if request.method=="POST":
         item=request.POST['item']
         if item:
             match=Product.objects.filter(Q(name__icontains=item))
             if match:
-                return render(request,category_search.html,{'sr':match})
+                return render(request,'app/category_search.html',{'sr':match})
+            return HttpResponseRedirect('/category/')
             else:
                 messages.error(request,'no results')
         else:
-            return HttpResponseRedirect('/category/')
-    return render(request,'category_search.html')
+    return render(request,'app/category_search.html',context=None)
+
+

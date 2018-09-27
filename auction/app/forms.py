@@ -42,7 +42,7 @@ class LoginForm(forms.ModelForm):
 #     # class Meta:
 #     #     model=
 
-
+'''
 class Make_Bids(forms.Form):
     class Meta:
         model = Bids
@@ -53,8 +53,20 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Product
+        fields = ('name', 'desp', 'image', 'category', 'minimum_price',)'''
+
+class BidsForm(forms.ModelForm):
+   class Meta:
+      model = Bids
+      fields = ('bid_amount',)
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
         fields = ('name', 'desp', 'image', 'category', 'minimum_price',)
 
+
+'''
 class categoryForm(forms.ModelForm):
 
     class Meta:
@@ -64,3 +76,4 @@ class categoryForm(forms.ModelForm):
 
         model = Product
         fields=('name')
+'''

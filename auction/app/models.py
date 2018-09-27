@@ -53,13 +53,13 @@ class MyProfile(models.Model):
 
 
 class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=False)
     desp = models.TextField(max_length=500, blank=False, null=True)
     image = models.ImageField(upload_to='../static/images/', blank=True, null=True)
     category = models.CharField(max_length=50, blank=True,null=True)
     minimum_price = models.IntegerField(blank=True, validators=[MinValueValidator(1)],default=1)
-    start = models.DateTimeField(default=timezone.now(), null=True)
+    start = models.DateTimeField(default=timezone.now, null=True)
     end_date = models.DateTimeField(default=datetime.date.today() + datetime.timedelta(days=1))
     current_bid = models.IntegerField(default=0)
 
