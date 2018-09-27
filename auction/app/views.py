@@ -1,4 +1,3 @@
-
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -10,7 +9,6 @@ from .forms import SignupForm, LoginForm, EditProfileForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 
-from django.views import generic
 from django.utils.decorators import method_decorator
 
 from django.contrib.sites.shortcuts import get_current_site
@@ -29,64 +27,85 @@ from .forms import BidsForm
 from django.views import View
 
 
-def home(request):
-    return render(request, 'app/home.html')
+
+class Home(View):
+    def get(self, request, *args, **kwargs):
+        context={
+            # left empty for adding products currently in auction
+
+        }
+        return render(request, 'app/home.html')
 
 # Signup using Email Verification
-def signup(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == 'POST':
-            form = SignupForm(request.POST)
-            if form.is_valid():
-                    user = form.save(commit=False)
-                    user.is_active = False
-                    user.save()
-                    current_site = get_current_site(request)
-                    subject = 'Your Online-Auction Email Verification is here..'
-                    message = render_to_string('app/acc_active_email.html', {
+class SignUp(View):
+    form = SignupForm()
 
-                        'user': user,
-                        'domain': current_site.domain,
-                        'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode,
-                        'token': account_activation_token.make_token(user),
-                    })
-                    from_mail = EMAIL_HOST_USER
-                    to_mail = [user.email]
-                    send_mail(subject, message, from_mail, to_mail, fail_silently=False)
-                    messages.success(request, 'Confirm your email to complete registering with ONLINE-AUCTION.')
-                    return redirect('home')
+    def post(self, request, *args, **kwargs):
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            subject = 'Your Online-Auction Email Verification is here..'
+            message = render_to_string('app/acc_active_email.html', {
+
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode,
+                'token': account_activation_token.make_token(user),
+            })
+            from_mail = EMAIL_HOST_USER
+            to_mail = [user.email]
+            send_mail(subject, message, from_mail, to_mail, fail_silently=False)
+            messages.success(request, 'Confirm your email to complete registering with ONLINE-AUCTION.')
+            return redirect('home')
+        else:
+            return render(request, 'app/signup.html', {'form': form})
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
         else:
             form = SignupForm()
-        return render(request, 'app/signup.html', {'form': form})
+            return render(request, 'app/signup.html', {'form': form})
 
 
-#account activation function
-def activate(request, uidb64, token):
-    try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user)
-        messages.success(request, 'EMAIL VERIFIED!!!! HURRAY....')
+# account activation class
+
+class Activate(View):
+
+     def get(self, request, token, uidb64):
+
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        if user is not None and account_activation_token.check_token(user, token):
+            user.is_active = True
+            user.save()
+            login(request, user)
+            messages.success(request, 'EMAIL VERIFIED!!!! HURRAY....')
+            return redirect('home')
+
+        else:
+            messages.error(request, "Activation Email Link is Invalid!!")
+            return redirect('home')
+
+
+class LogoutView(View):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        messages.success(request, 'You have been successfully Logged Out!!')
         return redirect('home')
-    else:
-        return HttpResponse('Activation Link is Invalid. Try once more...')
 
+class LoginView(View):
 
-def logout_view(request):
-    logout(request)
-    messages.success(request, 'You are  logged out')
-    return redirect('home')
-
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
+    def post(self, request, *args, **kwargs):
+        # form = LoginForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
@@ -100,42 +119,68 @@ def login_view(request):
             messages.error(request, 'Username or Password is incorrect')
             return redirect('login')
 
-    else:
-        form = LoginForm()
-    return render(request, 'app/login.html', {'form': form})
+
+    def get(self, request, *args, **kwagrs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        else:
+            form = LoginForm()
+        return render(request, 'app/login.html', {'form': form})
 
 
 
+class ProfileView(View):
+    model = User
+    @method_decorator(login_required)
+    def get(self, request, user_id, *args, **kwargs):
+        user_object = User.objects.get(id=user_id)
+        # user_id in urls.py
+        context = {
+            "user": user_object
+        }
+        return render(request, 'app/profile.html', context)
 
 
-@login_required
-def profile_view(request):
-    return render(request, 'app/profile.html')
+class ProfileEdit(View):
 
-@login_required
-def edit_profile(request):
-    if request.method == 'POST':
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        # resolving no_reverse_match error
+        user_obj = request.user.id
         form = EditProfileForm(request.POST, request.FILES, instance=request.user.myprofile)
         if form.is_valid():
             form.save()
-            return redirect('home')
-    else:
-        form = EditProfileForm(instance=request.user.myprofile)
-    return render(request, 'app/edit_profile.html', {'form': form})
+            # return redirect('home')
+            # if user has successfully edited form, redirect him to edit profile view
+            # so that user can view his current changes directly, using "namespacing" in urls, and redirecting.
+            return redirect('profile', user_obj)
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        form = EditProfileForm(instance= request.user.myprofile)
+        context = {
+            "form": form,
+        }
+        return render(request, 'app/edit_profile.html', context)
 
 # --------------------------------------------------------------------------------------------
 
-@login_required
-def add_product(request):
-    if request.method == "POST":
+
+class AddProduct(View):
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
         form = ProductForm(request.POST)
+        product_item = form.save(commit=False)
         if form.is_valid():
-            product_item = form.save(commit=False)
+            # product_item = form.save(commit=False).....WTF?
             product_item.save()
             return redirect('home')
-    else:
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
         form = ProductForm()
-    return render(request, 'app/product_form.html', {'form' : form})
+        context = {'form' : form}
+        return render(request, 'app/product_form.html', context)
 
 # ---------------------------------------------------------------------------------------------------
 class BuyerView(ListView):
@@ -164,7 +209,6 @@ class ProductView(View):
             'category': p.category,
             'currentbid': p.current_bid,
             'form': form
-
             }
 
         if p.product_sold == 'False':
@@ -175,10 +219,8 @@ class ProductView(View):
     def post(self, request, *args, **kwargs):
 
         p = Product.objects.get(id=kwargs["pk"])
-
         form = BidsForm(request.POST)
         if form.is_valid():
-
             if p.minimum_price < int((request.POST['bidder_amount'])) and \
                     p.current_bid < int((request.POST['bidder_amount'])):
                 p.current_bid = int((request.POST['bidder_amount']))
@@ -194,7 +236,6 @@ class ProductView(View):
             'currentbid': p.current_bid,
             'form': form
         }
-
         return render(request, self.template_name, context)
 
 #

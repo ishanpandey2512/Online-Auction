@@ -19,7 +19,7 @@
 
     {% if request.user.is_authenticated %}
 
-        <td><a href="{% url 'profile' %}"> View Profile </a></td>
+        <td><a href="{% url 'profile' user.id %}"> View Profile </a></td>
             <br>
         <a href="{% url 'logout' %}"> log out</a>
 
