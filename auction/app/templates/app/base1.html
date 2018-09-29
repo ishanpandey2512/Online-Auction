@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h3>Search</h3>
+{% csrf_token %}
+<input type="text" id="search" name="search"/>
+<label>
+            <button type="submit" class="btn-btn-danger">Search</button></label>
+<ul id="search-results">
+</ul>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    {% load staticfiles %}
+     <script src="{% static 'app/ajax.js' %}"></script>
+
+
+
+</body>
+</html>

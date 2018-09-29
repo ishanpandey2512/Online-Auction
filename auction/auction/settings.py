@@ -139,6 +139,9 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
 
+STATICFILES_DIRS = (
+    ('assets', 'app-root/repo/wsgi/openshift/static')),
+
 
 # we have used gmail smtp server, it says allow less secure apps.
 EMAIL_USE_TLS = True

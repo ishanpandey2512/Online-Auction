@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+< lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<>
 
 {% block content %}
-<form method="post" action="/category/">
+<form method="post" action="/category/" id="search">
     {% csrf_token %}
     <div>
         <input type="text" name="item" class="category_product" placeholder="enter category">
@@ -37,6 +37,25 @@
     {% endfor %}
     {% endif %}
 </div>
+<script >
+    $(function(){
+          $('#search').keyup(function(){
+              $.ajax({
+                     type:"POST",
+                     url :"app/category",
+                     data:{
+                            'item':$('#search').val(),
+                            'csrfmiddlewaretoken':$("input[name=csrfmiddlewaretoken]").val()},
+                     success:searchSuccess,
+                     dataType:'html'
+              });
+          });
+    });
+    function searchSuccess(data,textStatus,jqXHR)
+    {
+        $('#search-results').html(data);
+        }
+</script>
 {% endblock %}
 </body>
 </html>

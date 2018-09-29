@@ -1,6 +1,6 @@
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,render_to_response
 
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.decorators import login_required
@@ -28,6 +28,7 @@ from django.views.generic.edit import FormMixin
 from .forms import BidsForm
 from django.views import View
 from django.db.models import Q
+from django.template import RequestContext
 
 
 def home(request):
@@ -146,11 +147,15 @@ class BuyerView(ListView):
         return Product.objects.order_by('id')
 
 
+
+
+
+
 class ProductView(View):
 
     template_name = 'app/product.html'
 
-    def get(self, request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
 
         p = Product.objects.get(id=kwargs['pk'])
         form = BidsForm()
@@ -163,21 +168,26 @@ class ProductView(View):
             'category': p.category,
             'currentbid': p.current_bid,
             'form': form
+
         }
-        return render(request, self.template_name,context)
 
-    def post(self,request,*args,**kwargs):
-        p = Product.objects.get(id=kwargs['pk'])
-        form = BidsForm()
+        if p.product_sold == 'False':
+            return render(request, 'app/product_sold.html', context)
+        else:
+            return render(request, self.template_name, context)
 
-        if request.method == 'POST':
-            if form.is_valid():
-                #Bids.bid_amount = form.save(commit=False)
+    def post(self, request, *args, **kwargs):
 
-                if p.minimum_price < (request.POST['bid_amount']) and \
-                        p.current_bid < (request.POST['bid_amount']):
-                    p.current_bid = (request.POST['bid_amount'])
-                    p.save()
+        p = Product.objects.get(id=kwargs["pk"])
+        print(p.name)
+        form = BidsForm(request.POST)
+        if form.is_valid():
+            print(12)
+            if p.minimum_price < int((request.POST['bidder_amount'])) and \
+                    p.current_bid < int((request.POST['bidder_amount'])):
+                p.current_bid = int((request.POST['bidder_amount']))
+                print(p.current_bid)
+                p.save()
 
         context = {
             'name': p.name,
@@ -188,7 +198,7 @@ class ProductView(View):
             'category': p.category,
             'currentbid': p.current_bid,
             'form': form
-        }
+            }
 
         return render(request, self.template_name, context)
 
@@ -220,7 +230,7 @@ def category_product(request):
         form = categoryForm()
     return render(request, 'app/category_search.html', {'form' : form})
 '''
-
+'''
 def category_product(request):
 
     if request.method=="POST":
@@ -229,10 +239,36 @@ def category_product(request):
             match=Product.objects.filter(Q(name__icontains=item))
             if match:
                 return render(request,'app/category_search.html',{'sr':match})
-            return HttpResponseRedirect('/category/')
+
             else:
                 messages.error(request,'no results')
         else:
-    return render(request,'app/category_search.html',context=None)
+            return HttpResponseRedirect('/category/')
 
+    return render(request,'app/category_search.html',{'Product':Product})'''
+
+def search_titles(request):
+    if request.method == 'POST':
+        search_text = request.POST['search_text']
+    else:
+        search_text = ''
+
+    category = Product.objects.filter(Q(name__contains=search_text))
+
+    return render(request,'app/base1.html',{'category':category})
+
+def articles(request):
+    language='en-gb'
+    session_language='en-gb'
+
+    if 'lang' in request.COOKIES:
+        language=request.COOKIES['lang']
+    if 'lang' in request.session:
+        session_language=request.session['lang']
+    args={}
+    args.update(csrf(request))
+    args['articles']=Product.objects.all()
+    args[language]=language
+    args['session_language']=session_language
+    return render_to_response('app/base1.html',args)
 
