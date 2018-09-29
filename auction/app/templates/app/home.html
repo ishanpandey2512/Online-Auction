@@ -17,8 +17,13 @@
     {% if request.user.is_authenticated %}
 
         <td><a href="{% url 'profile' user.id %}"> View Profile </a></td>
-
+        <br>
         <td><a href="{% url 'logout' %}"> log out</a></td>
+        <br>
+        <td><a href="{% url 'add_product'%}"> SELL PRODUCT </a></td>
+        <br>
+        <td><a href="{% url 'buyer' %}"> BIDDING SECTION</a></td>
+
 
     {% else %}
 

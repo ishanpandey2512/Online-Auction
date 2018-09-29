@@ -1,8 +1,4 @@
 
-import uuid
-import os
-from django.db import models
-from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
@@ -45,15 +41,13 @@ class MyProfile(models.Model):
 
 
 class Visa(models.Model):
-
-	userid =models.ForeignKey(MyProfile, on_delete=models.CASCADE)
-	visaNum = models.CharField(max_length = 16)
-	expDate=models.DateField()
-
+    userid = models.ForeignKey(MyProfile, on_delete=models.CASCADE)
+    visaNum = models.CharField(max_length=16)
+    expDate = models.DateField()
 
 
 class Product(models.Model):
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=50, blank=False)
     desp = models.TextField(max_length=500, blank=False, null=True)
     image = models.ImageField(upload_to='../static/images/', blank=True, null=True)
@@ -63,6 +57,8 @@ class Product(models.Model):
     end_date = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=1))
     current_bid = models.IntegerField(default=0)
     product_sold = models.BooleanField(default=False)
+    seller_id = models.CharField(max_length=50, null=True, blank=False)
+    bidder_id = models.CharField(max_length=50, null=True, blank=False)
 
     def __str__(self):
         return self.name
@@ -71,46 +67,3 @@ class Product(models.Model):
         return "static/images/image_{0}_{1}".format(str(time()), filename)
 
 
-class Bids(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    bid_amount = models.IntegerField(validators=[MinValueValidator(1)], default=0,  null=True)
-    buy_product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
-
-# class Bidsmade(models.Model):
-#
-#     product = models.ForeignKey(Product,on_delete=models.CASCADE)
-#     bidder_name = models.CharField(max_length=30, blank=False)
-#     bid_time = models.TimeField(timezone.now())
-#     bid_amount = models.DecimalField(max_digits=10,decimal_places=2)
-#
-#     def __str__(self):
-#         return self.product.name
-
-
-
-# class seller(models.Model):
-#     name = models.CharField(max_length=20)
-#
-#     def __str__(self):
-#         return self.name
-
-
-# class product(models.Model):
-#     choice_of_category = (("Jwellery", "Jwellery"), ("Clothes", "Clothes"), ("fruits", "fruits"),
-#                           ("crocery", "crocery"), ("footwear", "footwear"),)
-#
-#     user1 = models.ForeignKey(seller, on_delete=models.CASCADE)
-#     product_name = models.CharField(max_length=100, null=True)
-#     image = models.ImageField(upload_to="images", default='static/images/apple.jpg')
-#     category = models.CharField(max_length=20, choices=choice_of_category, null=True)
-#     description = models.TextField(max_length=300, null=True)
-#     minimum_price = models.DecimalField(max_digits=10, decimal_places=2)
-#
-#     created = models.DateTimeField('created', auto_now_add=True)
-#     '''
-#     price = models.PositiveSmallIntegerField(default=0)
-#
-#     modified = models.DateTimeField('modified',auto_now=True)'''
-#
-#     def __str__(self):
-#         return str(self.product_name)

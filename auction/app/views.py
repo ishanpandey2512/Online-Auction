@@ -22,7 +22,7 @@ from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
 from .models import MyProfile
 from .forms import ProductForm, VisaForm
-from .models import Product, Bids
+from .models import Product
 
 from django.views.generic import DetailView,FormView,ListView
 from django.views.generic.edit import FormMixin
@@ -273,6 +273,7 @@ class ProductView(View):
             if p.minimum_price < int((request.POST['bidder_amount'])) and \
                     p.current_bid < int((request.POST['bidder_amount'])):
                 p.current_bid = int((request.POST['bidder_amount']))
+
                 p.save()
 
         context = {

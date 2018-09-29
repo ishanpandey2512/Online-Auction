@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import MyProfile, Product, Bids
+from .models import MyProfile, Product
 from django.core.validators import MinValueValidator
 
 
