@@ -6,11 +6,14 @@
 
 </head>
 <body>
+
 {% load staticfiles %}
+
 {% block content %}
-{% if classes %}
-        {% for class in classes %}
-            <p>{{ class.name }}</p>
+{% if product %}
+        {% for product in product %}
+            <!--<p>{{ item.name }}</p>-->
+            <p><a href="{% url 'product' product.id %}">{{product.name}}</a> </p>
         {% endfor %}
 {% else %}
     <p>No classes found.</p>

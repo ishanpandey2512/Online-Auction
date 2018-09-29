@@ -1,4 +1,4 @@
-
+from django.core.validators import MinValueValidator
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -55,10 +55,13 @@ class PostForm(forms.ModelForm):
         model = Product
         fields = ('name', 'desp', 'image', 'category', 'minimum_price',)'''
 
-class BidsForm(forms.ModelForm):
-   class Meta:
-      model = Bids
-      fields = ('bid_amount',)
+class BidsForm(forms.Form):
+
+    bidder_amount = forms.IntegerField(validators=[MinValueValidator(1)])
+
+    class Meta:
+        fields = ('bid_amount',)
+
 
 class ProductForm(forms.ModelForm):
     class Meta:

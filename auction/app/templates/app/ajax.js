@@ -1,3 +1,4 @@
+{% extends 'base1.html' %}
 $(function() {
 
     $('#search').keyup(function() {
@@ -17,5 +18,6 @@ $(function() {
 
 function searchSuccess(data, textStatus, jqXHR)
 {
-    $('#search-results').html(data)
+    $('#search_results').html(data)
 }
+{% endblock  %}

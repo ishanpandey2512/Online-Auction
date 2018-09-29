@@ -253,10 +253,10 @@ def search_titles(request):
     else:
         search_text = ''
 
-    category = Product.objects.filter(Q(name__contains=search_text))
+    product = Product.objects.filter(name__icontains=search_text)
 
-    return render(request,'app/base1.html',{'category':category})
-
+    return render(request,'app/base1.html',{'product': product})
+'''
 def articles(request):
     language='en-gb'
     session_language='en-gb'
@@ -270,5 +270,5 @@ def articles(request):
     args['articles']=Product.objects.all()
     args[language]=language
     args['session_language']=session_language
-    return render_to_response('app/base1.html',args)
+    return render_to_response('app/base1.html',args)'''
 

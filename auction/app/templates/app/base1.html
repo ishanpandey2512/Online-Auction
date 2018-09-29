@@ -16,6 +16,16 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     {% load staticfiles %}
      <script src="{% static 'app/ajax.js' %}"></script>
+{% block content %}
+{% if product %}
+        {% for product in product %}
+            <!--<p>{{ item.name }}</p>-->
+            <p><a href="{% url 'product' product.id %}">{{product.name}}</a> </p>
+        {% endfor %}
+{% else %}
+    <p>No classes found.</p>
+{% endif %}
+{% endblock %}
 
 
 
