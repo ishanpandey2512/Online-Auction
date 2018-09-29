@@ -22,7 +22,7 @@ from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
 from .models import MyProfile
 from .forms import ProductForm, VisaForm
-from .models import Product
+from .models import Product, Bids
 
 from django.views.generic import DetailView,FormView,ListView
 from django.views.generic.edit import FormMixin
@@ -219,9 +219,12 @@ class AddProduct(View):
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         form = ProductForm(request.POST)
-        product_item = form.save(commit=False)
+        # p = Product.objects.get(id=request.User.id)
+
         if form.is_valid():
             # product_item = form.save(commit=False).....WTF?
+            product_item = form.save(commit=False)
+            product_item.seller_id = request.user
             product_item.save()
             return redirect('home')
 
@@ -266,15 +269,25 @@ class ProductView(View):
             return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-
+        # user_obj = request.user.id
         p = Product.objects.get(id=kwargs["pk"])
+        b = p.Bids_set.all()
+
         form = BidsForm(request.POST)
         if form.is_valid():
-            if p.minimum_price < int((request.POST['bidder_amount'])) and \
-                    p.current_bid < int((request.POST['bidder_amount'])):
-                p.current_bid = int((request.POST['bidder_amount']))
+            b.save(commit = False)
+            b.bidder_id = request.user
 
-                p.save()
+            if b.bidder_id != p.seller_id:
+                return redirect('app/cannot_bid.html')
+
+            else:
+
+                if p.minimum_price < int((request.POST['bidder_amount'])) and \
+                        p.current_bid < int((request.POST['bidder_amount'])):
+                    p.current_bid = int((request.POST['bidder_amount']))
+                    p.save()
+                    b.save()
 
         context = {
             'name': p.name,
