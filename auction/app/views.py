@@ -235,13 +235,42 @@ class AddProduct(View):
         return render(request, 'app/product_form.html', context)
 
 # ---------------------------------------------------------------------------------------------------
-class BuyerView(ListView):
+
+
+class BuyerView(View):
 
     template_name = 'app/buyer.html'
-    context_object_name = 'product_list'
 
-    def get_queryset(self):
-        return Product.objects.order_by('id')
+    def get(self, request, *args, **kwargs):
+        context = {
+            'product_list': Product.objects.order_by('id'),
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        sort_by = request.POST['sort']
+        if sort_by == 'new_to_old':
+            context = {
+                'product_list': Product.objects.order_by('-start'),
+            }
+
+        elif sort_by == 'old_to_new':
+            context = {
+                'product_list': Product.objects.order_by('start'),
+            }
+
+        elif sort_by == 'high_to_low':
+            context = {
+                'product_list': Product.objects.order_by('-current_bid'),
+            }
+
+        elif sort_by == 'low_to_high':
+            context = {
+                'product_list': Product.objects.order_by('current_bid'),
+            }
+
+        return render(request, self.template_name, context)
 
 
 class ProductView(View):
@@ -271,23 +300,23 @@ class ProductView(View):
     def post(self, request, *args, **kwargs):
         # user_obj = request.user.id
         p = Product.objects.get(id=kwargs["pk"])
-        b = p.Bids_set.all()
+        # b = p.Bids_set.all()
 
         form = BidsForm(request.POST)
         if form.is_valid():
-            b.save(commit = False)
-            b.bidder_id = request.user
+            # b.save(commit = False)
+            # b.bidder_id = request.user
 
-            if b.bidder_id != p.seller_id:
-                return redirect('app/cannot_bid.html')
+            # if b.bidder_id != p.seller_id:
+            #     return redirect('app/cannot_bid.html')
 
-            else:
+            # else:
 
                 if p.minimum_price < int((request.POST['bidder_amount'])) and \
                         p.current_bid < int((request.POST['bidder_amount'])):
                     p.current_bid = int((request.POST['bidder_amount']))
                     p.save()
-                    b.save()
+                    # b.save()
 
         context = {
             'name': p.name,
