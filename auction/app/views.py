@@ -282,7 +282,7 @@ class ProductView(View):
         p = Product.objects.get(id=kwargs['pk'])
         form = BidsForm()
         context = {
-            'image': p.image,
+            # 'image': p.image,
             'name': p.name,
             'desp': p.desp,
             'start': p.start,
