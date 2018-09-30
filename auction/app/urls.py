@@ -18,8 +18,8 @@ urlpatterns = [
     url(r'^profile/edit/$', views.edit_profile, name='edit_profile'),
     url('seller/', views.add_product, name='add_product'),
     # url('category/',views.category_product,name='category_product'),
-    url(r'^search/$', views.search_titles),
-    #url(r'^category/$',category_product),
+    url(r'^search/$', views.index),
+    #url(r'^category/$',category_product)
 
     # path(r'^VisaForm/$', views.VisaForm.as_view(), name='VisaForm'),
 

@@ -27,8 +27,11 @@ from django.views.generic import DetailView,FormView,ListView
 from django.views.generic.edit import FormMixin
 from .forms import BidsForm
 from django.views import View
+import json
 from django.db.models import Q
 from django.template import RequestContext
+from django.http import JsonResponse
+
 
 
 def home(request):
@@ -229,8 +232,8 @@ def category_product(request):
     else:
         form = categoryForm()
     return render(request, 'app/category_search.html', {'form' : form})
-'''
-'''
+
+
 def category_product(request):
 
     if request.method=="POST":
@@ -245,30 +248,64 @@ def category_product(request):
         else:
             return HttpResponseRedirect('/category/')
 
-    return render(request,'app/category_search.html',{'Product':Product})'''
+    return render(request,'app/category_search.html',{'Product':Product})
 
 def search_titles(request):
-    if request.method == 'POST':
-        search_text = request.POST['search_text']
-    else:
-        search_text = ''
 
-    product = Product.objects.filter(name__icontains=search_text)
+    product = {
+        "name":Product.name,
+        "category":Product.category
+    }
+    print(product)
 
-    return render(request,'app/base1.html',{'product': product})
+    data = request.GET.get('data')
+    
+    list = Product.objects.all()
+    search = list.filter(name__icontains=data)
+    product[(search[i])] =search_user[i]
+
+    return JsonResponse(product)
+def search(request, *args, **kwargs):
+    data = dict()
+    data["foo"] = "bar"
+    data["username"] = Product.objects.get(name)
+    return JsonResponse(data)
+    
+ '''
+def search(request):
+    if request.is_ajax():
+        searchText= request.GET.get(searchText)
+        product = Product.objects.all.filter(name__icontains = searchText)
+        result = []
+        for k in product:
+            item = {}
+
+            item['label'] = k.name
+            item['category'] = k.category
+            result.append(item)
+            return json.dumps({"results":['palak','person']})
+            #type = 'app/search.html'
+        #return HttpResponse(data, type)
+
+def index(request):
+    return render(request,"app/search.html")
 '''
-def articles(request):
-    language='en-gb'
-    session_language='en-gb'
+def search(request):
+	text = request.args['searchText']
 
-    if 'lang' in request.COOKIES:
-        language=request.COOKIES['lang']
-    if 'lang' in request.session:
-        session_language=request.session['lang']
-    args={}
-    args.update(csrf(request))
-    args['articles']=Product.objects.all()
-    args[language]=language
-    args['session_language']=session_language
-    return render_to_response('app/base1.html',args)'''
 
+    BRAZIL_STATES = [u"Acre - Rio Branco",
+                 u"Alagoas - Maceió",
+                 u"Amapá",
+                 u"Amazonas - Manaus",
+                 u"Bahia - Salvador",
+                 u"Ceara - Fortaleza"]
+
+	result =  BRAZIL_STATES[1]
+	# return as JSON
+	return json.dumps({"results":result})
+
+
+    else:
+        data = 'fail'
+    search = 'app/ajax_search.html' '''

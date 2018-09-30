@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Ajax Search</title>
+		<meta charset="utf-8">
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script>
+			function SearchCategory(value){
+				value = value.trim();// remove any spaces around the text
+
+				if(value != ""){ // don't make requests with an empty string
+					$.ajax({
+						url: "search",
+						data: {searchText:value},
+						dataType: "json",
+						success: function(data){
+							var res = "";
+							// create the html with results
+							for(i in data.results){
+								res += "<div>"+data.results[i]+"</div>";
+							}
+							$("#results").html(res);
+						}
+					});
+				}
+				else{
+					$("#results").html("123"); // set the results empty in case of empty string
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Live Search Ajax Demo</h1>
+		<input type="text" > <!-- Assigns the key up event to call the liveSearch() function -->
+        <button type="submit" class="btn-btn-danger" onclick="SearchCategory(this.value)">Search</button></label>
+		<br>
+		<div id="results">
+
+        </div> <!-- Results will be printed here -->
+	</body>
+</html>

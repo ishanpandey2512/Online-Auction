@@ -1,10 +1,10 @@
-{% extends 'base1.html' %}
+{% include 'base1.html' %}
+
 $(function() {
-
-    $('#search').keyup(function() {
-
+    $('#search').click(function(evt){
+    evt.preventDefault();
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/search/",
             data: {
                 'search_text' : $('#search').val(),
