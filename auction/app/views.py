@@ -218,7 +218,7 @@ class VisaForm(FormView):
 class AddProduct(View):
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES, instance=request.Product.objects.get(pk=['**kwargs']))
         # p = Product.objects.get(id=request.User.id)
 
         if form.is_valid():
