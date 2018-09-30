@@ -338,22 +338,13 @@ class ProductListed(View):
     template_name = 'app/product_listed.html'
 
     def get(self, request, *args, **kwargs):
-
-        user_seller = request.user
-        products_sold = user_seller.Product_set.all()
-
-        for p in products_sold:
-            context = {
-                'name': p.name,
-                'desp': p.desp,
-                'start': p.start,
-                'minbid': p.minimum_price,
-                'end': p.end_date,
-                'category': p.category,
-                'currentbid': p.current_bid,
+        user_id = request.user
+        pr = Product.objects.filter(seller_id=user_id)
+        context = {
+            'product': pr
             }
 
-        return render(request, self.template_name, context)
+        return render(request, self.template_name,context)
 
 
 
