@@ -218,7 +218,7 @@ class VisaForm(FormView):
 class AddProduct(View):
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        form = ProductForm(request.POST, request.FILES, instance=request.Product.objects.get(pk=['**kwargs']))
+        form = ProductForm(request.POST, request.FILES)
         # p = Product.objects.get(id=request.User.id)
 
         if form.is_valid():
@@ -282,6 +282,7 @@ class ProductView(View):
         p = Product.objects.get(id=kwargs['pk'])
         form = BidsForm()
         context = {
+            'image': p.image,
             'name': p.name,
             'desp': p.desp,
             'start': p.start,
@@ -319,6 +320,7 @@ class ProductView(View):
                     # b.save()
 
         context = {
+            'image': p.image,
             'name': p.name,
             'desp': p.desp,
             'start': p.start,
@@ -330,23 +332,28 @@ class ProductView(View):
         }
         return render(request, self.template_name, context)
 
-#
-# class ProductSold:
-#
-#     template_name = 'app/sold.html'
-#
-#     def get(self, request, *args, **kwargs):
-#         p = Product.objects.get(id=kwargs['pk'])
-#         form = BidsForm()
-#         context = {
-#             'name': p.name,
-#             'desp': p.desp,
-#             'start': p.start,
-#             'minbid': p.minimum_price,
-#             'end': p.end_date,
-#             'category': p.category,
-#             'currentbid': p.current_bid,
-#         }
-#
+
+class ProductListed(View):
+
+    template_name = 'app/product_listed.html'
+
+    def get(self, request, *args, **kwargs):
+
+        user_seller = request.user
+        products_sold = user_seller.Product_set.all()
+
+        for p in products_sold:
+            context = {
+                'name': p.name,
+                'desp': p.desp,
+                'start': p.start,
+                'minbid': p.minimum_price,
+                'end': p.end_date,
+                'category': p.category,
+                'currentbid': p.current_bid,
+            }
+
+        return render(request, self.template_name, context)
+
 
 
