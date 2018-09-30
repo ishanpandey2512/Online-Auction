@@ -1,10 +1,13 @@
-<!DOCTYPE html>
+
+{% extends 'app/base.html' %}
+{% load static %}
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>BIDDING AREA</title>
+
+
 </head>
-<body>
+
+<link rel="stylesheet" type="text/css" href="{% static 'app/main.css' %}" />
 {% block content %}
 
    <h2>Name:- {{ name }}</h2>
@@ -26,8 +29,8 @@
    <h4>BID END:-{{ end}}</h4>
    <br>
 
-   <h4>CURRENT BID:-{{ currentbid }}</h4>
-
+   <h4 id="high">CURRENT BID:-{{ currentbid }}</h4>
+    <h3 id="user">Current Bidder:- {{}}</h3>
 
 <form method="post">
 
@@ -41,7 +44,18 @@
 
 </form>
 
+
+<script>
+    socket = new WebSocket("ws://" + window.location.host + "/bids/");
+    socket.onmessage = function(e) {
+            var user = document.getElementById("user");
+            var high = document.getElementById("high");
+            <!--user.innerHTML = e.data.split(",")[0];-->
+            high.innerHTML = parseFloat(e.data.split(",")[1]);
+}
+
+
+</script>
+
 {% endblock %}
 
-</body>
-</html>

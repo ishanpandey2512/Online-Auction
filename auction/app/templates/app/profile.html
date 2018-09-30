@@ -48,7 +48,9 @@
     <h2><i>How would you pay or Earn??</i><a  style="text-decoration:none; color: hotpink;" href="{% url 'VisaForm' %}"> Register Now!</a></h2>
         {% endif %}
     </p>
-
+        {% if request.user.is_authenticated %}
+    <i1>Go back to <a href="{% url 'home' %}">Home</a></i1>
+        {% endif %}
 <br>
 </div>
 {% endblock %}

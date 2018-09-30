@@ -170,6 +170,7 @@ class ProfileEdit(View):
 
 # -------------using generic views-------------------------------------------------------------------------------
 class VisaForm(FormView):
+
     form_class = VisaForm
     template_name = 'app/visa.html'
 
