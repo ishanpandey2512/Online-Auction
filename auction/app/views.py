@@ -20,20 +20,19 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
-from .models import MyProfile
+
 from .forms import ProductForm, VisaForm
-from .models import Product, Bids
+from .models import Product
 
-from django.views.generic import DetailView,FormView,ListView
-from django.views.generic.edit import FormMixin
-
+from django.views.generic import FormView
 from .forms import BidsForm
 from django.views import View
 from .models import MyProfile
 
 
-
 class Home(View):
+
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         context={
             # left empty for adding products currently in auction
@@ -107,6 +106,7 @@ class LogoutView(View):
         messages.success(request, 'You have been successfully Logged Out!!')
         return redirect('home')
 
+
 class LoginView(View):
 
     def post(self, request, *args, **kwargs):
@@ -173,6 +173,7 @@ class VisaForm(FormView):
     form_class = VisaForm
     template_name = 'app/visa.html'
 
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         try:
             form = self.form_class
@@ -241,12 +242,14 @@ class BuyerView(View):
 
     template_name = 'app/buyer.html'
 
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         context = {
             'product_list': Product.objects.order_by('id'),
         }
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
 
         sort_by = request.POST['sort']
@@ -277,6 +280,7 @@ class ProductView(View):
 
     template_name = 'app/product.html'
 
+    @method_decorator(login_required)
     def get(self, request,*args,**kwargs):
 
         p = Product.objects.get(id=kwargs['pk'])
@@ -298,26 +302,27 @@ class ProductView(View):
         else:
             return render(request, self.template_name, context)
 
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         # user_obj = request.user.id
         p = Product.objects.get(id=kwargs["pk"])
-        # b = p.Bids_set.all()
+        # b = Bids.objects.get(id=user_obj)
 
         form = BidsForm(request.POST)
         if form.is_valid():
-            # b.save(commit = False)
-            # b.bidder_id = request.user
+            # p.save(commit=False)
+            p.bidder_id = request.user
 
-            # if b.bidder_id != p.seller_id:
-            #     return redirect('app/cannot_bid.html')
+            if p.bidder_id == p.seller_id:
+                return redirect('home')
 
-            # else:
+            else:
 
                 if p.minimum_price < int((request.POST['bidder_amount'])) and \
                         p.current_bid < int((request.POST['bidder_amount'])):
                     p.current_bid = int((request.POST['bidder_amount']))
                     p.save()
-                    # b.save()
+
 
         context = {
             'image': p.image,
@@ -337,6 +342,7 @@ class ProductListed(View):
 
     template_name = 'app/product_listed.html'
 
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         user_id = request.user
         pr = Product.objects.filter(seller_id=user_id)

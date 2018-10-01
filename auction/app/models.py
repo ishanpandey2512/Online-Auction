@@ -47,7 +47,7 @@ class Visa(models.Model):
 
 
 class Product(models.Model):
-    seller_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False)
+    seller_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False, related_name='%(class)s_seller')
     name = models.CharField(max_length=50, blank=False)
     desp = models.TextField(max_length=500, blank=False, null=True)
     image = models.ImageField(upload_to='../static/images/', blank=True, null=True)
@@ -57,6 +57,7 @@ class Product(models.Model):
     end_date = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=1))
     current_bid = models.IntegerField(default=0)
     product_sold = models.BooleanField(default=False)
+    bidder_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='%(class)s_bidder')
 
 
     def __str__(self):
@@ -65,9 +66,9 @@ class Product(models.Model):
     # def getimage(instance, filename):
     #     return "static/images/image_{0}_{1}".format(str(time()), filename)
 
-
-class Bids(models.Model):
-    bidder_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    bid_amount = models.IntegerField(validators=[MinValueValidator(1)], default=0, null=True)
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+#
+# class Bids(models.Model):
+#     bidder_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+#     bid_amount = models.IntegerField(validators=[MinValueValidator(1)], default=0, null=True)
+#     product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
 
