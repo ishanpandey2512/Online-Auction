@@ -66,7 +66,7 @@ class BidsForm(forms.Form):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ('name', 'desp', 'image', 'minimum_price', 'category',)
+        fields = ('name', 'desp', 'image', 'minimum_price', 'category','start','end_date')
 
 
 '''

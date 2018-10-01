@@ -16,16 +16,16 @@ urlpatterns = [
 
     url(r'^profile/$', views.profile_view, name='profile'),
     url(r'^profile/edit/$', views.edit_profile, name='edit_profile'),
-    url('seller/', views.add_product, name='add_product'),
+    url('seller/',views.add_product, name='add_product'),
     # url('category/',views.category_product,name='category_product'),
-    url(r'^search/$', views.index),
-    #url(r'^category/$',category_product)
+    url(r'^search/$', views.search, name="search"),
+    #url(r'^category/$',category_product),
 
     # path(r'^VisaForm/$', views.VisaForm.as_view(), name='VisaForm'),
 
     path('buyer/<int:pk>/', views.ProductView.as_view(), name='product'),
     path('buyer/', views.BuyerView.as_view(), name='buyer')
-
+    #path('product_listed/', views.ProductListed.as_view(), name='product_listed')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

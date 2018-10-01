@@ -81,6 +81,11 @@ class Bids(models.Model):
     bid_amount = models.IntegerField(validators=[MinValueValidator(1)], default=0,  null=True)
     buy_product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
 
+'''
+class Bidamt(models.Model):
+    user1=models.ForeignKey(Product,on_delete=models.CASCADE)
+    current_bid1 = models.IntegerField(default=0)
+
 # class Bidsmade(models.Model):
 #
 #     product = models.ForeignKey(Product,on_delete=models.CASCADE)

@@ -182,6 +182,7 @@ class ProductView(View):
     def post(self, request, *args, **kwargs):
 
         p = Product.objects.get(id=kwargs["pk"])
+
         print(p.name)
         form = BidsForm(request.POST)
         if form.is_valid():
@@ -189,8 +190,10 @@ class ProductView(View):
             if p.minimum_price < int((request.POST['bidder_amount'])) and \
                     p.current_bid < int((request.POST['bidder_amount'])):
                 p.current_bid = int((request.POST['bidder_amount']))
+
                 print(p.current_bid)
                 p.save()
+
 
         context = {
             'name': p.name,
@@ -211,6 +214,7 @@ def add_product(request):
         form = ProductForm(request.POST)
         if form.is_valid():
             product_item = form.save(commit=False)
+            product_item.seller_id = request.user
             product_item.save()
             return redirect('home')
     else:
@@ -274,7 +278,8 @@ def search(request, *args, **kwargs):
  '''
 def search(request):
     if request.is_ajax():
-        searchText= request.GET.get(searchText)
+        searchText = request.get['searchText']
+        print(searchText)
         product = Product.objects.all.filter(name__icontains = searchText)
         result = []
         for k in product:
@@ -283,12 +288,12 @@ def search(request):
             item['label'] = k.name
             item['category'] = k.category
             result.append(item)
-            return json.dumps({"results":['palak','person']})
+        return JsonResponse({"results":result})
             #type = 'app/search.html'
         #return HttpResponse(data, type)
-
+'''
 def index(request):
-    return render(request,"app/search.html")
+    return render(request, "app/search.html")'''
 '''
 def search(request):
 	text = request.args['searchText']
@@ -309,3 +314,73 @@ def search(request):
     else:
         data = 'fail'
     search = 'app/ajax_search.html' '''
+'''
+class AddProduct(View):
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        form = ProductForm(request.POST, request.FILES)
+        # p = Product.objects.get(id=request.User.id)
+
+        if form.is_valid():
+            # product_item = form.save(commit=False).....WTF?
+            product_item = form.save(commit=False)
+            product_item.seller_id = request.user
+            product_item.save()
+            return redirect('home')
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        form = ProductForm()
+        context = {'form' : form}
+        return render(request, 'app/product_form.html', context)
+
+# ---------------------------------------------------------------------------------------------------
+
+
+class BuyerView(View):
+
+    template_name = 'app/buyer.html'
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'product_list': Product.objects.order_by('id'),
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+
+        sort_by = request.POST['sort']
+        if sort_by == 'new_to_old':
+            context = {
+                'product_list': Product.objects.order_by('-start'),
+            }
+
+        elif sort_by == 'old_to_new':
+            context = {
+                'product_list': Product.objects.order_by('start'),
+            }
+
+        elif sort_by == 'high_to_low':
+            context = {
+                'product_list': Product.objects.order_by('-current_bid'),
+            }
+
+        elif sort_by == 'low_to_high':
+            context = {
+                'product_list': Product.objects.order_by('current_bid'),
+            }
+'''
+'''
+class ProductListed(View):
+
+    template_name = 'app/product_listed.html'
+
+    def get(self, request, *args, **kwargs):
+        user_id = request.user
+        pr = Product.objects.filter(seller_id=user_id)
+        context = {
+            'product': pr
+            }
+
+        return render(request, self.template_name,context)
+        '''

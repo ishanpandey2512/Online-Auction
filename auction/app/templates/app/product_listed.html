@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Name</th><th>Category</th><th>Current Bid</th><th>Bidder Name</th><th>SOLD</th>
+    </tr>
+
+{% for p in product %}
+    <tr>
+        <td>{{p.name}}</td><td>{{ p.category }}</td><td>{{ p.current_bid }}</td><td>{{ p.seller_id}}</td><td>{{ p.product_sold }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+</body>
+</html>
