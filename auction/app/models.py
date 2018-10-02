@@ -54,21 +54,11 @@ class Product(models.Model):
     category = models.CharField(max_length=50, blank=True,null=True)
     minimum_price = models.IntegerField(blank=True, validators=[MinValueValidator(1)],default=1)
     start = models.DateTimeField(default=timezone.now, null=True)
-    end_date = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=1))
+    end = models.DateTimeField(default=timezone.now() + timezone.timedelta(hours=1))
     current_bid = models.IntegerField(default=0)
     product_sold = models.BooleanField(default=False)
     bidder_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='%(class)s_bidder')
 
-
     def __str__(self):
         return str(self.id)
-
-    # def getimage(instance, filename):
-    #     return "static/images/image_{0}_{1}".format(str(time()), filename)
-
-#
-# class Bids(models.Model):
-#     bidder_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-#     bid_amount = models.IntegerField(validators=[MinValueValidator(1)], default=0, null=True)
-#     product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
 

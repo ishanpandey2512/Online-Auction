@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BIDDING AREA</title>
 </head>
 <body>
-<p>sold!!!!</p>
-</body>
-</html>
+{% block content %}
+
+   <h2>Name:- {{ name }}</h2>
+   <br>
+
+
+   <h4>DESCRIPTION:-{{ desp}}</h4>
+   <!--<br>-->
+
+   <br>
+   <h4>CATEGORY:-{{ category}}</h4>
+   <br>
+
+   <h4>BID START :-{{ start}}</h4>
+   <br>
+
+   <h4>BID END:-{{ end}}</h4>
+   <br>
+
+   <h4>HIGGEST BID:-{{ currentbid }}</h4>
+   <br>
+   <h4>ITEM SOLD TO :-{{ buyer }}</h4>
+

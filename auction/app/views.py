@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils import timezone
 
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.decorators import login_required
@@ -273,6 +274,11 @@ class BuyerView(View):
                 'product_list': Product.objects.order_by('current_bid'),
             }
 
+        elif sort_by == 'unsold':
+            context = {
+                'product_list': Product.objects.filter(product_sold='False').order_by('?'),
+            }
+
         return render(request, self.template_name, context)
 
 
@@ -282,25 +288,37 @@ class ProductView(View):
 
     @method_decorator(login_required)
     def get(self, request,*args,**kwargs):
-
+        time_now = timezone.now()
         p = Product.objects.get(id=kwargs['pk'])
-        form = BidsForm()
-        context = {
-            # 'image': p.image,
-            'name': p.name,
-            'desp': p.desp,
-            'start': p.start,
-            'minbid': p.minimum_price,
-            'end': p.end_date,
-            'category': p.category,
-            'currentbid': p.current_bid,
-            'form': form
+        if time_now < p.end:
+            form = BidsForm()
+            context = {
+                # 'image': p.image,
+                'name': p.name,
+                'desp': p.desp,
+                'start': p.start,
+                'minbid': p.minimum_price,
+                'end': p.end,
+                'category': p.category,
+                'currentbid': p.current_bid,
+                'form': form
             }
-
-        if p.product_sold == 'False':
-            return render(request, 'app/product_sold.html', context)
-        else:
             return render(request, self.template_name, context)
+        else:
+            context = {
+                # 'image': p.image,
+                'name': p.name,
+                'desp': p.desp,
+                'start': p.start,
+                'minbid': p.minimum_price,
+                'end': p.end,
+                'category': p.category,
+                'currentbid': p.current_bid,
+                'buyer': p.bidder_id,
+            }
+            p.product_sold = 'TRUE'
+            p.save()
+            return render(request, 'app/product_sold.html', context)
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -310,7 +328,7 @@ class ProductView(View):
 
         form = BidsForm(request.POST)
         if form.is_valid():
-            # p.save(commit=False)
+
             p.bidder_id = request.user
 
             if p.bidder_id == p.seller_id:
@@ -323,14 +341,13 @@ class ProductView(View):
                     p.current_bid = int((request.POST['bidder_amount']))
                     p.save()
 
-
         context = {
             'image': p.image,
             'name': p.name,
             'desp': p.desp,
             'start': p.start,
             'minbid': p.minimum_price,
-            'end': p.end_date,
+            'end': p.end,
             'category': p.category,
             'currentbid': p.current_bid,
             'form': form
@@ -353,4 +370,37 @@ class ProductListed(View):
         return render(request, self.template_name,context)
 
 
+class BidsCurrentlyWinning(View):
+
+    template_name = 'app/bids_currently_winning.html'
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        user_id = request.user
+        pr = Product.objects.filter(bidder_id=user_id)
+        context = {
+            'product': pr
+        }
+
+        return render(request, self.template_name, context)
+
+
+class BidsWon(View):
+    template_name = 'app/bids_won.html'
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        user_id = request.user
+        time_now = timezone.now()
+        pr = Product.objects.filter(bidder_id=user_id)
+        print(1)
+        if time_now > pr.end:
+            pr.product_sold = 'TRUE'
+            pr.save()
+            context = {
+                'product': pr
+            }
+            return render(request, self.template_name, context)
+        else:
+            return redirect('home')
 

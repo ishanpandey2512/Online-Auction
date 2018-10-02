@@ -16,16 +16,19 @@
 <tr>
     {% if request.user.is_authenticated %}
 
-        <td><a href="{% url 'profile' user.id %}"> View Profile </a></td>
+        <td><a href="{% url 'profile' user.id %}"> VIEW PROFILE </a></td>
 
-        <td><a href="{% url 'logout' %}"> log out</a></td>
+        <td><a href="{% url 'logout' %}"> LOG OUT</a></td>
 
-        <td><a href="{% url 'add_product'%}"> SELL PRODUCT </a></td>
+
 
         <td><a href="{% url 'buyer' %}"> BIDDING SECTION </a></td>
 
-        <td><a href="{% url 'product_listed' %}"> PRODUCT LISTED </a></td>
+        <td><a href="{% url 'product_listed' %}"> SELLER SECTION </a></td>
 
+        <td><a href="{% url 'bids_currently_winning' %}"> BIDS CURRENTLY WINNING </a></td>
+
+        <td><a href="{% url 'bids_won' %}"> BIDS WON </a></td>
 
     {% else %}
 

@@ -24,8 +24,9 @@ urlpatterns = [
     path('buyer/<int:pk>/', views.ProductView.as_view(), name='product'),
     path('buyer/', views.BuyerView.as_view(), name='buyer'),
     # path('buyer/<int:pk>/sold',views.ProductSold.as_view(), name='sold')
-    path('product_listed/', views.ProductListed.as_view(), name='product_listed')
-
+    path('product_listed/', views.ProductListed.as_view(), name='product_listed'),
+    path('bids_currently_winning/', views.BidsCurrentlyWinning.as_view(), name='bids_currently_winning'),
+    path('bids_won/', views.BidsWon.as_view(), name='bids_won')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
