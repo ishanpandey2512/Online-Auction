@@ -69,6 +69,10 @@ class ProductForm(forms.ModelForm):
         fields = ('name', 'desp', 'image', 'minimum_price', 'category','start','end_date')
 
 
+
+
+
+
 '''
 class categoryForm(forms.ModelForm):
 

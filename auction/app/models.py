@@ -24,7 +24,7 @@ class MyProfile(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100, blank=True,null=True)
+    first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True,null=True)
     phone_number = models.CharField(max_length=100, blank=True, null=True)
     date_of_birth = models.DateField(max_length=10, null=True, blank=True)
@@ -60,7 +60,7 @@ class Product(models.Model):
     )
 
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, blank=False)
+    name = models.CharField(max_length=50, blank=False,unique=True)
     desp = models.TextField(max_length=500, blank=False, null=True)
     image = models.ImageField(upload_to='../static/images/', blank=True, null=True)
     category = models.CharField(max_length=50, blank=True,null=True,choices=CHOICE)

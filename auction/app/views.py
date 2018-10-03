@@ -223,97 +223,6 @@ def add_product(request):
 
 
 
-
-'''
-def category_product(request):
-    if request.method == "POST":
-        form = categoryForm(request.POST)
-        if form.is_valid():
-            category = form.save(commit=False)
-            category.save()
-            
-            return redirect('home')
-    else:
-        form = categoryForm()
-    return render(request, 'app/category_search.html', {'form' : form})
-
-
-def category_product(request):
-
-    if request.method=="POST":
-        item=request.POST['item']
-        if item:
-            match=Product.objects.filter(Q(name__icontains=item))
-            if match:
-                return render(request,'app/category_search.html',{'sr':match})
-
-            else:
-                messages.error(request,'no results')
-        else:
-            return HttpResponseRedirect('/category/')
-
-    return render(request,'app/category_search.html',{'Product':Product})
-
-def search_titles(request):
-
-    product = {
-        "name":Product.name,
-        "category":Product.category
-    }
-    print(product)
-
-    data = request.GET.get('data')
-    
-    list = Product.objects.all()
-    search = list.filter(name__icontains=data)
-    product[(search[i])] =search_user[i]
-
-    return JsonResponse(product)
-def search(request, *args, **kwargs):
-    data = dict()
-    data["foo"] = "bar"
-    data["username"] = Product.objects.get(name)
-    return JsonResponse(data)
-    
- '''
-def search(request):
-    if request.is_ajax():
-        searchText = request.get['searchText']
-        print(searchText)
-        product = Product.objects.all.filter(name__icontains = searchText)
-        result = []
-        for k in product:
-            item = {}
-
-            item['label'] = k.name
-            item['category'] = k.category
-            result.append(item)
-        return JsonResponse({"results":result})
-            #type = 'app/search.html'
-        #return HttpResponse(data, type)
-'''
-def index(request):
-    return render(request, "app/search.html")'''
-'''
-def search(request):
-	text = request.args['searchText']
-
-
-    BRAZIL_STATES = [u"Acre - Rio Branco",
-                 u"Alagoas - Maceió",
-                 u"Amapá",
-                 u"Amazonas - Manaus",
-                 u"Bahia - Salvador",
-                 u"Ceara - Fortaleza"]
-
-	result =  BRAZIL_STATES[1]
-	# return as JSON
-	return json.dumps({"results":result})
-
-
-    else:
-        data = 'fail'
-    search = 'app/ajax_search.html' '''
 '''
 class AddProduct(View):
     @method_decorator(login_required)
@@ -332,7 +241,7 @@ class AddProduct(View):
     def get(self, request, *args, **kwargs):
         form = ProductForm()
         context = {'form' : form}
-        return render(request, 'app/product_form.html', context)
+        return render(request, 'app/product_form.html', context)'''
 
 # ---------------------------------------------------------------------------------------------------
 
@@ -369,8 +278,7 @@ class BuyerView(View):
             context = {
                 'product_list': Product.objects.order_by('current_bid'),
             }
-'''
-'''
+
 class ProductListed(View):
 
     template_name = 'app/product_listed.html'
@@ -383,4 +291,21 @@ class ProductListed(View):
             }
 
         return render(request, self.template_name,context)
-        '''
+
+def validate_username(request):
+    text = request.GET.get("id_username","")
+
+    p = Product.objects.all()
+    k = Product.objects.filter(category__iexact=text).values_list('name','id')
+
+    data={}
+   # { % url 'product' product.id %}
+
+    data['products'] = list(k)
+
+    return JsonResponse(data)
+
+def index(request):
+     return render(request, 'app/sinup1.html')
+
+
