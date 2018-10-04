@@ -54,9 +54,16 @@ class MyProfile(models.Model):
 
 class Product(models.Model):
     CHOICE = (
-        ('Jwellery', 'Jwellery'),
-        ('Car', 'Car'),
-        ('Others', 'Others')
+        ('Grocery', 'Grocery'),
+        ('Mobiles', 'Mobiles'),
+        ('Clothes', 'Clothes'),
+        ('Electronics','Electronics'),
+        ('Home Appliances','Home Appliances'),
+        ('Beauty','Beauty'),
+        ('Toys','Toys'),
+        ('Sports','Sports'),
+        ('Footwear','Footwear'),
+        ('Others','Others')
     )
 
     # user = models.ForeignKey(User, on_delete=models.CASCADE)

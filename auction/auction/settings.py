@@ -45,7 +45,7 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
-    'ajax_search',
+
     'app.apps.AppConfig',
     'django.contrib.admin',
     'django.contrib.auth',

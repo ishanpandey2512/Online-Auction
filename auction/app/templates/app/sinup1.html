@@ -10,15 +10,15 @@
 
 {% block javascript %}
   <script >
-      $("#id_username").change(function () {
-
+      $("#id_username").click(function () {
+        console.log("1");
 
       $.ajax({
         url: '/ajax/validate_username/',
 
         data: {
 
-          'id_username':$('#id_username').val()
+          'id_username':$('#id_username1').val()
         },
         dataType: 'json',
         success: function (data) {
@@ -40,8 +40,8 @@
   </script>
 {% endblock %}
 {% block content %}
-  <input type="text" required="" name="name" maxlength="150" id="id_username" autofocus="">
-    <button type="submit">Search</button>
+  <input type="text" required="" name="name" maxlength="150" id="id_username1"  autofocus="">
+    <button type="submit"id="id_username" >Search</button>
    <div id="results">
 
 
