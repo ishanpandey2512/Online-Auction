@@ -1,6 +1,58 @@
-
 {% extends 'app/base.html' %}
 {% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block javascript %}
+  <script >
+      $("#id_username").change(function () {
+
+
+      $.ajax({
+        url: '/ajax/validate_username/',
+
+        data: {
+
+          'id_username':$('#id_username').val()
+        },
+        dataType: 'json',
+        success: function (data) {
+
+        var res="<ul>";
+        var products = data['products'];
+            for(var i = 0; i < products.length; i++ ){
+                 console.log(products[i][0]);
+                 res += "<li> <a href=\"../../buyer/" + products[i][1] + "\">" +  products[i][0] + "</a></li>";
+
+            }
+            res += "</ul>";
+            $("#results").html(res);
+          }
+
+      });
+
+    });
+  </script>
+{% endblock %}
+
+
 {% block home %}
 <h1 style="color:white; font-size:43px; text-align: center; margin-top:15px;">WELCOME TO ONLINE-AUCTION</h1>
+<div style="margin-left:40%; margin-top:2%;">
+  <input type="text" required="" name="name" maxlength="150" id="id_username" autofocus="" placeholder="Enter Category">
+    <button type="submit">Search</button>
+   <div id="results">
+
+   </div>
+</div>
+
 {% endblock %}
+
+
+</body>
+</html>

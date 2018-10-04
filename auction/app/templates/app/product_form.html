@@ -12,8 +12,11 @@
 
 
 {% block product_form %}
-    <h1>New post</h1>
-    <form method="POST" class="add_product" enctype="multipart/form-data">
+    <h1 style="text-align:center; font-size:35px; margin-top:10px;">Add Product</h1>
+<br>
+<br>
+<br>
+    <form method="POST" class="add_product" enctype="multipart/form-data" style="text-align:center; font-size:20px; letter-spacing:2px;">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>

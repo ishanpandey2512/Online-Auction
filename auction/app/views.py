@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
 from .forms import SignupForm, LoginForm, EditProfileForm
 
 from django.contrib.auth.models import User
@@ -40,6 +40,21 @@ class Home(View):
 
         }
         return render(request, 'app/home.html')
+
+def validate_username(request):
+    text = request.GET.get("id_username", "")
+    k = Product.objects.filter(category__iexact=text).values_list('name', 'id')
+
+    data = {}
+    data['products'] = list(k)
+
+    return JsonResponse(data)
+#
+# def index(request):
+#     return render(request, 'app/home.html')
+
+
+
 
 
 # Signup using Email Verification
