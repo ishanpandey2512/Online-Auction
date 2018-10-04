@@ -41,6 +41,7 @@ class Home(View):
         }
         return render(request, 'app/home.html')
 
+
 # Signup using Email Verification
 class SignUp(View):
     form = SignupForm()
@@ -102,6 +103,8 @@ class Activate(View):
 
 
 class LogoutView(View):
+
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         logout(request)
         messages.success(request, 'You have been successfully Logged Out!!')
@@ -124,7 +127,6 @@ class LoginView(View):
         else:
             messages.error(request, 'Username or Password is incorrect')
             return redirect('login')
-
 
     def get(self, request, *args, **kwagrs):
         if request.user.is_authenticated:
@@ -316,8 +318,8 @@ class ProductView(View):
                 'currentbid': p.current_bid,
                 'buyer': p.bidder_id,
             }
-            p.product_sold = 'TRUE'
-            p.save()
+            # p.product_sold = "TRUE"
+            # p.save()
             return render(request, 'app/product_sold.html', context)
 
     @method_decorator(login_required)
@@ -391,16 +393,12 @@ class BidsWon(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         user_id = request.user
-        time_now = timezone.now()
-        pr = Product.objects.filter(bidder_id=user_id)
-        print(1)
-        if time_now > pr.end:
-            pr.product_sold = 'TRUE'
-            pr.save()
-            context = {
-                'product': pr
-            }
-            return render(request, self.template_name, context)
-        else:
-            return redirect('home')
+        pr = Product.objects.filter(bidder_id=user_id, product_sold=True)
+        context = {
+            'product': pr
+        }
+        return render(request, self.template_name, context)
+
+
+
 

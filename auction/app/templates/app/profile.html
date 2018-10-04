@@ -1,53 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
+<!Doctype html>
+
+<html>
 <head>
+
     <meta charset="UTF-8">
     <title>Signup</title>
 </head>
 <body>
-{% load staticfiles %}
-{% block content %}
-<div style="text-align:center">
-<h1>Profile</h1>
+
+{% block profile %}
+<div style="text-align:center;">
+<h1 style="text-align:center; font-size:35px; letter-spacing:3px; margin-top:10px;">PROFILE</h1>
 <br>
 
 
-<img style="width: 20vw; height: 20vh;" alt="avatar" src="{{ user.myprofile.avatar.url }}"/>
+<img style="width: 20vw; height: 30vh; border-radius:30px;" alt="avatar" src="{{ user.myprofile.avatar.url }}"/>
 <br>
+    <table style="padding:10px; font-size:30px; margin-left:38%;">
+     <tr>
+         <td style="font-size:30px;">First name :</td>    <td style="font-size:30px;">{{ user.myprofile.first_name }}</td>
+     </tr>
+     <tr>
+         <td style="font-size:30px;">Last name   :</td> <td style="font-size:30px;">{{ user.myprofile.last_name }}</td>
+     </tr>
+     <tr>
+         <td style="font-size:30px;">Gender : </td> <td style="font-size:30px;">{{ user.myprofile.gender }}</td>
+     </tr>
+     <tr>
+         <td style="font-size:30px;">Contact no.  :</td><td style="font-size:30px;">{{ user.myprofile.phone_number }}</td>
+     </tr>
 
-    <label>First name :{{ user.myprofile.first_name }}</label>
-    <br>
-    <label>Last name: {{ user.myprofile.last_name }}</label>
-    <br>
-    <label>Gender: {{ user.myprofile.gender }}</label>
-    <br>
-    <label>Contact no.: {{ user.myprofile.phone_number }}</label>
-    <br>
-    <br>
+     <tr>
+         <td style="font-size:30px;">Username :</td><td style="font-size:30px;">{{ user.username }}</td>
+     </tr>
+     <tr>
+         <td style="font-size:30px;">Email :</td><td style="font-size:30px;">              {{ user.email }}</td>
+     </tr>
 
+    </table>
+    <br><br><br>
 
-    <label>Username :{{ user.username }}</label>
-    <br>
-    <br>
-    <label>Email : {{ user.email }}</label>
-    <br>
-    <br>
-
-
-    <p><a href="{% url 'logout' %}" style="margin-bottom:80vw"> log out</a>
-    </p>
-    <p>
         {% if request.user.is_authenticated %}
-    <a href="{% url 'edit_profile' user.id %}" style="margin-bottom:80vw">Edit profile</a>
+
+        <a href="{% url 'edit_profile' user.id %}" style="text-decoration:none; font-size:25px; color:blue;">
+            Edit profile</a>
+
         {% endif %}
-    </p>
+
     <br>
-    <p>
-        {% if request.user.is_authenticated %}
-    <h4><i>Haven't registered Visa Yet?</i></h4>
-    <h2><i>How would you pay or Earn??</i><a  style="text-decoration:none; color: hotpink;" href="{% url 'VisaForm' %}"> Register Now!</a></h2>
-        {% endif %}
-    </p>
+    <!--<p>-->
+        <!--{% if request.user.is_authenticated %}-->
+    <!--<h4><i>Haven't registered Visa Yet?</i></h4>-->
+    <!--<h2><i>How would you pay or Earn??</i><a  style="text-decoration:none; color: hotpink;" href="{% url 'VisaForm' %}"> Register Now!</a></h2>-->
+        <!--{% endif %}-->
+    <!--</p>-->
 
 <br>
 </div>

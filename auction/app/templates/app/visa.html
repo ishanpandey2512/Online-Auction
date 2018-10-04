@@ -1,26 +1,26 @@
-{% extends 'app/base.html' %}
-{% load static %}
+<!--{% extends 'app/base.html' %}-->
+<!--{% load static %}-->
 
-<link rel="stylesheet" type="text/css" href="{% static 'app/main.css' %}" />
+<!--<link rel="stylesheet" type="text/css" href="{% static 'app/main.css' %}" />-->
 
-{% block content %}
+<!--{% block content %}-->
 
-<center><h1><b>VISA REGISTRATION</b></h1></center>
+<!--<center><h1><b>VISA REGISTRATION</b></h1></center>-->
 
-<form method="post">
-    {% csrf_token %}
-    {% if occurrence is 0 %}
-        <table >
-            {{form}}
-            <tr><td colspan = "2" align="center"><input type="submit" value="Submit" /></td></tr>
-        </table>
-    {% else %}
-        <p style="color: green;">VISA REGISTERED ALREADY</p>
-    {% endif %}
-
-
-</form>
+<!--<form method="post">-->
+    <!--{% csrf_token %}-->
+    <!--{% if occurrence is 0 %}-->
+        <!--<table >-->
+            <!--{{form}}-->
+            <!--<tr><td colspan = "2" align="center"><input type="submit" value="Submit" /></td></tr>-->
+        <!--</table>-->
+    <!--{% else %}-->
+        <!--<p style="color: green;">VISA REGISTERED ALREADY</p>-->
+    <!--{% endif %}-->
 
 
+<!--</form>-->
 
-{% endblock %}
+
+
+<!--{% endblock %}-->

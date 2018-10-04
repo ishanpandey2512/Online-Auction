@@ -1,3 +1,7 @@
+
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,28 +9,28 @@
     <title>profile</title>
 </head>
 <body>
-{% block content %}
-<h2> Update Profile </h2>
+{% block edit_profile %}
+<h2 style="color:white;"> Update Profile </h2>
 <form method="post" enctype="multipart/form-data">
     <!--# multipart/form-data is necessary if your users are required to upload a file through the form-->
     {% csrf_token %}
 
-    <p>UserName : {{user.username }}</p>
-    <p>Email:  {{ user.email }}</p>
+    <p  style="color:white;">UserName : {{user.username }}</p>
+    <p  style="color:white;">Email:  {{ user.email }}</p>
     <img style="width: 20vw; height: 20vh;" alt="avatar" src="{{ user.myprofile.avatar.url }}" />
     <br><br>
 
 
     {% for field in form %}
-    <p>
+    <p  style="color:white;">
         {{ field.label_tag }}<br>
         {{ field }}
         {% for error in field.errors %}
-    <p style="color: red">{{ error }}</p>
+    <p style="color: red;">{{ error }}</p>
     {% endfor %}
     </p>
     {% endfor %}
-    <button type="submit">Save</button>
+    <button type="submit" style="color:black;">Save</button>
 
 </form>
 {% endblock %}

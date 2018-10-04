@@ -1,3 +1,6 @@
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,7 +8,7 @@
     <title>BIDDING AREA</title>
 </head>
 <body>
-{% block content %}
+{% block product_sold %}
 
    <h2>Name:- {{ name }}</h2>
    <br>
@@ -28,3 +31,6 @@
    <br>
    <h4>ITEM SOLD TO :-{{ buyer }}</h4>
 
+{% endblock %}
+</body>
+</html>

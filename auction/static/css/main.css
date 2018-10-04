@@ -1,0 +1,45 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    font-weight: bold;
+    font-size: 20px;
+ }
+body {
+      background: url("../images/background3.jpg");
+      position: relative;
+      background-size: cover;
+
+      }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #000000;
+    background-color: rgba(0,0,250,0.2) ;
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: #fff;
+    text-align: center;
+    padding: 14px 30px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #fff;
+    color: black;
+}
+
+li a.active {
+    color: black;
+    background-color: white;
+}

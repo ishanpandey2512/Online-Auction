@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>BIDDING AREA</title>
-</head>
-<body>
-{% block content %}
+
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+{% block bidding %}
 
    <h2>Name:- {{ name }}</h2>
    <br>
@@ -43,6 +39,5 @@
 </form>
 
 {% endblock %}
-
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

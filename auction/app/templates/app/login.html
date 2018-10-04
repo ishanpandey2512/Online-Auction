@@ -3,17 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <style>
+
+     p{
+     font-size:30px;
+
+     }
+    .login{
+
+
+    width:400px;
+    height:400px;
+    margin-top:150px;
+    margin-left:500px;
+    border-style: outset;}
+    .heading{
+    padding:0px;
+
+
+
+    }
+    h2{
+
+    font-size:40px;
+    font-weight:bolder;}
+</style>
 </head>
 <body>
+
 {% block content %}
+
+<div class="login">
 <center>
-<h2>login</h2>
+ <div class="heading">
+     <h2>Login</h2>
+ </div>
 <form method="post">
     {% csrf_token %}
     {% for field in form %}
     <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
+        {{ field.label_tag }}
+        {{ field }}<br><br>
     </p>
     {% endfor %}
 
@@ -23,10 +53,11 @@
 
     <button type="submit">Log In</button>
 
-    <i1>Go back to <a href="{% url 'home' %}">Home</a></i1>
+     <a href="{% url 'signup' %}" style="text-decoration:none; color: black; ">SIGNUP</a>
 
 </form>
 </center>
+</div>
 {% endblock %}
 </body>
 </html>

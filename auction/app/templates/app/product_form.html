@@ -1,3 +1,7 @@
+
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +9,9 @@
     <title>Title</title>
 </head>
 <body>
-{% extends 'app/base.html' %}
 
-{% block content %}
+
+{% block product_form %}
     <h1>New post</h1>
     <form method="POST" class="add_product" enctype="multipart/form-data">
         {% csrf_token %}

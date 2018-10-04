@@ -1,44 +1,6 @@
-   <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Online-Auction</title>
-</head>
-<body>
-{% for error in messages %}
-<p style="color: red">{{ error }}!!</p>
-{% endfor %}
-<center><h1> Online-Auction </h1></center>
-<center><h2><i>Sell and Buy here....... </i></h2></center>
 
-<table align="center">
-
-<tr>
-    {% if request.user.is_authenticated %}
-
-        <td><a href="{% url 'profile' user.id %}"> VIEW PROFILE </a></td>
-
-        <td><a href="{% url 'logout' %}"> LOG OUT</a></td>
-
-
-
-        <td><a href="{% url 'buyer' %}"> BIDDING SECTION </a></td>
-
-        <td><a href="{% url 'product_listed' %}"> SELLER SECTION </a></td>
-
-        <td><a href="{% url 'bids_currently_winning' %}"> BIDS CURRENTLY WINNING </a></td>
-
-        <td><a href="{% url 'bids_won' %}"> BIDS WON </a></td>
-
-    {% else %}
-
-        <td><a style="margin-bottom: 30vw" href="{% url 'signup' %}"> Sign Up</a></td>
-
-
-        <td><a href="{% url 'login' %}"> Log In</a></td>
-
-    {% endif %}
-</tr>
-</table>
-</body>
-</html>
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+{% block home %}
+<h1 style="color:white; font-size:43px; text-align: center; margin-top:15px;">WELCOME TO ONLINE-AUCTION</h1>
+{% endblock %}

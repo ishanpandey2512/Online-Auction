@@ -1,25 +1,77 @@
+{% load staticfiles %}
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{% static '/css/main.css' %}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<div class="page-header">
-            <a href="{% url 'add_product' %}" class="top-menu">
-                <span class="glyphicon glyphicon-plus"></span></a>
-            <h1><a href="/">ENTER YOUR PRODUCT</a></h1>
-        </div>
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
-        </div>
 
+<ul>
+  <li><a href="{% url 'logout' %}">Logout</a></li>
+  <li><a href="{% url 'product_listed' %}">Seller Section</a></li>
+  <li><a href="{% url 'bids_won' %}">Bids Won</a></li>
+  <li><a href="{% url 'buyer' %}">Buyer Section</a></li>
+  <li><a href="{% url 'bids_currently_winning' %}">Bids Currently Winning</a></li>
+  <li><a href="{% url 'profile' user.id %}">Profile</a></li>
+  <li><a href="{% url 'home' %}">Home</a></li>
+</ul>
+
+{% block home %}
+
+{% endblock %}
+
+
+{% block bids_currently_winning  %}
+
+{% endblock %}
+
+
+{% block bids_won %}
+
+{% endblock %}
+
+
+{% block buyer %}
+
+{% endblock %}
+
+
+{% block cannot_bid %}
+
+{% endblock %}
+
+
+{% block edit_profile %}
+
+{% endblock %}
+
+
+{% block product_form %}
+
+{% endblock %}
+
+
+{% block product_listed %}
+
+{% endblock %}
+
+
+{% block product_sold %}
+
+{% endblock %}
+
+
+{% block bidding %}
+
+{% endblock %}
+
+
+{% block profile %}
+
+{% endblock %}
 
 </body>
 </html>
+

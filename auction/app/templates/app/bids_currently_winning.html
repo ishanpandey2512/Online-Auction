@@ -1,3 +1,7 @@
+
+{% extends 'app/base.html' %}
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,16 +9,31 @@
     <title>Title</title>
 </head>
 <body>
+{% block bids_currently_winning %}
+{% if product %}
+<div style="text-align:center;">
 <table>
     <tr>
-        <th>Name</th><th>Category</th><th>Current Bid</th><th>Seller Name</th>
+        <th style="font-size:30px; padding:10px;">Name</th>
+        <th style="font-size:30px; padding:10px;">Category</th>
+        <th style="font-size:30px; padding:10px;">Current Bid</th>
+        <th style="font-size:30px; padding:10px;">Seller Username</th>
     </tr>
 
 {% for p in product %}
     <tr>
-        <td>{{p.name}}</td><td>{{ p.category }}</td><td>{{ p.current_bid }}</td><td>{{ p.seller_id}}</td>
+        <td style="font-size:30px; padding:10px;">{{p.name}}</td>
+        <td style="font-size:30px; padding:10px;">{{ p.category }}</td>
+        <td style="font-size:30px; padding:10px;">{{ p.current_bid }}</td>
+        <td style="font-size:30px; padding:10px;">{{ p.seller_id}}</td>
     </tr>
 {% endfor %}
 </table>
+{% else %}
+    <h1 style="text-align:center; font-size:30px; padding:10px;">YOU ARE NOT WINNING!!!!</h1>
+ {% endif %}
+</div>
+{% endblock %}
 </body>
+
 </html>
