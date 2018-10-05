@@ -6,7 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^$', views.Home.as_view(), name='home'),
+
 
     url(r'^signup/$', views.SignUp.as_view(), name='signup'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
@@ -27,7 +27,9 @@ urlpatterns = [
     path('product_listed/', views.ProductListed.as_view(), name='product_listed'),
     path('bids_currently_winning/', views.BidsCurrentlyWinning.as_view(), name='bids_currently_winning'),
     path('bids_won/', views.BidsWon.as_view(), name='bids_won'),
-    url(r'^ajax/validate_username/$', views.validate_username, name='validate_username'),
+    url(r'^$', views.Home.as_view(), name='home'),
+
+    url(r'^ajax/search/$', views.search, name='search'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

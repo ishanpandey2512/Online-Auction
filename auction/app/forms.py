@@ -53,7 +53,10 @@ class BidsForm(forms.Form):
 class ProductForm(forms.ModelForm):
 
     class Meta:
+
+
         model = Product
         fields = ('name', 'desp', 'image', 'category', 'minimum_price',)
+
 
 

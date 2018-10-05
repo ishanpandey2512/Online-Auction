@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels',
+    #'channels',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +88,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'auction.wsgi.application'
 
-ASGI_APPLICATION = "auction.routing.application"
+#ASGI_APPLICATION = "auction.routing.application"
 
 
 

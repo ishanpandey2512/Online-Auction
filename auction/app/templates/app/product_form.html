@@ -18,7 +18,20 @@
 <br>
     <form method="POST" class="add_product" enctype="multipart/form-data" style="text-align:center; font-size:20px; letter-spacing:2px;">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+    <p  style="color:black;font-size:32px;">
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% for error in field.errors %}
+    <p style="color: red;">{{ error }}</p>
+    {% endfor %}
+    </p>
+    {% endfor %}
+
+        <!--<label for="your_name">Your name: </label>-->
+
+
+        <!--{{ form.as_p }}-->
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}

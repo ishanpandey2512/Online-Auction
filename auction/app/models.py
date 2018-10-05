@@ -47,11 +47,25 @@ class Visa(models.Model):
 
 
 class Product(models.Model):
+    CHOICE = (
+        ('Grocery', 'Grocery'),
+        ('Mobiles', 'Mobiles'),
+        ('Clothes', 'Clothes'),
+        ('Electronics', 'Electronics'),
+        ('Home Appliances', 'Home Appliances'),
+        ('Beauty', 'Beauty'),
+        ('Toys', 'Toys'),
+        ('Sports', 'Sports'),
+        ('Footwear', 'Footwear'),
+        ('Others', 'Others')
+    )
+
     seller_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False, related_name='%(class)s_seller')
-    name = models.CharField(max_length=50, blank=False)
-    desp = models.TextField(max_length=500, blank=False, null=True)
+    name = models.CharField(max_length=50, blank=False,unique=True)
+    desp = models.TextField(max_length=100, blank=False, null=True)
+    #desp=models.CharField(max_length=2000)
     image = models.ImageField(upload_to='../static/images/', blank=True, null=True)
-    category = models.CharField(max_length=50, blank=True,null=True)
+    category = models.CharField(max_length=50, blank=True,null=True,choices=CHOICE)
     minimum_price = models.IntegerField(blank=True, validators=[MinValueValidator(1)],default=1)
     start = models.DateTimeField(default=timezone.now, null=True)
     end = models.DateTimeField(default=timezone.now() + timezone.timedelta(hours=1))
