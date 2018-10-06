@@ -16,7 +16,7 @@
       $.ajax({
 
 
-        url: '/ajax/search/',
+        url: "{% url 'search' %}",
 
         data: {
 
@@ -25,14 +25,24 @@
         dataType: 'json',
         success: function (data) {
 
-        var res="<ul>";
+        var res="";
         var products = data['products'];
+
+        if(products.length!=0)
+        {
+
+         res="<ul>";
             for(var i = 0; i < products.length; i++ ){
                  console.log(products[i][0]);
                  res += "<li> <a href=\"../../buyer/" + products[i][1] + "\">" +  products[i][0] + "</a></li>";
 
             }
-            res += "</ul>";
+            res += "</ul>";}
+            else
+            res="<div><br><br>No results</div>"
+
+
+
             $("#results").html(res);
           }
 
@@ -45,13 +55,30 @@
 
 {% block home %}
 <h1 style="color:white; font-size:43px; text-align: center; margin-top:15px;">WELCOME TO ONLINE-AUCTION</h1>
-<!--<div style="margin-left:40%; margin-top:2%;">-->
-<input type="text" required=""  maxlength="150" id="value1" autofocus="" placeholder="Enter Category">
+<div style="margin-left:40%; margin-top:2%;">
+<input type="text" required=""  maxlength="150" id="value1" autofocus="" placeholder="Enter Category" list="datalist">
+    <datalist id="datalist">
+        <option value="Grocery">
+        <option value="Mobiles">
+        <option value="Clothes">
+        <option value="Electronics">
+        <option value="Home Appliances">
+        <option value="Beauty">
+        <option value="Toys">
+        <option value="Sports">
+        <option value="Footwear">
+        <option value="Others">
+
+
+
+
+    </datalist>
     <button type="submit" id="value">Search</button>
-   <div id="results">
+   <div id="results" style="margin-left:400;">
 
    </div>
-<!--</div>-->
+</div>
+
 
 {% endblock %}
 

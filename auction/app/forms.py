@@ -56,7 +56,7 @@ class ProductForm(forms.ModelForm):
 
 
         model = Product
-        fields = ('name', 'desp', 'image', 'category', 'minimum_price',)
+        fields = ('name', 'desp','category', 'minimum_price',)
 
 
 

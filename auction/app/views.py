@@ -42,9 +42,11 @@ class Home(View):
         }
         return render(request, 'app/home.html')
 
+
 def search(request):
+    print("inside ajax")
     text = request.GET.get("value", "")
-    k = Product.objects.filter(category__iexact=text).values_list('name', 'id')
+    k = Product.objects.filter(category__istartswith=text).values_list('name','id')
 
     data = {}
     data['products'] = list(k)
@@ -247,6 +249,8 @@ class AddProduct(View):
             product_item.seller_id = request.user
             product_item.save()
             return redirect('home')
+        else:
+            return HttpResponse("form invalid")
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
