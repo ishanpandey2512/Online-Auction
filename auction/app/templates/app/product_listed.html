@@ -7,48 +7,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+
+    </style>
 </head>
 <body>
 {% block product_listed %}
-<!--<table>-->
-    <!--<tr>-->
-        <!--<th>Name</th><th>Category</th><th>Current Bid</th><th>Bidder Name</th><th>SOLD</th>-->
-    <!--</tr>-->
-
-<!--{% for p in product %}-->
-    <!--<tr>-->
-        <!--<td>{{p.name}}</td><td>{{ p.category }}</td><td>{{ p.current_bid }}</td><td>{{ p.seller_id}}</td><td>{{ p.product_sold }}</td>-->
-    <!--</tr>-->
-<!--{% endfor %}-->
-    <!--<br>-->
-     <!--<a href="{% url 'add_product'%}"> SELL PRODUCT </a>-->
-<!--</table>-->
-
 {% if product %}
-<div style="text-align:center;">
+
+<h1 style="margin-bottom:40px; margin-left:40%; font-size:35px; color:white; font-weight:bold;">PRODUCTS LISTED</h1>
+<div style="text-align:center;  margin-left:30%;">
 <table>
     <tr>
-        <th style="font-size:30px; padding:10px;">Name</th>
-        <th style="font-size:30px; padding:10px;">Category</th>
-        <th style="font-size:30px; padding:10px;">Current Bid</th>
-        <th style="font-size:30px; padding:10px;">Bidder Name</th>
-        <th style="font-size:30px; padding:10px;">Sold Status</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Current Bid</th>
+        <th>Bidder Name</th>
+        <th>Sold Status</th>
     </tr>
 
 {% for p in product %}
     <tr>
-        <td style="font-size:30px; padding:10px;">{{p.name}}</td>
-        <td style="font-size:30px; padding:10px;">{{ p.category }}</td>
-        <td style="font-size:30px; padding:10px;">{{ p.current_bid }}</td>
-        <td style="font-size:30px; padding:10px;">{{ p.bidder_id}}</td>
-        <td style="font-size:30px; padding:10px;">{{ p.product_sold}}</td>
+        <td>{{p.name}}</td>
+        <td>{{ p.category }}</td>
+        <td>{{ p.current_bid }}</td>
+        <td>{{ p.bidder_id}}</td>
+        <td>{{ p.product_sold}}</td>
     </tr>
 {% endfor %}
 </table>
-     <a href="{% url 'add_product'%}" style="text-decoration:none; color: white; font-size:35px;"> SELL MORE PRODUCT </a>
+    <br>
+     <a class="sell-more" href="{% url 'add_product'%}" style="text-decoration:none;  margin-left:-40% ; "> SELL MORE PRODUCT </a>
 {% else %}
-    <h1 style="text-align:center; font-size:30px; padding:10px;">YOU HAVE NOT LISTED ANY PRODUCT FOR BIDDING</h1>
-    <a href="{% url 'add_product'%}" style="text-decoration:none; color: white; font-size:35px; margin-left:38%; margin-top:5%;">SELL PRODUCTS</a>
+    <br>
+    <h1 style="text-align:center; font-size:30px; color:white;">YOU HAVE NOT LISTED ANY PRODUCT FOR BIDDING</h1>
+    <br>
+    <br>
+    <br>
+    <a class="sell-product" href="{% url 'add_product'%}" style="text-decoration:none; margin-left:45%; margin-top:5%;">SELL PRODUCTS</a>
  {% endif %}
 </div>
 {% endblock %}

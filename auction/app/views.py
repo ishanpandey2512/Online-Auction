@@ -1,63 +1,51 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.utils import timezone
-
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .forms import SignupForm, LoginForm, EditProfileForm
-
 from django.contrib.auth.models import User
 from django.contrib import messages
-
 from django.utils.decorators import method_decorator
-
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils import dateparse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
-
-from .forms import ProductForm, VisaForm
+from .forms import ProductForm
 from .models import Product
-
-from django.views.generic import FormView
 from .forms import BidsForm
 from django.views import View
-from .models import MyProfile
 
+
+# ---------------------------HOME PAGE --------------------------------------------------------------------------------
 
 class Home(View):
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        context={
-            # left empty for adding products currently in auction
-
-        }
         return render(request, 'app/home.html')
 
-def validate_username(request):
-    text = request.GET.get("id_username", "")
-    k = Product.objects.filter(category__iexact=text).values_list('name', 'id')
+
+# -----------------AJAX SEARCH BAR CODE--------------------------------------------------------------------------------
+
+
+def search(request):
+    text = request.GET.get("value", "")
+    product = Product.objects.filter(category__iexact=text).values_list('name', 'id')
 
     data = {}
-    data['products'] = list(k)
+    data['products'] = list(product)
 
     return JsonResponse(data)
-#
-# def index(request):
-#     return render(request, 'app/home.html')
 
 
+# ---------------------SIGN UP CODE-------------------------------------------------------------------------
 
 
-
-# Signup using Email Verification
 class SignUp(View):
     form = SignupForm()
 
@@ -92,7 +80,8 @@ class SignUp(View):
             return render(request, 'app/signup.html', {'form': form})
 
 
-# account activation class
+# -----------------------VERIFYING USER CODE------------------------------------------------------------------------
+
 
 class Activate(View):
 
@@ -117,6 +106,9 @@ class Activate(View):
             return redirect('home')
 
 
+# -----------------LOGOUT CODE------------------------------------------------------------------------------------------
+
+
 class LogoutView(View):
 
     @method_decorator(login_required)
@@ -124,6 +116,9 @@ class LogoutView(View):
         logout(request)
         messages.success(request, 'You have been successfully Logged Out!!')
         return redirect('home')
+
+
+# -------------LOGIN CODE----------------------------------------------------------------------------
 
 
 class LoginView(View):
@@ -151,97 +146,50 @@ class LoginView(View):
         return render(request, 'app/login.html', {'form': form})
 
 
+# ---------------------USER CAN VIEW HIS/HER PROFILE--------------------------------------------------------------------
+
 
 class ProfileView(View):
-    model = User
+
     @method_decorator(login_required)
     def get(self, request, user_id, *args, **kwargs):
         user_object = User.objects.get(id=user_id)
-        # user_id in urls.py
         context = {
             "user": user_object
         }
         return render(request, 'app/profile.html', context)
 
 
+#  -----------------------USER CAN EDIT HIS/HER PROFILE-----------------------------------------------------------------
+
+
 class ProfileEdit(View):
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        # resolving no_reverse_match error
         user_obj = request.user.id
         form = EditProfileForm(request.POST, request.FILES, instance=request.user.myprofile)
         if form.is_valid():
             form.save()
-            # return redirect('home')
-            # if user has successfully edited form, redirect him to edit profile view
-            # so that user can view his current changes directly, using "namespacing" in urls, and redirecting.
             return redirect('profile', user_obj)
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        form = EditProfileForm(instance= request.user.myprofile)
+        form = EditProfileForm(instance=request.user.myprofile)
         context = {
             "form": form,
         }
         return render(request, 'app/edit_profile.html', context)
 
-# -------------using generic views-------------------------------------------------------------------------------
-class VisaForm(FormView):
-    form_class = VisaForm
-    template_name = 'app/visa.html'
 
-    @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-        try:
-            form = self.form_class
-            current_user = request.user.id
-
-            # using queryset, Visa model -> so, visa_set.
-            # verifying if user already has a visacard in database
-            context = {
-                "form": form,
-                "first_name": MyProfile.first_name,
-                # as in models.
-                "occurrence": occurrence,
-            }
-            if current_user.visa_set.count() == 0:
-                return render(request, self.template_name, context)
-            else:
-                return render(request, self.template_name, context)
-
-        except:
-            return HttpResponseRedirect(reverse('VisaForm'))
-
-    def post(self, request, *args, **kwargs):
-        try:
-            current_user = request.user.id
-            try:
-                expDate = dateparse.parse_date(request.POST['exp_date'])
-                if(expDate.today() > expDate):
-                    return  HttpResponse("Visa has already expired")
-            except ValueError:
-                messages.error(request, "Enter correct Date")
-                return HttpResponseRedirect(reverse('VisaForm'))
-            #create applies database changes for all types of fields immediately.
-            current_user.visa_set.create(visaNum=request.POST['visa_card_number'], expDate=request.POST['exp_date'])
-            messages.success(request, "Visa has been registered successfully")
-            return HttpResponseRedirect(reverse('home'))
-
-        except MyProfile.DoesNotExist:
-            messages.error(request, "You are not logged in.")
-            return HttpResponseRedirect(reverse('login'))
+#  ---------------SELLER ADDS PRODUCT FOR BIDDING-----------------------------------------------------------------------
 
 
-# ---------------------------------------------------------------------------------------------
 class AddProduct(View):
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        form = ProductForm(request.POST, request.FILES)
-        # p = Product.objects.get(id=request.User.id)
-
+        form = ProductForm(request.POST)
         if form.is_valid():
-            # product_item = form.save(commit=False).....WTF?
             product_item = form.save(commit=False)
             product_item.seller_id = request.user
             product_item.save()
@@ -253,8 +201,8 @@ class AddProduct(View):
         context = {'form' : form}
         return render(request, 'app/product_form.html', context)
 
-# ---------------------------------------------------------------------------------------------------
 
+# -------------------------------BUYER CAN SEE ALL THE LISTED PRODUCTS AND SORT THEM ACCORDINGLY------------------------
 
 class BuyerView(View):
 
@@ -299,18 +247,19 @@ class BuyerView(View):
         return render(request, self.template_name, context)
 
 
+# --------------------------USER CAN SEE DETAILS OF A PARTICULAR PRODUCT AND CAN BID------------------------------------
+
 class ProductView(View):
 
     template_name = 'app/product.html'
 
     @method_decorator(login_required)
-    def get(self, request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
         time_now = timezone.now()
         p = Product.objects.get(id=kwargs['pk'])
         if time_now < p.end:
             form = BidsForm()
             context = {
-                # 'image': p.image,
                 'name': p.name,
                 'desp': p.desp,
                 'start': p.start,
@@ -322,8 +271,9 @@ class ProductView(View):
             }
             return render(request, self.template_name, context)
         else:
+            p.product_sold = 'True'
+            p.save()
             context = {
-                # 'image': p.image,
                 'name': p.name,
                 'desp': p.desp,
                 'start': p.start,
@@ -333,43 +283,40 @@ class ProductView(View):
                 'currentbid': p.current_bid,
                 'buyer': p.bidder_id,
             }
-            # p.product_sold = "TRUE"
-            # p.save()
+
             return render(request, 'app/product_sold.html', context)
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        # user_obj = request.user.id
-        p = Product.objects.get(id=kwargs["pk"])
-        # b = Bids.objects.get(id=user_obj)
-
+        product = Product.objects.get(id=kwargs["pk"])
         form = BidsForm(request.POST)
         if form.is_valid():
+            product.bidder_id = request.user
 
-            p.bidder_id = request.user
-
-            if p.bidder_id == p.seller_id:
-                return redirect('home')
+            if product.bidder_id == product.seller_id:
+                redirect('home')
 
             else:
 
-                if p.minimum_price < int((request.POST['bidder_amount'])) and \
-                        p.current_bid < int((request.POST['bidder_amount'])):
-                    p.current_bid = int((request.POST['bidder_amount']))
-                    p.save()
+                if product.minimum_price < int((request.POST['bidder_amount'])) and \
+                        product.current_bid < int((request.POST['bidder_amount'])):
+                    product.current_bid = int((request.POST['bidder_amount']))
+                    product.save()
 
         context = {
-            'image': p.image,
-            'name': p.name,
-            'desp': p.desp,
-            'start': p.start,
-            'minbid': p.minimum_price,
-            'end': p.end,
-            'category': p.category,
-            'currentbid': p.current_bid,
+            'name': product.name,
+            'desp': product.desp,
+            'start': product.start,
+            'minbid': product.minimum_price,
+            'end': product.end,
+            'category': product.category,
+            'currentbid': product.current_bid,
             'form': form
         }
         return render(request, self.template_name, context)
+
+
+# ------------------USER CAN SEE WHAT ALL PRODUCTS HAVE BEEN LISTED FOR SALE-------------------------------------------
 
 
 class ProductListed(View):
@@ -379,12 +326,15 @@ class ProductListed(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         user_id = request.user
-        pr = Product.objects.filter(seller_id=user_id)
+        product = Product.objects.filter(seller_id=user_id)
         context = {
-            'product': pr
+            'product': product
             }
 
         return render(request, self.template_name,context)
+
+
+# ---------------------USER CAN SEE THE BIDS(LIVE) IN WHICH HE/SHE IS CURRENTLY WINNING---------------------------------
 
 
 class BidsCurrentlyWinning(View):
@@ -394,12 +344,15 @@ class BidsCurrentlyWinning(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         user_id = request.user
-        pr = Product.objects.filter(bidder_id=user_id)
+        product = Product.objects.filter(bidder_id=user_id, product_sold=False)
         context = {
-            'product': pr
+            'product': product
         }
 
         return render(request, self.template_name, context)
+
+
+# -------------------USER CAN VIEW ALL THE BIDS HE/SHE HAS WON TILL NOW------------------------------------------------
 
 
 class BidsWon(View):
@@ -408,12 +361,8 @@ class BidsWon(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         user_id = request.user
-        pr = Product.objects.filter(bidder_id=user_id, product_sold=True)
+        product = Product.objects.filter(bidder_id=user_id, product_sold=True)
         context = {
-            'product': pr
+            'product': product
         }
         return render(request, self.template_name, context)
-
-
-
-

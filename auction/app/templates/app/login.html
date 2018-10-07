@@ -1,3 +1,8 @@
+
+{% extends 'app/login_signup_base.html' %}
+{% load staticfiles %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,17 +36,18 @@
 </head>
 <body>
 
-{% block content %}
+{% block login %}
 
 <div class="login">
 <center>
  <div class="heading">
-     <h2>Login</h2>
+     <h1 style="font-size: 50px; margin-top:10px;">ONLINE-AUCTION</h1>
+     <h2 style="font-size:30px;  margin-top:20px; margin-bottom:40px;">LOGIN</h2>
  </div>
 <form method="post">
     {% csrf_token %}
     {% for field in form %}
-    <p>
+    <p style="font-size:20px;">
         {{ field.label_tag }}
         {{ field }}<br><br>
     </p>
@@ -51,9 +57,9 @@
     <p style="color: red">{{ error }}</p>
     {% endfor %}
 
-    <button type="submit">Log In</button>
+    <button type="submit" style="background-color:white; font-size:16px; padding:10px; border-radius:20px; cursor:pointer; margin-left:5%; ">LOG IN</button>
 
-     <a href="{% url 'signup' %}" style="text-decoration:none; color: black; ">SIGNUP</a>
+     <a href="{% url 'signup' %}" style="text-decoration:none; font-size:16px; padding:12px; border-radius: 20px; color: black; background-color:white; ">SIGNUP</a>
 
 </form>
 </center>

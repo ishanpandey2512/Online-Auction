@@ -10,19 +10,18 @@
 </head>
 <body>
 {% block edit_profile %}
-<h2 style="color:white;"> Update Profile </h2>
+<div style=" margin-left:40%;">
+<h2 style="color:white; font-size:35px; letter-spacing:1px; margin:5px;"> Update Profile </h2>
 <form method="post" enctype="multipart/form-data">
-    <!--# multipart/form-data is necessary if your users are required to upload a file through the form-->
     {% csrf_token %}
 
-    <p  style="color:white;">UserName : {{user.username }}</p>
-    <p  style="color:white;">Email:  {{ user.email }}</p>
-    <img style="width: 20vw; height: 20vh;" alt="avatar" src="{{ user.myprofile.avatar.url }}" />
-    <br><br>
+    <p>UserName : {{user.username }}</p>
+    <p>Email:  {{ user.email }}</p>
+    <img style="width: 20vw; height: 20vh; border-radius:30px;" alt="avatar" src="{{ user.myprofile.avatar.url }}" />
 
 
     {% for field in form %}
-    <p  style="color:white;">
+    <p>
         {{ field.label_tag }}<br>
         {{ field }}
         {% for error in field.errors %}
@@ -30,9 +29,10 @@
     {% endfor %}
     </p>
     {% endfor %}
-    <button type="submit" style="color:black;">Save</button>
+    <button type="submit">Save</button>
 
 </form>
+</div>
 {% endblock %}
 </body>
 </html>

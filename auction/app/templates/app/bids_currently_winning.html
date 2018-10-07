@@ -11,28 +11,31 @@
 <body>
 {% block bids_currently_winning %}
 {% if product %}
-<div style="text-align:center;">
+<h1 style="margin-bottom:40px; margin-left:35%; font-size:35px; color:white; font-weight:bold;">BIDS CURRENTLY RUNNING</h1>
+<div style="text-align:center;  margin-left:35%;">
 <table>
     <tr>
-        <th style="font-size:30px; padding:10px;">Name</th>
-        <th style="font-size:30px; padding:10px;">Category</th>
-        <th style="font-size:30px; padding:10px;">Current Bid</th>
-        <th style="font-size:30px; padding:10px;">Seller Username</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Current Bid</th>
+        <th>Seller Username</th>
     </tr>
 
 {% for p in product %}
     <tr>
-        <td style="font-size:30px; padding:10px;">{{p.name}}</td>
-        <td style="font-size:30px; padding:10px;">{{ p.category }}</td>
-        <td style="font-size:30px; padding:10px;">{{ p.current_bid }}</td>
-        <td style="font-size:30px; padding:10px;">{{ p.seller_id}}</td>
+        <td>{{p.name}}</td>
+        <td >{{ p.category }}</td>
+        <td >{{ p.current_bid }}</td>
+        <td >{{ p.seller_id}}</td>
     </tr>
 {% endfor %}
 </table>
 {% else %}
-    <h1 style="text-align:center; font-size:30px; padding:10px;">YOU ARE NOT WINNING!!!!</h1>
+    <br>
+    <h1 style="text-align:center; color: white; font-size:30px; padding:10px;">YOU ARE NOT WINNING!!!!</h1>
  {% endif %}
 </div>
+
 {% endblock %}
 </body>
 

@@ -8,21 +8,16 @@
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-<ul>
-  <li><a href="{% url 'logout' %}">Logout</a></li>
-  <li><a href="{% url 'product_listed' %}">Seller Section</a></li>
-  <li><a href="{% url 'bids_won' %}">Bids Won</a></li>
-  <li><a href="{% url 'buyer' %}">Buyer Section</a></li>
-  <li><a href="{% url 'bids_currently_winning' %}">Bids Currently Winning</a></li>
-  <li><a href="{% url 'profile' user.id %}">Profile</a></li>
-  <li><a href="{% url 'home' %}">Home</a></li>
+
+<ul class="navbar">
+  <li class="nav"><a href="{% url 'logout' %}">Logout</a></li>
+  <li class="nav"><a href="{% url 'product_listed' %}">Seller Section</a></li>
+  <li class="nav"><a href="{% url 'bids_won' %}">Bids Won</a></li>
+  <li class="nav"><a href="{% url 'buyer' %}">Buyer Section</a></li>
+  <li class="nav"><a href="{% url 'bids_currently_winning' %}">Bids Currently Winning</a></li>
+  <li class="nav"><a href="{% url 'profile' user.id %}">Profile</a></li>
+  <li class="nav"><a href="{% url 'home' %}">Home</a></li>
 </ul>
-
-
-
-{% block javascript %}
-
-{% endblock %}
 
 
 {% block home %}
@@ -76,6 +71,12 @@
 
 
 {% block profile %}
+
+{% endblock %}
+
+
+
+{% block javascript %}
 
 {% endblock %}
 

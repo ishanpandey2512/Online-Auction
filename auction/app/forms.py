@@ -37,10 +37,6 @@ class LoginForm(forms.ModelForm):
         model = User
         fields = ('username', 'password')
 
-class VisaForm(forms.Form):
-    visa_card_number = forms.CharField(max_length=16, label="Visa Number")
-    exp_date = forms.DateField(widget=forms.DateInput(attrs={"placeholder":'YY/MM'}), label="Expiry Date")
-
 
 class BidsForm(forms.Form):
 
@@ -54,6 +50,6 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'desp', 'image', 'category', 'minimum_price',)
+        fields = ('name', 'desp', 'category', 'minimum_price',)
 
 

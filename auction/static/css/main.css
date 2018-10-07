@@ -2,18 +2,15 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-
+    font-family : sans-serif;
     font-weight: bold;
     font-size: 20px;
  }
 body {
-      background: url("../images/background3.jpg");
-      position: relative;
-      background-size: cover;
-
+       background-color:#12979e
       }
 
-ul {
+.navbar {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -21,12 +18,11 @@ ul {
     border: 1px solid #000000;
     background-color: rgba(0,0,250,0.2) ;
 }
-
-li {
+.nav {
     float: right;
 }
 
-li a {
+.nav a {
     display: block;
     color: #fff;
     text-align: center;
@@ -34,12 +30,188 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+.nav a:hover:not(.active) {
     background-color: #fff;
     color: black;
+     transition: all 0.2s ease;
 }
 
-li a.active {
+.nav a.active {
     color: black;
     background-color: white;
+}
+
+td{
+       border: 1px solid black;
+       padding:10px;
+       font-size: 18px;
+       border-collapse: collapse;
+}
+th{
+       border: 1px solid black;
+       padding:10px;
+       font-size: 20px;
+       color: white;
+       border-collapse: collapse;
+}
+
+table{
+       border-collapse: collapse;
+}
+.search-box{
+
+           border-radius: 20px;
+           padding:10px 20px 10px 20px;
+
+}
+
+.search-button{
+       border-radius: 20px;
+       color:white;
+       background:black;
+       padding:10px 15px 10px 15px;
+       border:none;
+
+}
+.search-button:hover{
+          background:white;
+          color:black;
+          transition: all 0.2s ease;
+}
+
+.edit-profile
+{
+    text-decoration:none;
+    margin-right:3%;
+    border-radius: 20px;
+    padding: 10px;
+    color:black;
+    margin-left:3%;
+    background:white;
+}
+
+.edit-profile:hover{
+       background:black;
+       color:white;
+       color:white;
+       transition: all 0.2s ease;
+}
+
+.product-list li{
+         list-style: circle;
+}
+.sort1{
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort1:hover{
+       background:white;
+       color:black;
+       transition: all 0.2s ease;
+}
+.sort2{
+
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort2:hover{
+       background:white;
+       transition: all 0.2s ease;
+       color:black;
+}
+.sort3{
+
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort3:hover{
+       background:white;
+       transition: all 0.2s ease;
+       color:black;
+}.sort4{
+
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort4:hover{
+       background:white;
+       transition: all 0.2s ease;
+       color:black;
+}.sort5{
+
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort5:hover{
+       background:white;
+       color:black;
+       transition: all 0.2s ease;
+}
+
+.sell-more{
+       border:none;
+       border-radius:20px;
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+
+
+}
+.sell-more:hover{
+       background:white;
+       color:black;
+       transition: all 0.2s ease;
+
+}
+.sell-product{
+       border:none;
+       border-radius:20px;
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 10px 8px 10px 8px;
+
+}
+.sell-product:hover{
+       background:white;
+       color:black;
+       transition: all 0.2s ease;
+
+}
+
+.save-product{
+ border:none;
+ cursor:pointer;
+       border-radius:20px;
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 12px 8px 12px 8px;
+
+}
+.save-product:hover{
+       background:white;
+       color:black;
+       transition: all 0.2s ease;
+
+
 }

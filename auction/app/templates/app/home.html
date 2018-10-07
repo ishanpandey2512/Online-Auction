@@ -9,28 +9,33 @@
 </head>
 <body>
 {% block javascript %}
-  <script >
-      $("#id_username").change(function () {
-
+   <script >
+      $("#value").click(function () {
+        console.log("1");
 
       $.ajax({
-        url: '/ajax/validate_username/',
+
+
+        url: "{% url 'search' %}",
 
         data: {
 
-          'id_username':$('#id_username').val()
+          'value':$('#value1').val()
         },
         dataType: 'json',
         success: function (data) {
 
-        var res="<ul>";
+
         var products = data['products'];
+
+         var res="<ul>";
             for(var i = 0; i < products.length; i++ ){
                  console.log(products[i][0]);
                  res += "<li> <a href=\"../../buyer/" + products[i][1] + "\">" +  products[i][0] + "</a></li>";
 
             }
             res += "</ul>";
+
             $("#results").html(res);
           }
 
@@ -43,9 +48,23 @@
 
 {% block home %}
 <h1 style="color:white; font-size:43px; text-align: center; margin-top:15px;">WELCOME TO ONLINE-AUCTION</h1>
-<div style="margin-left:40%; margin-top:2%;">
-  <input type="text" required="" name="name" maxlength="150" id="id_username" autofocus="" placeholder="Enter Category">
-    <button type="submit">Search</button>
+<div style="margin-left:38%; margin-top:12%;">
+  <input type="text" required="" name="name" maxlength="150" id="value1" autofocus="" placeholder="Enter Category" class="search-box">
+
+     <!--<datalist id="datalist">-->
+        <!--<option value="Grocery">-->
+        <!--<option value="Mobiles">-->
+        <!--<option value="Clothes">-->
+        <!--<option value="Electronics">-->
+        <!--<option value="Home Appliances">-->
+        <!--<option value="Beauty">-->
+        <!--<option value="Toys">-->
+        <!--<option value="Sports">-->
+        <!--<option value="Footwear">-->
+        <!--<option value="Others">-->
+      <!--</datalist>-->
+
+    <button type="submit" id="value" class="search-button">Search</button>
    <div id="results">
 
    </div>

@@ -1,34 +1,38 @@
-
 {% extends 'app/base.html' %}
 {% load staticfiles %}
 {% block buyer %}
-<form method="post" style="margin-left:90vw; color:black;  position:absolute;">
+
+{% if product_list %}
+<form method="post" style="margin-left:2vw; margin-top:-1vw;  color:black;  position:absolute;">
     <br>
     <br>
     <h1 style="color:white; font-size:25px; font-family:cursive">SORT-BY:-</h1>
     {% csrf_token %}
     <br>
 
-    <button type="submit" value="new_to_old" name="sort" style="background-color:black; color:white; padding:5px; margin:6px; border-radius:10px;"> NEW TO OLD   </button>
+    <button class="sort1" type="submit" value="new_to_old" name="sort" style="cursor: pointer;  margin:6px; border-radius:10px;"> NEW TO OLD   </button>
     <br>
-    <button type="submit" value ="old_to_new" name="sort" style="background-color:black; color:white; padding:10px; margin:6px; border-radius:15px;"> OLD TO NEW  </button>
+    <button class="sort2" type="submit" value ="old_to_new" name="sort" style="cursor: pointer;  margin:6px; border-radius:15px;"> OLD TO NEW  </button>
     <br>
-    <button type="submit" value="high_to_low" name="sort" style="background-color:black; color:white; padding:10px; margin:6px; border-radius:15px;"> HIGH TO LOW </button>
+    <button class="sort3" type="submit" value="high_to_low" name="sort" style="cursor: pointer;  margin:6px; border-radius:15px;"> HIGH TO LOW </button>
     <br>
-    <button type="submit" value ="low_to_high" name="sort" style="background-color:black; color:white; padding:10px; margin:6px; border-radius:15px;"> LOW TO HIGH </button>
+    <button class="sort4" type="submit" value ="low_to_high" name="sort" style="cursor: pointer;  margin:6px; border-radius:15px;"> LOW TO HIGH </button>
      <br>
-    <button type="submit" value ="unsold" name="sort" style="background-color:black; color:white; padding:10px; margin:6px; border-radius:15px;"> UNSOLD ITEMS</button>
+    <button class="sort5" type="submit" value ="unsold" name="sort" style="cursor: pointer; margin:6px; border-radius:15px;"> UNSOLD ITEMS</button>
 
 </form>
 
-{% if product_list %}
-
     {% for product in product_list %}
-    <h1><a href="{% url 'product' product.id %}" style="font-family:sans-serif; text-decoration:none; color: white; margin:10px; font-size:30px;">{{ product.name }}</a></h1>
+      <ul class="product-list">
+          <h1><li><a href="{% url 'product' product.id %}" style="text-decoration:none; color: black; margin-left:45vw; margin-top:5%;font-size:30px; position:absolute;">{{ product.name }}</a></li></h1>
     <br>
+    <br>
+    </ul>
+
     {% endfor %}
 
 {% else %}
-    <p>No bids are available.</p>
+<br>
+    <p style="color:white; font-size:30px; margin-left:40%;">NO BIDS ARE AVAILABLE</p>
 {% endif %}
 {% endblock %}

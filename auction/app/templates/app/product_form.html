@@ -12,15 +12,53 @@
 
 
 {% block product_form %}
-    <h1 style="text-align:center; font-size:35px; margin-top:10px;">Add Product</h1>
+
+    <h1 style="text-align:center; color: white; font-size:35px; margin-top:10px;">Add Product</h1>
 <br>
 <br>
 <br>
-    <form method="POST" class="add_product" enctype="multipart/form-data" style="text-align:center; font-size:20px; letter-spacing:2px;">
+        <form method="POST" class="add_product" enctype="multipart/form-data" style="text-align:center; font-size:25px; letter-spacing:2px;">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+        <label style="font-size:28px;">Name:</label>
+        <input type="text" name="name" maxlength="50" required="" id="id_name" placeholder="Name"><br>
+        <br>
+        <label style="font-size:28px;">Description:</label>
+        <textarea name="desp" cols="30" rows="10" maxlength="100" required="" id="id_desp" placeholder="Description"></textarea>
+        <br><br>
+        <label style="font-size:28px;">Category:</label>
+        <select name="category" id="id_category">
+  <option value="" selected>---------</option>
+
+  <option value="Grocery">Grocery</option>
+
+  <option value="Mobiles">Mobiles</option>
+
+  <option value="Clothes">Clothes</option>
+
+  <option value="Electronics">Electronics</option>
+
+  <option value="Home Appliances">Home Appliances</option>
+
+  <option value="Beauty">Beauty</option>
+
+  <option value="Toys">Toys</option>
+
+  <option value="Sports">Sports</option>
+
+  <option value="Footwear">Footwear</option>
+
+  <option value="Others">Others</option>
+
+</select>
+<br>
+<br>
+  <label for="id_minimum_price" style="font-size:28px;">Minimum price:</label>
+<input type="number" name="minimum_price" value="1" id="id_minimum_price">
+<br><br>
+
+<button type="submit" class="save-product">Save</button>
+
+</form>
 {% endblock %}
 
 </body>
