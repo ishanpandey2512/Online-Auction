@@ -366,3 +366,4 @@ class BidsWon(View):
             'product': product
         }
         return render(request, self.template_name, context)
+

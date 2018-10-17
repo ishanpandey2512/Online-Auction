@@ -24,8 +24,12 @@
 
     {% for product in product_list %}
       <ul class="product-list">
-          <h1><li><a href="{% url 'product' product.id %}" style="text-decoration:none; color: black; margin-left:45vw; margin-top:5%;font-size:30px; position:absolute;">{{ product.name }}</a></li></h1>
-    <br>
+          <li>
+          <h1><a href="{% url 'product' product.id %}" style="text-decoration:none;">{{ product.name }}</a></h1>
+          <h2 >Start Time:-{{product.start}}</h2>
+          <h2>End Time:-{{product.end}}</h2>
+          <h2>Current Bid:-{{product.current_bid}}</h2>
+          </li>
     <br>
     </ul>
 

@@ -98,7 +98,12 @@ table{
 }
 
 .product-list li{
-         list-style: circle;
+
+         list-style: disc;
+         color: black;
+         margin-left:45vw;
+         margin-top:5%;
+         font-size:30px;
 }
 .sort1{
        background:black;
