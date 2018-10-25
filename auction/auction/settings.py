@@ -90,6 +90,15 @@ WSGI_APPLICATION = 'auction.wsgi.application'
 
 ASGI_APPLICATION = "auction.routing.application"
 
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'asgi_redis.RedisChannelLayer',
+#         'CONFIG': {
+#             'hosts': [('localhost', 6379)],
+#         },
+#         'ROUTING': 'auction.routing.channel_routing',
+#     }
+# }
 
 
 DATABASES = {

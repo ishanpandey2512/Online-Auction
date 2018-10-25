@@ -13,52 +13,46 @@
 
 {% block profile %}
 <div style="text-align:center;">
-<h1 style="text-align:center; font-size:35px; letter-spacing:3px; margin-top:10px;">PROFILE</h1>
+<h1 style="text-align:center; font-size:35px; letter-spacing:3px; margin-top:10px; color:white;">PROFILE</h1>
 <br>
 
 
 <img style="width: 20vw; height: 30vh; border-radius:30px;" alt="avatar" src="{{ user.myprofile.avatar.url }}"/>
 <br>
-    <table style="padding:10px; font-size:30px; margin-left:38%;">
+    <br>
+    <table style="padding:20px; margin-left:41%;">
      <tr>
-         <td style="font-size:30px;">First name :</td>    <td style="font-size:30px;">{{ user.myprofile.first_name }}</td>
+         <td>First name :</td>    <td>{{ user.myprofile.first_name }}</td>
      </tr>
      <tr>
-         <td style="font-size:30px;">Last name   :</td> <td style="font-size:30px;">{{ user.myprofile.last_name }}</td>
+         <td>Last name   :</td> <td>{{ user.myprofile.last_name }}</td>
      </tr>
      <tr>
-         <td style="font-size:30px;">Gender : </td> <td style="font-size:30px;">{{ user.myprofile.gender }}</td>
+         <td >Gender : </td> <td>{{ user.myprofile.gender }}</td>
      </tr>
      <tr>
-         <td style="font-size:30px;">Contact no.  :</td><td style="font-size:30px;">{{ user.myprofile.phone_number }}</td>
+         <td>Contact no.  :</td><td>{{ user.myprofile.phone_number }}</td>
      </tr>
 
      <tr>
-         <td style="font-size:30px;">Username :</td><td style="font-size:30px;">{{ user.username }}</td>
+         <td>Username :</td><td>{{ user.username }}</td>
      </tr>
      <tr>
-         <td style="font-size:30px;">Email :</td><td style="font-size:30px;">              {{ user.email }}</td>
+         <td>Email-Id :</td><td>{{ user.email }}</td>
      </tr>
 
     </table>
-    <br><br><br>
+    <br>
 
         {% if request.user.is_authenticated %}
 
-        <a href="{% url 'edit_profile' user.id %}" style="text-decoration:none; font-size:25px; color:blue;">
+        <a class="edit-profile" href="{% url 'edit_profile' user.id %}">
             Edit profile</a>
 
         {% endif %}
 
     <br>
-    <!--<p>-->
-        <!--{% if request.user.is_authenticated %}-->
-    <!--<h4><i>Haven't registered Visa Yet?</i></h4>-->
-    <!--<h2><i>How would you pay or Earn??</i><a  style="text-decoration:none; color: hotpink;" href="{% url 'VisaForm' %}"> Register Now!</a></h2>-->
-        <!--{% endif %}-->
-    <!--</p>-->
 
-<br>
 </div>
 {% endblock %}
 </body>

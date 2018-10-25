@@ -1,3 +1,7 @@
+
+{% extends 'app/login_signup_base.html' %}
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +9,9 @@
     <title>Signup</title>
 </head>
 <body>
-
-<h2>Sign up</h2>
+{% block signup %}
+<h1 style="font-size: 50px; margin-top:10px; margin-left:37%;">ONLINE-AUCTION</h1>
+<h2 style="font-size: 30px; margin-top:20px; margin-left:46%; margin-bottom:20px;">SIGNUP</h2>
 <center>
 <form method="post">
     {% csrf_token %}
@@ -22,9 +27,11 @@
 
     </p>
     {% endfor %}
-    <button type="submit" style= "color: green">Sign up</button>
+    <button type="submit" style="background-color:white; font-size:16px; padding:10px; border-radius:20px; cursor:pointer;">SIGN UP</button>
+    <a href="{% url 'login' %}" style="background-color:white; font-size:16px; padding:10px; border-radius:20px; cursor:pointer; color:black; text-decoration:none; ">LOGIN</a>
 
 </form>
 </center>
+{% endblock %}
 </body>
 </html>

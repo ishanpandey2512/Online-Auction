@@ -2,6 +2,8 @@
 {% extends 'app/base.html' %}
 {% load staticfiles %}
 {% block bidding %}
+<div style="text-align:center; font-size:50px; margin-top:40px; font-weight:bold; font-family:sans-serif;">
+
 
    <h2>Name:- {{ name }}</h2>
    <br>
@@ -23,7 +25,7 @@
    <h4>BID END:-{{ end}}</h4>
    <br>
 
-   <h4>CURRENT BID:-{{ currentbid }}</h4>
+   <h4 id="bid">{{ currentbid }}</h4>
 
 
 <form method="post">
@@ -37,7 +39,20 @@
     <button type="submit">SUBMIT BID</button>
 
 </form>
+</div>
+<!--<script>-->
 
+    <!--var  bidsSocket = new WebSocket("ws://" + window.location.host + "/app/buyer/{{id}}");-->
+    <!--bidsSocket.onmessage = function(e) {-->
+      <!--var bid = document.getElementById("bid");-->
+    <!--}-->
+
+    <!--function live() {-->
+      <!--if(-->
+
+
+
+<!--</script>-->
 {% endblock %}
 <!--</body>-->
 <!--</html>-->

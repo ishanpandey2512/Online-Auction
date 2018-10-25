@@ -40,18 +40,23 @@ class MyProfile(models.Model):
         instance.myprofile.save()
 
 
-class Visa(models.Model):
-    userid = models.ForeignKey(MyProfile, on_delete=models.CASCADE)
-    visaNum = models.CharField(max_length=16)
-    expDate = models.DateField()
-
-
 class Product(models.Model):
+    CHOICE=(
+        ('Grocery','Grocery'),
+        ('Mobiles','Mobiles'),
+        ('Clothes','Clothes'),
+        ('Electronics','Electronics'),
+        ('Home Appliances','Home appliances'),
+        ('Beauty','Beauty'),
+        ('Toys','Toys'),
+        ('Sports','Sports'),
+        ('Footwear','Footwear'),
+        ('Others','Others')
+    )
     seller_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False, related_name='%(class)s_seller')
-    name = models.CharField(max_length=50, blank=False)
+    name = models.CharField(max_length=50, blank=False,unique=True)
     desp = models.TextField(max_length=500, blank=False, null=True)
-    image = models.ImageField(upload_to='../static/images/', blank=True, null=True)
-    category = models.CharField(max_length=50, blank=True,null=True)
+    category = models.CharField(max_length=50, blank=True,null=True,choices=CHOICE)
     minimum_price = models.IntegerField(blank=True, validators=[MinValueValidator(1)],default=1)
     start = models.DateTimeField(default=timezone.now, null=True)
     end = models.DateTimeField(default=timezone.now() + timezone.timedelta(hours=1))
@@ -61,4 +66,12 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+class rent(models.Model):
+    seller1=models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False, related_name='%(class)s_seller1')
+    rate=models.IntegerField(default=0)
+    start1 = models.DateTimeField(default=timezone.now, null=True)
+    end1 = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=5))
+    rent_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,related_name='%(class)s_rent')
+    fine=models.IntegerField(default=0)
 

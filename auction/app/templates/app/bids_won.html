@@ -12,7 +12,10 @@
 <body>
 {% block bids_won %}
 {% if product %}
-<div style="text-align:center;">
+
+
+<h1 style="margin-bottom:40px; margin-left:42%; font-size:35px; color:white; font-weight:bold;">BIDS WON</h1>
+<div style="text-align:center;  margin-left:23%;">
 <table>
     <tr>
         <th style="font-size:30px; padding:10px;">Name</th>
@@ -31,7 +34,8 @@
 {% endfor %}
 </table>
 {% else %}
-    <h1 style="text-align:center; font-size:30px; padding:10px;">YOU HAVE NOT WON ANY BID!!!!</h1>
+    <br>
+    <h1 style="text-align:center; color: white; font-size:30px; padding:10px;">YOU HAVE NOT WON ANY BID!!!!</h1>
  {% endif %}
 </div>
 {% endblock %}

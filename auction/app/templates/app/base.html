@@ -2,21 +2,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+     <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
     <link rel="stylesheet" href="{% static '/css/main.css' %}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<!--<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>-->
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
-<ul>
-  <li><a href="{% url 'logout' %}">Logout</a></li>
-  <li><a href="{% url 'product_listed' %}">Seller Section</a></li>
-  <li><a href="{% url 'bids_won' %}">Bids Won</a></li>
-  <li><a href="{% url 'buyer' %}">Buyer Section</a></li>
-  <li><a href="{% url 'bids_currently_winning' %}">Bids Currently Winning</a></li>
-  <li><a href="{% url 'profile' user.id %}">Profile</a></li>
-  <li><a href="{% url 'home' %}">Home</a></li>
+<ul class="navbar">
+  <li class="nav"><a href="{% url 'logout' %}">Logout</a></li>
+  <li class="nav"><a href="{% url 'product_listed' %}">Seller Section</a></li>
+  <li class="nav"><a href="{% url 'bids_won' %}">Bids Won</a></li>
+  <li class="nav"><a href="{% url 'buyer' %}">Buyer Section</a></li>
+  <li class="nav"><a href="{% url 'bids_currently_winning' %}">Bids Currently Winning</a></li>
+  <li class="nav"><a href="{% url 'profile' user.id %}">Profile</a></li>
+  <li class="nav"><a href="{% url 'home' %}">Home</a></li>
 </ul>
+
 
 {% block home %}
 
@@ -69,6 +76,12 @@
 
 
 {% block profile %}
+
+{% endblock %}
+
+
+
+{% block javascript %}
 
 {% endblock %}
 
