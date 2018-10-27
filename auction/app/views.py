@@ -267,7 +267,8 @@ class ProductView(View):
                 'end': p.end,
                 'category': p.category,
                 'currentbid': p.current_bid,
-                'form': form
+                'form': form,
+                'id': p.id
             }
             return render(request, self.template_name, context)
         else:
@@ -367,3 +368,60 @@ class BidsWon(View):
         }
         return render(request, self.template_name, context)
 
+
+# ----------------------PRODUCTS AVAILABLE FOR RENT---------------------------------------------------------------------
+
+class RentView(View):
+    template_name = 'app/rent_view.html'
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+
+        product = Product.objects.get(id=kwargs['pk'])
+        if product.current_bid==0:
+
+            context = {
+                'product': product,
+                      }
+            return render(request, self.template_name, context)
+
+
+#----------------------------RENT PRODUCT HERE--------------------------------------------------------------------------
+8
+class RentProduct(View):
+    template_name = 'app/'rent_products.html'
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+
+        p = Product.objects.get(id=kwargs['pk'])
+        if p.rent_status == 'False':
+
+            context = {
+                'name': p.name,
+                'desp': p.desp,
+                'category': p.category,
+                'rent': p.rent_price,
+                'owner': p.seller_id,
+            }
+            return render(request, self.template_name, context)
+        else:
+
+            context = {
+                'name': p.name,
+                'desp': p.desp,
+                'category': p.category,
+                'rent': p.rent_price,
+                'owner': p.seller_id,
+                'temp_onwer': p.rent_id
+                      }
+
+            return render(request, 'app/product_sold.html', context)
+
+
+    # @method_decorator(login_required)
+    # def post(self, request, *args, **kwargs):
+    #
+    #     rent = request.POST['rent']
+    #     if rent == 'product_rented':
+    #

@@ -9,7 +9,7 @@ urlpatterns = [
     re_path(r'^$', views.Home.as_view(), name='home'),
     re_path(r'^signup/$', views.SignUp.as_view(), name='signup'),
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-             views.Activate.as_view(), name='activate'),
+            views.Activate.as_view(), name='activate'),
     re_path(r'^login/$', views.LoginView.as_view(), name='login'),
     re_path(r'^logout/$', views.LogoutView.as_view(), name='logout'),
     re_path(r'^profile/(?P<user_id>[0-9]+)/$', views.ProfileView.as_view(), name='profile'),
