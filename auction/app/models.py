@@ -53,6 +53,11 @@ class Product(models.Model):
         ('Footwear','Footwear'),
         ('Others','Others')
     )
+    option=(
+        ('Sell','Sell'),
+        ('Rent','Rent')
+
+    )
     seller_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False, related_name='%(class)s_seller')
     name = models.CharField(max_length=50, blank=False,unique=True)
     desp = models.TextField(max_length=500, blank=False, null=True)
@@ -62,16 +67,26 @@ class Product(models.Model):
     end = models.DateTimeField(default=timezone.now() + timezone.timedelta(hours=1))
     current_bid = models.IntegerField(default=0)
     product_sold = models.BooleanField(default=False)
+    choose=models.CharField(max_length=50, blank=True,null=True,choices=option)
     bidder_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='%(class)s_bidder')
+    rent_status = models.BooleanField(default=False)
+    rent_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='%(class)s_rent')
+    rent_price = models.IntegerField(default=0)
+    rent_time_start = models.DateTimeField(default=timezone.now, null=True)
+    rent_time_end = models.DateTimeField(default=timezone.now() + timezone.timedelta(hours=1))
+    rent_fine = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id)
 
 class rent(models.Model):
-    seller1=models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False, related_name='%(class)s_seller1')
+    #seller1=models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=False, related_name='%(class)s_seller1')
+    name1 = models.CharField(max_length=50, blank=False, unique=True)
+    des1 = models.TextField(max_length=500, blank=False, null=True)
     rate=models.IntegerField(default=0)
-    start1 = models.DateTimeField(default=timezone.now, null=True)
-    end1 = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=5))
-    rent_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,related_name='%(class)s_rent')
+    #start1 = models.DateTimeField(default=timezone.now, null=True)
+    #end1 = models.DateTimeField(default=timezone.now() + timezone.timedelta(days=5))
+    #rent_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,related_name='%(class)s_rent')
     fine=models.IntegerField(default=0)
-
+    def __str__(self):
+        return str(self.id)

@@ -16,8 +16,8 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
-from .forms import ProductForm
-from .models import Product
+from .forms import ProductForm,RentForm
+from .models import Product,rent
 from .forms import BidsForm
 from django.views import View
 
@@ -28,7 +28,7 @@ class Home(View):
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        return render(request, 'app/home.html')
+        return render(request, 'app/home1.html')
 
 
 # -----------------AJAX SEARCH BAR CODE--------------------------------------------------------------------------------
@@ -74,6 +74,43 @@ def options(request):
         product_json='fail'
     mimetype="application/json"
     return HttpResponse(product_json,mimetype)
+'''
+class RentView(View):
+    template_name = 'app/rent_view.html'
+     @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+         product = Product.objects.get(id=kwargs['pk'])
+        if product.current_bid==0:
+             context = {
+                'product': product,
+                      }
+            return render(request, self.template_name, context)
+
+class RentProduct(View):
+    
+    template_name = 'app/rent_products.html'
+     @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+         p = Product.objects.get(id=kwargs['pk'])
+        if p.rent_status == 'False':
+             context = {
+                'name': p.name,
+                'desp': p.desp,
+                'category': p.category,
+                'rent': p.rent_price,
+                'owner': p.seller_id,
+            }
+            return render(request, self.template_name, context)
+        else:
+             context = {
+                'name': p.name,
+                'desp': p.desp,
+                'category': p.category,
+                'rent': p.rent_price,
+                'owner': p.seller_id,
+                'temp_onwer': p.rent_id
+                      }
+             return render(request, 'app/product_sold.html', context)'''
 
 
 # ---------------------SIGN UP CODE-------------------------------------------------------------------------
@@ -164,7 +201,7 @@ class LoginView(View):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return render(request, 'app/home.html')
+                return render(request, 'app/home1.html')
             else:
                 return HttpResponse('Please! Verify your Email first')
         else:
@@ -233,6 +270,24 @@ class AddProduct(View):
         form = ProductForm()
         context = {'form' : form}
         return render(request, 'app/product_form.html', context)
+
+class RentProduct(View):
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        form = RentForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            #product.seller1 = request.user
+            product.save()
+            return redirect('home')
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        form = RentForm()
+        context = {'form': form}
+        return render(request, 'app/rent_form.html', context)
+
+
 
 
 # -------------------------------BUYER CAN SEE ALL THE LISTED PRODUCTS AND SORT THEM ACCORDINGLY------------------------

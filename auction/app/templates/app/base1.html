@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>alx</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+     <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+    <link rel="stylesheet" href="{% static '/css/main1.css' %}">
+</head>
+
+
+<body style="background:rgb(210, 229, 247)">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<nav class="navbar navbar-inverse" style="background:#061A40;border:none">
+  <div class="container-fluid navelements">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href= "{% url 'home' %}">ALX</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'profile' user.id %}"><span class="glyphicon glyphicon-user"></span> PROFILE</a></li>
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar navbar-default" style="margin-top:-1.5%;background:#9DB0C0;border: none">
+        <div class="container " style="font-size:130%" >
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'bids_currently_winning' %}">Bids Curently Winning </a></li>
+            <li><a href="{% url 'buyer' %}">Buyer Section</a></li>
+            <li><a href="{% url 'bids_won' %}">Bids Won</a></li>
+            <li><a href="{% url 'product_listed' %}">Seller Section</a></li>
+          </ul>
+        </div>
+      </nav>
+
+
+{% block home %}
+
+{% endblock %}
+
+
+{% block bids_currently_winning  %}
+
+{% endblock %}
+
+
+{% block bids_won %}
+
+{% endblock %}
+
+
+{% block buyer %}
+
+{% endblock %}
+
+
+{% block cannot_bid %}
+
+{% endblock %}
+
+
+{% block edit_profile %}
+
+{% endblock %}
+
+
+{% block product_form %}
+
+{% endblock %}
+
+
+{% block product_listed %}
+
+{% endblock %}
+
+
+{% block product_sold %}
+
+{% endblock %}
+
+
+{% block bidding %}
+
+{% endblock %}
+
+
+{% block profile %}
+
+{% endblock %}
+
+
+
+{% block javascript %}
+
+{% endblock %}
+
+
+</body>
+</html>

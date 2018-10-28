@@ -2,7 +2,7 @@ from django.core.files.images import get_image_dimensions
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import MyProfile, Product
+from .models import MyProfile, Product,rent
 from django.core.validators import MinValueValidator
 
 
@@ -50,6 +50,11 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'desp', 'category', 'minimum_price',)
+        fields = ('name', 'desp', 'category', 'minimum_price','rent_price','rent_fine')
+class RentForm(forms.ModelForm):
+    class Meta:
+        model= rent
+        fields=('name1','des1','rate','fine')
+
 
 

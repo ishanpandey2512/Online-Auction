@@ -1,0 +1,12 @@
+ .navelements{
+        padding:0% 16% 0% 16%;
+        font-size: 120%;
+    }
+
+    .main-text
+{
+    position: absolute;
+    top: 35%;
+    width: 96.66666666666666%;
+    color: #FFF;
+}
