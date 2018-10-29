@@ -21,6 +21,8 @@ urlpatterns = [
     path('bids_currently_winning/', views.BidsCurrentlyWinning.as_view(), name='bids_currently_winning'),
     path('bids_won/', views.BidsWon.as_view(), name='bids_won'),
     re_path(r'^ajax/search/$', views.search, name='search'),
+    path('rent/', views.RentView.as_view(), name='rent_list'),
+    path('rent/<int:pk>', views.RentProductView.as_view(), name='rent_product'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

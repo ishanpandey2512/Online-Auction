@@ -377,18 +377,17 @@ class RentView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
 
-        product = Product.objects.get(id=kwargs['pk'])
+        rent_product_list = Product.objects.get(id=kwargs['pk'])
         if product.current_bid==0:
-
             context = {
-                'product': product,
+                'rent_product_list': rent_product_list,
                       }
             return render(request, self.template_name, context)
 
 
 #----------------------------RENT PRODUCT HERE--------------------------------------------------------------------------
-8
-class RentProduct(View):
+
+class RentProductView(View):
     template_name = 'app/'rent_products.html'
 
     @method_decorator(login_required)
@@ -424,4 +423,17 @@ class RentProduct(View):
     #
     #     rent = request.POST['rent']
     #     if rent == 'product_rented':
-    #
+
+
+class ProductsRented(View):
+    template_name = 'app/products_rented.html'
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        user_id = request.user
+        product = Product.objects.filter(rent_id=user_id)
+        context = {
+            'product': product
+        }
+
+        return render(request, self.template_name, context)
