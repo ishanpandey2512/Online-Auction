@@ -1,5 +1,5 @@
 
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% load staticfiles %}
 
 
@@ -16,21 +16,25 @@
 
 <h1 style="margin-bottom:40px; margin-left:42%; font-size:35px; color:white; font-weight:bold;">BIDS WON</h1>
 <div style="text-align:center;  margin-left:23%;">
-<table>
+<table class="table tb box-shadow--6dp">
+    <thead>
     <tr>
-        <th style="font-size:30px; padding:10px;">Name</th>
-        <th style="font-size:30px; padding:10px;">Category</th>
-        <th style="font-size:30px; padding:10px;">Highest Bid</th>
-        <th style="font-size:30px; padding:10px;">Seller Username</th>
+        <th style="font-size:28px; padding:10px;">Name</th>
+        <th style="font-size:28px; padding:10px;">Category</th>
+        <th style="font-size:28px; padding:10px;">Highest Bid</th>
+        <th style="font-size:28px; padding:10px;">Seller Username</th>
     </tr>
-
+    </thead>
 {% for p in product %}
+    <tbody>
     <tr>
         <td style="font-size:30px; padding:10px;">{{p.name}}</td>
         <td style="font-size:30px; padding:10px;">{{ p.category }}</td>
         <td style="font-size:30px; padding:10px;">{{ p.current_bid }}</td>
         <td style="font-size:30px; padding:10px;">{{ p.seller_id}}</td>
     </tr>
+    </tbody>
+
 {% endfor %}
 </table>
 {% else %}

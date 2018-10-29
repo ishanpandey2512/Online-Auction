@@ -1,5 +1,5 @@
 
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
@@ -11,13 +11,14 @@
 
     </style>
 </head>
-<body>
+<body style="background-image: url('01.jpeg');background-size: cover;">
 {% block product_listed %}
 {% if product %}
 
 <h1 style="margin-bottom:40px; margin-left:40%; font-size:35px; color:white; font-weight:bold;">PRODUCTS LISTED</h1>
 <div style="text-align:center;  margin-left:30%;">
-<table>
+<table class="table tb box-shadow--6dp">
+    <thead>
     <tr>
         <th>Name</th>
         <th>Category</th>
@@ -25,8 +26,10 @@
         <th>Bidder Name</th>
         <th>Sold Status</th>
     </tr>
+    </thead>
 
 {% for p in product %}
+    <tbody>
     <tr>
         <td>{{p.name}}</td>
         <td>{{ p.category }}</td>
@@ -34,11 +37,12 @@
         <td>{{ p.bidder_id}}</td>
         <td>{{ p.product_sold}}</td>
     </tr>
+    </tbody>
 {% endfor %}
 </table>
     <br>
      <a class="sell-more" href="{% url 'add_product'%}" style="text-decoration:none;  margin-left:-40% ; "> SELL MORE PRODUCT </a>
-    <a class ="sell-more" href="{% url 'rent_product'%}" style="text-decoration:none;  margin-left:-60% ;">RENT PRODUCT</a>
+    <!--<a class ="sell-more" href="{% url 'rent_product'%}" style="text-decoration:none;  margin-left:-60% ;">RENT PRODUCT</a>-->
 {% else %}
     <br>
     <h1 style="text-align:center; font-size:30px; color:white;">YOU HAVE NOT LISTED ANY PRODUCT FOR BIDDING</h1>
