@@ -257,7 +257,7 @@ class ProductView(View):
     def get(self, request, *args, **kwargs):
         time_now = timezone.now()
         p = Product.objects.get(id=kwargs['pk'])
-        if time_now < p.end:
+        if time_now < p.end and p.rent_status == False:
             form = BidsForm()
             context = {
                 'name': p.name,
@@ -272,7 +272,7 @@ class ProductView(View):
             }
             return render(request, self.template_name, context)
         else:
-            p.product_sold = 'True'
+            p.product_sold = True
             p.save()
             context = {
                 'name': p.name,
@@ -395,8 +395,7 @@ class RentProductView(View):
     def get(self, request, *args, **kwargs):
 
         rent_product = Product.objects.get(id=kwargs['pk'])
-        if rent_product.rent_status == 'False':
-
+        if rent_product.rent_status == False:
             context = {
                 'name': rent_product.name,
                 'desp': rent_product.desp,
@@ -424,17 +423,23 @@ class RentProductView(View):
     def post(self, request, *args, **kwargs):
         rent_product = Product.objects.get(id=kwargs['pk'])
         user_id = request.user
-        rent = request.POST['rent']
-        if rent == 'product_rented':
-            time_now = timezone.now()
-            return_time = timezone.now() + timezone.timedelta(days=1)
-            rent_product.rent_id = user_id
-            rent_product.rent_status = 'True'
-            rent_product.rent_time_start = time_now
-            rent_product.rent_time_end = return_time
-            rent_product.save()
+        rent = request.POST['rented']
 
-        return redirect('products_rented')
+        if rent_product.seller_id == user_id:
+            redirect('home')
+
+        else:
+            if rent == 'product_rented':
+                time_now = timezone.now()
+                return_time = timezone.now() + timezone.timedelta(days=1)
+                rent_product.save(commit=False)
+                rent_product.rent_id = user_id
+                rent_product.rent_status = True
+                rent_product.rent_time_start = time_now
+                rent_product.rent_time_end = return_time
+                rent_product.save()
+
+            return redirect('products_rented')
 
 
 #------------------------------------PRODUCTS RENTED-------------------------------------------------------------------
@@ -447,8 +452,12 @@ class ProductsRented(View):
         user_id = request.user
         product = Product.objects.filter(rent_id=user_id)
         time_now = timezone.now()
-        if product.rent_time_start > product.rent_time_end:
+        time_end = product.rent_time_end
+
+        if time_now > time_end :
+            product.save(commit=False)
             product.rent_fine = 10
+            product.save()
         context = {
             'product': product
         }
@@ -463,7 +472,7 @@ class ProductsRented(View):
         return_pro = request.POST['return']
         if return_pro == 'return_product':
             return_product.rent_id = NULL
-            return_product.rent_status = 'False'
+            return_product.rent_status = False
             return_product.save()
 
         return redirect('home')
