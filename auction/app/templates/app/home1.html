@@ -100,7 +100,7 @@ $(function(){
   </script>
 {% endblock %}
 {% block home %}
-<div id="myCarousel" class="carousel slide" data-ride="carousel" style="height:90%;" >
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="max-height:400px;" >
             <!-- Indicators
             <ol class="carousel-indicators">
               <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -111,17 +111,18 @@ $(function(){
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
               <div class="item active">
-                <img src="{% static '/images/all.png' %}" alt="Los Angeles" style="width:100%;height:90%;" >
+                <img src="{% static '/images/c2.jpg' %}" alt="Los Angeles" style="width:100%;max-height:400px;" >
               </div>
 
               <div class="item">
-                <img src="{% static '/images/all.png' %}" alt="Chicago" style="width:100%;height:90%;">
+                <img src="{% static '/images/c3.jpg' %}" alt="Chicago" style="width:100%;max-height:400px;">
               </div>
 
               <div class="item">
-                <img src="{% static '/images/all.png' %}" alt="New york" style="width:100%;height:90%;">
+                <img src="{% static '/images/c4.jpg' %}" alt="New york" style="width:100%;max-height:400px;">
               </div>
-            </div>
+            </<div>
+
 
 
             <!-- Left and right controls -->
@@ -138,21 +139,30 @@ $(function(){
 
           <div class="main-text">
                 <div class="col-md-12 text-center">
-                    <h1>
-                        WELCOME TO ALX</h1>
+                    <h1><b>
+                        WELCOME TO ALX</b></h1>
                     <h3>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     </h3>
-                    <!--<form class="form-inline" style="margin-top:4%;">-->
-                            <input class="form-control mr-sm-2" type="text" id="value1"  placeholder="Search" aria-label="Search" style="width:30%;border: 1px solid midnightblue">
-                            <button class="btn btn-outline-success my-2 my-sm-0" id="value" type="submit">Search</button>
-
-                   <!-- </form>-->
-                    <div class="results" id="results">
-
-                        </div>
+                    <div class="input-group sr">
+                            <input class="form-control srip" type="text" id="value1"  placeholder="Search" aria-label="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" id="value" type="submit">
+                                    <i class="glyphicon glyphicon-search srip"></i> </button>
+                      </div>
+                    </div>
                 </div>
             </div>
+
+
+                   <div class="card bg-primary srcard">
+
+              <div class="card-body text-center" id="results" style="background-color:lightblue;">
+
+
+              </div>
+                </div>
+
 
 {% endblock %}
 </body>

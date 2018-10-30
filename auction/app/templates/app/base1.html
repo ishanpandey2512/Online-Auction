@@ -12,6 +12,8 @@
      <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
          rel = "stylesheet">
     <link rel="stylesheet" href="{% static '/css/main1.css' %}">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 
@@ -19,7 +21,7 @@
 <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
-<nav class="navbar navbar-inverse" style="background:#061A40;border:none">
+<nav class="navbar navbar-inverse" style="background:rgba(5, 38, 99, 0.678);border:none">
   <div class="container-fluid navelements">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -33,20 +35,20 @@
     <div class="collapse navbar-collapse" id="myNavbar">
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{% url 'profile' user.id %}"><span class="glyphicon glyphicon-user"></span> PROFILE</a></li>
-        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+        <li><a href="{% url 'profile' user.id %}" style="color:rgb(3, 3, 3)" ><span class="glyphicon glyphicon-user"></span> PROFILE</a></li>
+        <li><a href="{% url 'logout' %}" style="color:rgb(3, 3, 3)" ><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<nav class="navbar navbar-default" style="margin-top:-1.5%;background:#9DB0C0;border: none">
+<nav class="navbar navbar-default" style="margin-top:-1.5%;background:rgb(186, 220, 248);border: none">
         <div class="container " style="font-size:130%" >
           <ul class="nav navbar-nav">
-            <li><a href="{% url 'bids_currently_winning' %}">Bids Curently Winning </a></li>
-            <li><a href="{% url 'buyer' %}">Buyer Section</a></li>
-            <li><a href="{% url 'bids_won' %}">Bids Won</a></li>
-            <li><a href="{% url 'product_listed' %}">Seller Section</a></li>
+            <li><a href="{% url 'bids_currently_winning' %}" style="color:rgb(3, 3, 3)"  >Bids Curently Winning </a></li>
+            <li><a href="{% url 'buyer' %}" style="color:rgb(3, 3, 3)" >Buyer Section</a></li>
+            <li><a href="{% url 'bids_won' %}" style="color:rgb(3, 3, 3)" >Bids Won</a></li>
+            <li><a href="{% url 'product_listed' %}" style="color:rgb(3, 3, 3)" >Seller Section</a></li>
           </ul>
         </div>
       </nav>
