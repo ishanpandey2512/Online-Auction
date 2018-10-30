@@ -23,6 +23,8 @@
         <th>Category</th>
         <th>Rent</th>
         <th>Product Owner</th>
+        <th>Fine</th>
+        <th>Return Product</th>
     </tr>
 
 {% for p in product %}
@@ -31,6 +33,17 @@
         <td>{{ p.category }}</td>
         <td>{{ p.rent_price }}</td>
         <td>{{ p.rent_id}}</td>
+        <td>{{ p.rent_fine }}</td>
+        <td>
+            <form method="post" style="margin-left:2vw; margin-top:-1vw;  color:black;  position:absolute;">
+
+            {% csrf_token %}
+            <br>
+            <button class="issue" type="submit" value="return_product" name="return" style="cursor: pointer;  margin:6px; border-radius:10px;"> RENT PRODUCT </button>
+            <br>
+
+            </form>
+        </td>
     </tr>
 {% endfor %}
 </table>

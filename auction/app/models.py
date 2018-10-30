@@ -66,8 +66,8 @@ class Product(models.Model):
     rent_status = models.BooleanField(default=False)
     rent_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='%(class)s_rent')
     rent_price = models.IntegerField(default=0)
-    rent_time_start = models.DateTimeField()
-    rent_time_end = models.DateTimeField()
+    rent_time_start = models.DateTimeField(null=True)
+    rent_time_end = models.DateTimeField(null=True)
     rent_fine = models.IntegerField(default=0)
 
     def __str__(self):

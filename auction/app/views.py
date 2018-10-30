@@ -377,53 +377,67 @@ class RentView(View):
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
 
-        rent_product_list = Product.objects.get(id=kwargs['pk'])
-        if product.current_bid==0:
-            context = {
-                'rent_product_list': rent_product_list,
-                      }
-            return render(request, self.template_name, context)
+        rent_product_list = Product.objects.filter(current_bid=0)
+
+        context = {
+            'rent_product_list': rent_product_list,
+        }
+
+        return render(request, self.template_name, context)
 
 
 #----------------------------RENT PRODUCT HERE--------------------------------------------------------------------------
 
 class RentProductView(View):
-    template_name = 'app/'rent_products.html'
+    template_name = 'app/rent_products.html'
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
 
-        p = Product.objects.get(id=kwargs['pk'])
-        if p.rent_status == 'False':
+        rent_product = Product.objects.get(id=kwargs['pk'])
+        if rent_product.rent_status == 'False':
 
             context = {
-                'name': p.name,
-                'desp': p.desp,
-                'category': p.category,
-                'rent': p.rent_price,
-                'owner': p.seller_id,
+                'name': rent_product.name,
+                'desp': rent_product.desp,
+                'category': rent_product.category,
+                'rent': rent_product.rent_price,
+                'owner': rent_product.seller_id,
             }
             return render(request, self.template_name, context)
+
         else:
 
             context = {
-                'name': p.name,
-                'desp': p.desp,
-                'category': p.category,
-                'rent': p.rent_price,
-                'owner': p.seller_id,
-                'temp_onwer': p.rent_id
+                'name': rent_product.name,
+                'desp': rent_product.desp,
+                'category': rent_product.category,
+                'rent': rent_product.rent_price,
+                'owner': rent_product.seller_id,
+                'temp_onwer': rent_product.rent_id
                       }
 
-            return render(request, 'app/product_sold.html', context)
+            return render(request, 'app/product_already_rented.html', context)
 
 
-    # @method_decorator(login_required)
-    # def post(self, request, *args, **kwargs):
-    #
-    #     rent = request.POST['rent']
-    #     if rent == 'product_rented':
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        rent_product = Product.objects.get(id=kwargs['pk'])
+        user_id = request.user
+        rent = request.POST['rent']
+        if rent == 'product_rented':
+            time_now = timezone.now()
+            return_time = timezone.now() + timezone.timedelta(days=1)
+            rent_product.rent_id = user_id
+            rent_product.rent_status = 'True'
+            rent_product.rent_time_start = time_now
+            rent_product.rent_time_end = return_time
+            rent_product.save()
 
+        return redirect('products_rented')
+
+
+#------------------------------------PRODUCTS RENTED-------------------------------------------------------------------
 
 class ProductsRented(View):
     template_name = 'app/products_rented.html'
@@ -432,8 +446,24 @@ class ProductsRented(View):
     def get(self, request, *args, **kwargs):
         user_id = request.user
         product = Product.objects.filter(rent_id=user_id)
+        time_now = timezone.now()
+        if product.rent_time_start > product.rent_time_end:
+            product.rent_fine = 10
         context = {
             'product': product
         }
 
+
         return render(request, self.template_name, context)
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        return_product = Product.objects.get(id=kwargs['pk'])
+        user_id = request.user
+        return_pro = request.POST['return']
+        if return_pro == 'return_product':
+            return_product.rent_id = NULL
+            return_product.rent_status = 'False'
+            return_product.save()
+
+        return redirect('home')
