@@ -1,0 +1,30 @@
+{% extends 'app/base1.html' %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BIDDING AREA</title>
+</head>
+<body>
+{% block product_already_rented %}
+<div style="text-align:center; font-size:50px; margin-top:40px; font-weight:bold; font-family:sans-serif;">
+   <h2>Name:- {{ name }}</h2>
+   <br>
+
+
+   <h4>DESCRIPTION:-{{ desp}}</h4>
+
+
+   <br>
+   <h4>CATEGORY:-{{ category}}</h4>
+   <br>
+
+   <h4>RENT PRICE:-{{ rent_price }}</h4>
+   <br>
+   <h4>RENTED BY :-{{ temp_owner }}</h4>
+</div>
+{% endblock %}
+</body>
+</html>

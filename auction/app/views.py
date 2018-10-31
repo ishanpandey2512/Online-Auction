@@ -256,14 +256,6 @@ class ProfileEdit(View):
 
 
 class AddProduct(View):
-    @method_decorator(login_required)
-    def post(self, request, *args, **kwargs):
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            product_item = form.save(commit=False)
-            product_item.seller_id = request.user
-            product_item.save()
-            return redirect('home')
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -271,23 +263,20 @@ class AddProduct(View):
         context = {'form' : form}
         return render(request, 'app/product_form.html', context)
 
-class RentProduct(View):
+
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
-        form = RentForm(request.POST)
+
+        form = ProductForm(request.POST)
         if form.is_valid():
-            product = form.save(commit=False)
-            #product.seller1 = request.user
-            product.save()
-            return redirect('home')
+            print(10)
+            product_item = form.save(commit=False)
+            print(11)
+            product_item.seller_id = request.user
+            product_item.save()
+            print(12)
 
-    @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
-        form = RentForm()
-        context = {'form': form}
-        return render(request, 'app/rent_form.html', context)
-
-
+        return redirect('products_listed')
 
 
 # -------------------------------BUYER CAN SEE ALL THE LISTED PRODUCTS AND SORT THEM ACCORDINGLY------------------------
@@ -410,7 +399,7 @@ class ProductView(View):
 
 class ProductListed(View):
 
-    template_name = 'app/product_listed.html'
+    template_name = 'app/products_listed.html'
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -420,7 +409,7 @@ class ProductListed(View):
             'product': product
             }
 
-        return render(request, self.template_name,context)
+        return render(request, self.template_name, context)
 
 
 # ---------------------USER CAN SEE THE BIDS(LIVE) IN WHICH HE/SHE IS CURRENTLY WINNING---------------------------------
@@ -456,3 +445,110 @@ class BidsWon(View):
         }
         return render(request, self.template_name, context)
 
+# ----------------------PRODUCTS AVAILABLE FOR RENT---------------------------------------------------------------------
+
+class RentView(View):
+    template_name = 'app/rent_view.html'
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+
+        rent_product_list = Product.objects.filter(current_bid=0)
+
+        context = {
+            'rent_product_list': rent_product_list,
+        }
+
+        return render(request, self.template_name, context)
+
+
+#----------------------------RENT PRODUCT HERE--------------------------------------------------------------------------
+
+class RentProductView(View):
+    template_name = 'app/rent_products.html'
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+
+        rent_product = Product.objects.get(id=kwargs['pk'])
+        if rent_product.rent_status == False:
+            context = {
+                'name': rent_product.name,
+                'desp': rent_product.desp,
+                'category': rent_product.category,
+                'rent': rent_product.rent_price,
+                'owner': rent_product.seller_id,
+            }
+            return render(request, self.template_name, context)
+
+        else:
+
+            context = {
+                'name': rent_product.name,
+                'desp': rent_product.desp,
+                'category': rent_product.category,
+                'rent': rent_product.rent_price,
+                'owner': rent_product.seller_id,
+                'temp_onwer': rent_product.rent_id
+                      }
+
+            return render(request, 'app/product_already_rented.html', context)
+
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        rent_product = Product.objects.get(id=kwargs['pk'])
+        user_id = request.user
+        rent = request.POST['rented']
+
+        if rent_product.seller_id == user_id:
+            redirect('home')
+
+        else:
+            if rent == 'product_rented':
+                time_now = timezone.now()
+                return_time = timezone.now() + timezone.timedelta(days=1)
+                rent_product.save(commit=False)
+                rent_product.rent_id = user_id
+                rent_product.rent_status = True
+                rent_product.rent_time_start = time_now
+                rent_product.rent_time_end = return_time
+                rent_product.save()
+
+            return redirect('products_rented')
+
+
+#------------------------------------PRODUCTS RENTED-------------------------------------------------------------------
+
+class ProductsRented(View):
+    template_name = 'app/products_rented.html'
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        user_id = request.user
+        product = Product.objects.filter(rent_id=user_id)
+        # time_now = timezone.now()
+        # time_end = product.rent_time_end
+        #
+        # if time_now > time_end :
+        #     product.save(commit=False)
+        #     product.rent_fine = 10
+        #     product.save()
+        context = {
+            'product': product
+        }
+
+
+        return render(request, self.template_name, context)
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        return_product = Product.objects.get(id=kwargs['pk'])
+        user_id = request.user
+        return_pro = request.POST['return']
+        if return_pro == 'return_product':
+            return_product.rent_id = NULL
+            return_product.rent_status = False
+            return_product.save()
+
+        return redirect('home')

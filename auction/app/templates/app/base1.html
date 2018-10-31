@@ -45,10 +45,12 @@
 <nav class="navbar navbar-default" style="margin-top:-1.5%;background:rgb(186, 220, 248);border: none">
         <div class="container " style="font-size:130%" >
           <ul class="nav navbar-nav">
-            <li><a href="{% url 'bids_currently_winning' %}" style="color:rgb(3, 3, 3)"  >Bids Curently Winning </a></li>
             <li><a href="{% url 'buyer' %}" style="color:rgb(3, 3, 3)" >Buyer Section</a></li>
             <li><a href="{% url 'bids_won' %}" style="color:rgb(3, 3, 3)" >Bids Won</a></li>
-            <li><a href="{% url 'product_listed' %}" style="color:rgb(3, 3, 3)" >Seller Section</a></li>
+            <li><a href="{% url 'bids_currently_winning' %}" style="color:rgb(3, 3, 3)"  >Bids Curently Winning </a></li>
+            <li><a href="{% url 'rent_list' %}" style="color:rgb(3, 3, 3)">Rent Section</a></li>
+            <li><a href="{% url 'products_rented' %}" style="color:rgb(3, 3, 3)">Products Rented</a></li>
+            <li><a href="{% url 'products_listed' %}" style="color:rgb(3, 3, 3)" >Seller Section</a></li>
           </ul>
         </div>
       </nav>
@@ -108,6 +110,23 @@
 
 {% endblock %}
 
+{% block rent_list %}
+
+{% endblock %}
+
+
+{% block rent_product %}
+
+{% endblock %}
+
+
+{% block product_already_rented %}
+
+{% endblock %}
+
+{% block products_rented %}
+
+{% endblock %}
 
 
 {% block javascript %}

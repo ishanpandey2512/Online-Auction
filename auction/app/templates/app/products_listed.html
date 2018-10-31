@@ -2,6 +2,7 @@
 {% extends 'app/base1.html' %}
 {% load staticfiles %}
 {% block product_listed %}
+<html>
 <body id="listed">
 
 {% if product %}
@@ -33,14 +34,13 @@
 </table>
     <br>
      <a class="sell-more" href="{% url 'add_product'%}" style="text-decoration:none;  margin-left:-20% ; "> SELL MORE PRODUCT </a>
-    <!--<a class ="sell-more" href="{% url 'rent_product'%}" style="text-decoration:none;  margin-left:-60% ;">RENT PRODUCT</a>-->
-{% else %}
+  {% else %}
     <br>
     <h1 style="text-align:center; font-size:30px; color:white;">YOU HAVE NOT LISTED ANY PRODUCT FOR BIDDING</h1>
     <br>
     <br>
     <br>
-    <a class="sell-product" href="{% url 'add_product'%}" style="text-decoration:none; margin-left:45%; margin-top:5%;">SELL PRODUCTS</a>
+    <a class="sell-product" href="{% url 'add_product' %}" style="text-decoration:none; margin-left:45%; margin-top:5%;">SELL PRODUCTS</a>
  {% endif %}
 </div>
 {% endblock %}

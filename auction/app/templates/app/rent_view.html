@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'app/base1.html' %}
+{% load staticfiles %}
 
-</body>
-</html>
+
+{% block rent_list %}
+
+
+{% if rent_product_list %}
+<!--<form method="post" style="margin-left:2vw; margin-top:-1vw;  color:black;  position:absolute;">-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--<h1 style="color:white; font-size:25px; font-family:cursive">SORT-BY:-</h1>-->
+    <!--{% csrf_token %}-->
+    <!--<br>-->
+
+    <!--<button class="sort1" type="submit" value="new_to_old" name="sort" style="cursor: pointer;  margin:6px; border-radius:10px;"> NEW TO OLD   </button>-->
+    <!--<br>-->
+    <!--<button class="sort2" type="submit" value ="old_to_new" name="sort" style="cursor: pointer;  margin:6px; border-radius:15px;"> OLD TO NEW  </button>-->
+    <!--<br>-->
+    <!--<button class="sort3" type="submit" value="high_to_low" name="sort" style="cursor: pointer;  margin:6px; border-radius:15px;"> HIGH TO LOW </button>-->
+    <!--<br>-->
+    <!--<button class="sort4" type="submit" value ="low_to_high" name="sort" style="cursor: pointer;  margin:6px; border-radius:15px;"> LOW TO HIGH </button>-->
+     <!--<br>-->
+    <!--<button class="sort5" type="submit" value ="unsold" name="sort" style="cursor: pointer; margin:6px; border-radius:15px;"> UNSOLD ITEMS</button>-->
+
+<!--</form>-->
+
+    {% for product in rent_product_list %}
+      <ul class="product-list">
+          <li>
+          <h1><a href="{% url 'rent_product' product.id %}" style="text-decoration:none;">{{ product.name }}</a></h1>
+          <h2>Category:-{{ product.categoty }}</h2>
+          <!--<h2>Rent :-{{product.rent_price}}</h2>-->
+          <!--<h2>Product Owned By:-{{product.seller_id}</h2>-->
+          </li>
+    <br>
+    </ul>
+
+    {% endfor %}
+
+{% else %}
+<br>
+    <p style="color:white; font-size:30px; margin-left:40%;">NO PRODUCT IS AVAILABLE FOR RENT</p>
+{% endif %}
+
+{% endblock %}

@@ -1,8 +1,17 @@
 {% extends 'app/base1.html' %}
 {% load staticfiles %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
 
-{% block products_rented%}
+    </style>
+</head>
+<body>
+{% block products_rented %}
 {% if product %}
 
 <h1 style="margin-bottom:40px; margin-left:40%; font-size:35px; color:white; font-weight:bold;">PRODUCTS RENTED</h1>
@@ -37,12 +46,17 @@
     </tr>
 {% endfor %}
 </table>
-
+    <!--<br>-->
+     <!--<a class="sell-more" href="{% url 'add_product'%}" style="text-decoration:none;  margin-left:-40% ; "> SELL MORE PRODUCT </a>-->
 {% else %}
     <br>
     <h1 style="text-align:center; font-size:30px; color:white;">YOU HAVE NOT RENTED ANY PRODUCT</h1>
     <br>
-
+    <!--<br>-->
+    <!--<br>-->
+    <!--<a class="sell-product" href="{% url 'add_product'%}" style="text-decoration:none; margin-left:45%; margin-top:5%;">SELL PRODUCTS</a>-->
  {% endif %}
 </div>
 {% endblock %}
+</body>
+</html>
