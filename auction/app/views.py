@@ -451,13 +451,13 @@ class ProductsRented(View):
     def get(self, request, *args, **kwargs):
         user_id = request.user
         product = Product.objects.filter(rent_id=user_id)
-        time_now = timezone.now()
-        time_end = product.rent_time_end
-
-        if time_now > time_end :
-            product.save(commit=False)
-            product.rent_fine = 10
-            product.save()
+        # time_now = timezone.now()
+        # time_end = product.rent_time_end
+        #
+        # if time_now > time_end :
+        #     product.save(commit=False)
+        #     product.rent_fine = 10
+        #     product.save()
         context = {
             'product': product
         }
