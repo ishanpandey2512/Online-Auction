@@ -6,64 +6,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>Login</title>
-    <style>
 
-     p{
-     font-size:30px;
-
-     }
-    .login{
-
-
-    width:400px;
-    height:400px;
-    margin-top:150px;
-    margin-left:500px;
-    border-style: outset;}
-    .heading{
-    padding:0px;
-
-
-
-    }
-    h2{
-
-    font-size:40px;
-    font-weight:bolder;}
-</style>
 </head>
-<body>
 
+<body style="background-image: url('landing.png');background-size: cover;background-repeat: no-repeat">
 {% block login %}
+<img src="{% static '/images/alx1.png' %}" class="img-fluid logo" style="width:10%;height:auto;">
+ <form method="post">
+      <div class=wel>
+          Welcome :)
+      </div> <br>
+      <div class="connected">
+          To keep connected, Please Login with you personal information<br> by Username & password  <i class="fa fa-bell bells"></i>
+      </div>
 
-<div class="login">
-<center>
- <div class="heading">
-     <h1 style="font-size: 50px; margin-top:10px;">ONLINE-AUCTION</h1>
-     <h2 style="font-size:30px;  margin-top:20px; margin-bottom:40px;">LOGIN</h2>
- </div>
-<form method="post">
+
+
     {% csrf_token %}
-    {% for field in form %}
+   <!-- {% for field in form %}
     <p style="font-size:20px;">
         {{ field.label_tag }}
         {{ field }}<br><br>
     </p>
-    {% endfor %}
+    {% endfor %}-->
+     <div class="input-group em" style="margin-top:2%;">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
+    <input type="text" class="form-control" name="username" maxlength="150" required="" id="id_username" placeholder="Username" style="font-size:130%;padding:5% 3% 5% 3%;">
+    </div>
+     <div class="input-group em">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+    <input type="password" name="password" class="form-control" placeholder="Password" style="font-size:130%;padding:5% 3% 5% 3%;"required="" id="id_password">
+    </div>
     {% for error in messages %}
     <p style="color: red">{{ error }}</p>
     {% endfor %}
-
-    <button type="submit" style="background-color:white; font-size:16px; padding:10px; border-radius:20px; cursor:pointer; margin-left:5%; ">LOG IN</button>
+<br><br>
+    <button type="submit" style="background-color:light-blue; font-size:16px; padding:10px; border-radius:20px; cursor:pointer; margin-left:8%; ">LOG IN</button>
 
      <a href="{% url 'signup' %}" style="text-decoration:none; font-size:16px; padding:12px; border-radius: 20px; color: black; background-color:white; ">SIGNUP</a>
 
 </form>
-</center>
-</div>
+
 {% endblock %}
 </body>
 </html>

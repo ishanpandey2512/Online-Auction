@@ -1,4 +1,4 @@
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% load staticfiles %}
 
 <!Doctype html>
@@ -9,51 +9,55 @@
     <meta charset="UTF-8">
     <title>Signup</title>
 </head>
-<body>
+<body style="background:rgb(215, 227, 250)">
 
 {% block profile %}
-<div style="text-align:center;">
-<h1 style="text-align:center; font-size:35px; letter-spacing:3px; margin-top:10px; color:white;">PROFILE</h1>
-<br>
+<form class="tk box-shadow--6dp ">
+
+    <h1 class="display-1" style="text-align:center;">MY PROFILE</h1>
 
 
-<img style="width: 20vw; height: 30vh; border-radius:30px;" alt="avatar" src="{{ user.myprofile.avatar.url }}"/>
-<br>
-    <br>
-    <table style="padding:20px; margin-left:41%;">
-     <tr>
-         <td>First name :</td>    <td>{{ user.myprofile.first_name }}</td>
-     </tr>
-     <tr>
-         <td>Last name   :</td> <td>{{ user.myprofile.last_name }}</td>
-     </tr>
-     <tr>
-         <td >Gender : </td> <td>{{ user.myprofile.gender }}</td>
-     </tr>
-     <tr>
-         <td>Contact no.  :</td><td>{{ user.myprofile.phone_number }}</td>
-     </tr>
+<!--<img style="width: 20vw; height: 30vh; border-radius:30px;" alt="avatar" src="{{ user.myprofile.avatar.url }}"/>-->
 
-     <tr>
-         <td>Username :</td><td>{{ user.username }}</td>
-     </tr>
-     <tr>
-         <td>Email-Id :</td><td>{{ user.email }}</td>
-     </tr>
 
-    </table>
-    <br>
+
+    <h2 class="prof"><span class="glyphicon glyphicon-user"></span>  First name {{ user.myprofile.first_name }}</h2>
+
+
+    <h2 class="prof"><span class="glyphicon glyphicon-user"></span>Last name:{{ user.myprofile.last_name }}</h2>
+
+
+    <h2 class="prof"><i class="fa fa-venus-mars"></i>  Gender :  {{ user.myprofile.gender }}</h2>
+
+
+    <h2 class="prof"><i class="fa fa-phone"></i> Contact no.  :{{ user.myprofile.phone_number }}</h2>
+
+
+
+         <h2 class="prof"><i class="fa fa-user"></i>Username :{{ user.username }}</h2>
+
+
+    <h2 class="prof"><i class="fa fa-envelope-open"></i> Email-Id :{{ user.email }}</h2>
+
+
+
+
 
         {% if request.user.is_authenticated %}
+<div class="form-group row " >
+        <div class="col-sm-10">
 
-        <a class="edit-profile" href="{% url 'edit_profile' user.id %}">
-            Edit profile</a>
+       <button type="submit" class="btn btn-primary" style="font-size:90%;margin-left:44%;background-color:black;"> <a href="{% url 'edit_profile' user.id %}" style="text-decoration:none;">
+           Edit profile</a></button>
 
         {% endif %}
-
-    <br>
-
 </div>
+    </div>
+
+</form>
+
+
+
 {% endblock %}
 </body>
 </html>

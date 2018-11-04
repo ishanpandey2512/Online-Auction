@@ -15,15 +15,17 @@ urlpatterns = [
     re_path(r'^profile/(?P<user_id>[0-9]+)/$', views.ProfileView.as_view(), name='profile'),
     re_path(r'^profile/(?P<user_id>[0-9]+)/edit/$', views.ProfileEdit.as_view(), name='edit_profile'),
     re_path('seller/', views.AddProduct.as_view(), name='add_product'),
+
     path('buyer/<int:pk>/', views.ProductView.as_view(), name='product'),
     path('buyer/', views.BuyerView.as_view(), name='buyer'),
-    path('product_listed/', views.ProductListed.as_view(), name='product_listed'),
+    path('products_listed/', views.ProductListed.as_view(), name='products_listed'),
     path('bids_currently_winning/', views.BidsCurrentlyWinning.as_view(), name='bids_currently_winning'),
     path('bids_won/', views.BidsWon.as_view(), name='bids_won'),
     re_path(r'^ajax/search/$', views.search, name='search'),
+    url(r'^ajax/options/$', views.options, name='options'),
     path('rent/', views.RentView.as_view(), name='rent_list'),
     path('rent/<int:pk>/', views.RentProductView.as_view(), name='rent_product'),
-    path('products_rented', views.ProductsRented.as_view(), name='products_rented'),
+    path('products_rented/', views.ProductsRented.as_view(), name='products_rented'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

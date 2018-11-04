@@ -1,36 +1,54 @@
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% load staticfiles %}
 
-{% block rent_product %}
 
-<div style="text-align:center; font-size:50px; margin-top:40px; font-weight:bold; font-family:sans-serif;">
+{% block products_rented%}
+<div class="container tab box-shadow--6dp">
+    <h2 style="text-align:center;">Rent Section</h2>
+    <table class="table table-bordered" style="font-size:20px;">
+      <tbody>
+        <tr>
+           <td><b>Name:</b></td>
+          <td>{{name}}</td>
 
+        </tr>
+        <tr>
+          <td><b>Description:</b></td>
+          <td>{{desp}}</td>
 
-   <h2>Name:- {{ name }}</h2>
-   <br>
+        </tr>
+        <tr>
+          <td><b>Category:</b></td>
+          <td>{{category}}</td>
 
-   <h4>DESCRIPTION:-{{ desp }}</h4>
+        </tr>
+        <tr>
+            <td><b>Rent:</b></td>
+            <td>{{rent}}</td>
 
+          </tr>
+        <tr>
+            <td><b>Owned By:</b></td>
+            <td>{{owner}}</td>
 
-   <br>
-   <h4>CATEGORY:-{{ category }}</h4>
-   <br>
+        </tr>
+        <tr>
+            <td><b>Rent Product:</b></td>
+            <td>
+                   <form method="post" style="margin-top:-2vw;  color:black;  position:absolute;">
 
-   <br>
-   <h4>RENT PRICE:-{{ rent }}</h4>
-   <br>
+                         {% csrf_token %}
+                          <br>
+                          <button class="issue" type="submit" value="return_product" name="return" style="cursor: pointer;  padding:4px;  border-radius:30px;"> RENT PRODUCT </button>
+                          <br>
 
-   <br>
-   <h4>OWNED BY:-{{ owner }}</h4>
-   <br>
+                   </form>
+            </td>
 
-<form method="post" style="margin-left:2vw; margin-top:-1vw;  color:black;  position:absolute;">
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    {% csrf_token %}
-    <br>
-    <button class="issue" type="submit" name="rented" value="product_rented" style="cursor: pointer;  margin:6px; border-radius:10px;"> RENT PRODUCT </button>
-    <br>
-
-</form>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
@@ -9,28 +9,50 @@
 </head>
 <body>
 {% block product_sold %}
-<div style="text-align:center; font-size:50px; margin-top:40px; font-weight:bold; font-family:sans-serif;">
-   <h2>Name:- {{ name }}</h2>
-   <br>
+ <div class="container tab box-shadow--6dp">
+    <h2 style="text-align:center;">Product Description Table</h2>
+    <table class="table table-bordered" style="font-size:20px;">
+      <tbody>
+        <tr>
+           <td><b>Name:</b></td>
+          <td>{{name}}</td>
 
+        </tr>
+        <tr>
+          <td><b>Description:</b></td>
+          <td>{{desp}}</td>
 
-   <h4>DESCRIPTION:-{{ desp}}</h4>
-   <!--<br>-->
+        </tr>
+        <tr>
+          <td><b>Category:</b></td>
+          <td>{{category}}</td>
 
-   <br>
-   <h4>CATEGORY:-{{ category}}</h4>
-   <br>
+        </tr>
+        <tr>
+            <td><b>Bid Start:</b></td>
+            <td>{{start}}</td>
 
-   <h4>BID START :-{{ start}}</h4>
-   <br>
+          </tr>
+        <tr>
+            <td><b>Bid End:</b></td>
+            <td>{{end}}</td>
 
-   <h4>BID END:-{{ end}}</h4>
-   <br>
+          </tr>
+        <tr>
+            <td><b>Highest Bid:</b></td>
+            <td>{{currentbid}}</td>
 
-   <h4>HIGGEST BID:-{{ currentbid }}</h4>
-   <br>
-   <h4>ITEM SOLD TO :-{{ buyer }}</h4>
-</div>
+          </tr>
+
+          <tr>
+            <td><b>Item Sold To:</b></td>
+            <td>{{buyer}}</td>
+
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
 {% endblock %}
 </body>
 </html>

@@ -1,31 +1,32 @@
 
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% load staticfiles %}
 {% block bidding %}
-<div style="text-align:center; font-size:50px; margin-top:40px; font-weight:bold; font-family:sans-serif;">
+<div style="text-align:center; font-size:20px; margin-top:40px; font-weight:bold; font-family:sans-serif;">
 
 
    <h2>Name:- {{ name }}</h2>
    <br>
 
-   <h4>DESCRIPTION:-{{ desp }}</h4>
-   <!--<br>-->
+
+   <h4>DESCRIPTION:-{{ desp}}</h4>
+
 
    <br>
-   <h4>CATEGORY:-{{ category }}</h4>
+   <h4>CATEGORY:-{{ category}}</h4>
    <br>
 
-   <h4>MINIMUM BID:-{{ minbid }}</h4>
+   <h4>MINIMUM BID:-{{ minbid}}</h4>
    <br>
 
-   <h4>BID START :-{{ start }}</h4>
+   <h4>BID START :-{{ start}}</h4>
    <br>
 
-   <h4>BID END:-{{ end }}</h4>
+   <h4>BID END:-{{ end}}</h4>
    <br>
 
-   <h4 id="bid">{{ currentbid }}</h4>
-
+   <h4>CURRENT BID:-{{ currentbid }}</h4>
+<br>
 
 <form method="post">
 
@@ -35,7 +36,7 @@
 
     </label>
     <br>
-    <button type="submit">SUBMIT BID</button>
+    <button>SUBMIT BID</button>
 
 </form>
 </div>
@@ -53,5 +54,5 @@
 
 <!--</script>-->
 {% endblock %}
-<!--</body>-->
-<!--</html>-->
+</body>
+</html>

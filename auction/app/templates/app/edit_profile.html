@@ -1,5 +1,5 @@
 
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
@@ -10,14 +10,16 @@
 </head>
 <body>
 {% block edit_profile %}
-<div style=" margin-left:40%;">
-<h2 style="color:white; font-size:35px; letter-spacing:1px; margin:5px;"> Update Profile </h2>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="tk box-shadow--6dp ">
+
+    <h1 class="display-1" style="text-align:center;">EDIT PROFILE</h1>
+
+
     {% csrf_token %}
 
-    <p>UserName : {{user.username }}</p>
-    <p>Email:  {{ user.email }}</p>
-    <img style="width: 20vw; height: 20vh; border-radius:30px;" alt="avatar" src="{{ user.myprofile.avatar.url }}" />
+    <h2 class="prof">UserName : {{user.username }}</h2>
+    <h2 class="prof">Email:  {{ user.email }}</h2>
+
 
 
     {% for field in form %}
@@ -28,11 +30,12 @@
     <p style="color: red;">{{ error }}</p>
     {% endfor %}
     </p>
-    {% endfor %}
-    <button type="submit">Save</button>
+
+    {% endfor %}<br>
+    <button type="submit" style="margin-left:50%;">Save</button>
 
 </form>
-</div>
+
 {% endblock %}
 </body>
 </html>

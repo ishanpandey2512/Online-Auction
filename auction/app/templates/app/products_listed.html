@@ -1,0 +1,48 @@
+
+{% extends 'app/base1.html' %}
+{% load staticfiles %}
+{% block product_listed %}
+<html>
+<body id="listed">
+
+{% if product %}
+
+<h1 style="margin-bottom:40px; margin-left:40%; font-size:35px; color:white; font-weight:bold;">PRODUCTS LISTED</h1>
+<div style="text-align:center;  margin-left:20%;margin-right:20%;">
+<table class="table tb box-shadow--6dp">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Current Bid</th>
+        <th>Bidder Name</th>
+        <th>Sold Status</th>
+    </tr>
+    </thead>
+
+{% for p in product %}
+    <tbody>
+    <tr>
+        <td>{{p.name}}</td>
+        <td>{{ p.category }}</td>
+        <td>{{ p.current_bid }}</td>
+        <td>{{ p.bidder_id}}</td>
+        <td>{{ p.product_sold}}</td>
+    </tr>
+    </tbody>
+{% endfor %}
+</table>
+    <br>
+     <a class="sell-more" href="{% url 'add_product'%}" style="text-decoration:none;  margin-left:-20% ; "> SELL MORE PRODUCT </a>
+  {% else %}
+    <br>
+    <h1 style="text-align:center; font-size:30px; color:white;">YOU HAVE NOT LISTED ANY PRODUCT FOR BIDDING</h1>
+    <br>
+    <br>
+    <br>
+    <a class="sell-product" href="{% url 'add_product' %}" style="text-decoration:none; margin-left:80%; margin-top:5%;">SELL PRODUCTS</a>
+ {% endif %}
+</div>
+{% endblock %}
+</body>
+</html>

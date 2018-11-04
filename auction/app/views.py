@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.decorators import login_required
+import json
 from django.http import JsonResponse
 from .forms import SignupForm, LoginForm, EditProfileForm
 from django.contrib.auth.models import User
@@ -27,20 +28,89 @@ class Home(View):
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
-        return render(request, 'app/home.html')
+        return render(request, 'app/home1.html')
 
 
 # -----------------AJAX SEARCH BAR CODE--------------------------------------------------------------------------------
 
 
 def search(request):
-    text = request.GET.get("value", "")
-    product = Product.objects.filter(category__iexact=text).values_list('name', 'id')
-
+    print("inside ajax")
+    text = request.GET.get("value1", "")
+    k = Product.objects.filter(category__iexact=text).values_list('name', 'id')
+    j = Product.objects.filter(name__iexact=text).values_list('name', 'id')
     data = {}
-    data['products'] = list(product)
+    if (j):
+
+        data['products'] = list(j)
+    else:
+
+        data['products'] = list(k)
 
     return JsonResponse(data)
+def options(request):
+    if request.is_ajax:
+        word=request.GET.get('value1','')
+        item=Product.objects.filter(category__istartswith=word)
+        item1=Product.objects.filter(name__istartswith=word)
+        results=[]
+        for i in item:
+            product={}
+
+            product['label']=i.category
+
+            product['value']=i.category
+            if product not in results:
+                results.append(product)
+
+        for j in item1:
+            product={}
+            product['label']=j.name
+            product['value']=j.name
+            results.append(product)
+
+        product_json=json.dumps(results)
+    else:
+        product_json='fail'
+    mimetype="application/json"
+    return HttpResponse(product_json,mimetype)
+'''
+class RentView(View):
+    template_name = 'app/rent_view.html'
+     @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+         product = Product.objects.get(id=kwargs['pk'])
+        if product.current_bid==0:
+             context = {
+                'product': product,
+                      }
+            return render(request, self.template_name, context)
+
+class RentProduct(View):
+    
+    template_name = 'app/rent_products.html'
+     @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+         p = Product.objects.get(id=kwargs['pk'])
+        if p.rent_status == 'False':
+             context = {
+                'name': p.name,
+                'desp': p.desp,
+                'category': p.category,
+                'rent': p.rent_price,
+                'owner': p.seller_id,
+            }
+            return render(request, self.template_name, context)
+        else:
+             context = {
+                'name': p.name,
+                'desp': p.desp,
+                'category': p.category,
+                'rent': p.rent_price,
+                'owner': p.seller_id,
+                'temp_onwer': p.rent_id
+                      }
+             return render(request, 'app/product_sold.html', context)'''
 
 
 # ---------------------SIGN UP CODE-------------------------------------------------------------------------
@@ -131,7 +201,7 @@ class LoginView(View):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return render(request, 'app/home.html')
+                return render(request, 'app/home1.html')
             else:
                 return HttpResponse('Please! Verify your Email first')
         else:
@@ -186,20 +256,27 @@ class ProfileEdit(View):
 
 
 class AddProduct(View):
-    @method_decorator(login_required)
-    def post(self, request, *args, **kwargs):
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            product_item = form.save(commit=False)
-            product_item.seller_id = request.user
-            product_item.save()
-            return redirect('home')
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         form = ProductForm()
         context = {'form' : form}
         return render(request, 'app/product_form.html', context)
+
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            print(10)
+            product_item = form.save(commit=False)
+            print(11)
+            product_item.seller_id = request.user
+            product_item.save()
+            print(12)
+
+        return redirect('products_listed')
 
 
 # -------------------------------BUYER CAN SEE ALL THE LISTED PRODUCTS AND SORT THEM ACCORDINGLY------------------------
@@ -257,7 +334,7 @@ class ProductView(View):
     def get(self, request, *args, **kwargs):
         time_now = timezone.now()
         p = Product.objects.get(id=kwargs['pk'])
-        if time_now < p.end and p.rent_status == False:
+        if time_now < p.end:
             form = BidsForm()
             context = {
                 'name': p.name,
@@ -272,7 +349,7 @@ class ProductView(View):
             }
             return render(request, self.template_name, context)
         else:
-            p.product_sold = True
+            p.product_sold = 'True'
             p.save()
             context = {
                 'name': p.name,
@@ -322,7 +399,7 @@ class ProductView(View):
 
 class ProductListed(View):
 
-    template_name = 'app/product_listed.html'
+    template_name = 'app/products_listed.html'
 
     @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
@@ -332,7 +409,7 @@ class ProductListed(View):
             'product': product
             }
 
-        return render(request, self.template_name,context)
+        return render(request, self.template_name, context)
 
 
 # ---------------------USER CAN SEE THE BIDS(LIVE) IN WHICH HE/SHE IS CURRENTLY WINNING---------------------------------
@@ -367,7 +444,6 @@ class BidsWon(View):
             'product': product
         }
         return render(request, self.template_name, context)
-
 
 # ----------------------PRODUCTS AVAILABLE FOR RENT---------------------------------------------------------------------
 
@@ -421,15 +497,18 @@ class RentProductView(View):
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
+
         rent_product = Product.objects.get(id=kwargs['pk'])
         user_id = request.user
         rent = request.POST['rented']
 
-        if rent_product.seller_id == user_id:
-            redirect('home')
 
-        else:
-            if rent == 'product_rented':
+        if rent == 'product_rented':
+
+            if rent_product.seller_id == user_id:
+                redirect('home')
+
+            else:
                 time_now = timezone.now()
                 return_time = timezone.now() + timezone.timedelta(days=1)
                 rent_product.save(commit=False)
@@ -439,7 +518,7 @@ class RentProductView(View):
                 rent_product.rent_time_end = return_time
                 rent_product.save()
 
-            return redirect('products_rented')
+        return redirect('products_rented')
 
 
 #------------------------------------PRODUCTS RENTED-------------------------------------------------------------------

@@ -1,5 +1,5 @@
 
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
@@ -12,22 +12,28 @@
 {% block bids_currently_winning %}
 {% if product %}
 <h1 style="margin-bottom:40px; margin-left:35%; font-size:35px; color:white; font-weight:bold;">BIDS CURRENTLY RUNNING</h1>
-<div style="text-align:center;  margin-left:35%;">
-<table>
+<div style="text-align:left; ">
+<table class="table tb box-shadow--6dp">
+    <thead>
     <tr>
         <th>Name</th>
         <th>Category</th>
         <th>Current Bid</th>
         <th>Seller Username</th>
     </tr>
+    </thead>
+
 
 {% for p in product %}
+    <tbody>
     <tr>
         <td>{{p.name}}</td>
         <td >{{ p.category }}</td>
         <td >{{ p.current_bid }}</td>
         <td >{{ p.seller_id}}</td>
     </tr>
+    </tbody>
+
 {% endfor %}
 </table>
 {% else %}

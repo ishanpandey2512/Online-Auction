@@ -8,14 +8,37 @@
     <meta charset="UTF-8">
     <title>Signup</title>
 </head>
-<body>
+<body class="erp">
+<img src="{% static '/images/landing.png' %}">
 {% block signup %}
-<h1 style="font-size: 50px; margin-top:10px; margin-left:37%;">ONLINE-AUCTION</h1>
-<h2 style="font-size: 30px; margin-top:20px; margin-left:46%; margin-bottom:20px;">SIGNUP</h2>
-<center>
+
+
 <form method="post">
     {% csrf_token %}
-    {% for field in form %}
+    <div class=wel>
+          SIGNUP
+      </div> <br>
+      <div class="connected">
+          To keep connected, Please Sign Up with you personal information<br> by Username & password  <i class="fa fa-bell bells"></i>
+      </div>
+     <div class="input-group em" style="margin-top:2%;">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    <input type="text" name="username" class="form-control" maxlength="150" placeholder="Username" autofocus="" required="" id="id_username" style="font-size:130%;padding:5% 3% 5% 3%;">
+    </div>
+     <div class="input-group em" style="">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+    <input type="email" name="email" class="form-control" maxlength="50" placeholder="Email" required="" id="id_email" style="font-size:130%;padding:5% 3% 5% 3%;">
+     </div>
+     <div class="input-group em" style="">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+    <input type="password" name="password1" class="form-control" placeholder="Password" required="" id="id_password1" style="font-size:130%;padding:5% 3% 5% 3%;">
+     </div>
+    <div class="input-group em">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i></span>
+    <input type="password" name="password2" class="form-control" placeholder="Confirm Password" required="" id="id_password2" style="font-size:130%;padding:5% 3% 5% 3%;">
+    </div>
+    <br>
+   <!-- {% for field in form %}
     <p>
         {{ field.label_tag }}<br>
         {{ field }}<br><br>
@@ -26,12 +49,12 @@
         {% endfor %}
 
     </p>
-    {% endfor %}
-    <button type="submit" style="background-color:white; font-size:16px; padding:10px; border-radius:20px; cursor:pointer;">SIGN UP</button>
+    {% endfor %}-->
+    <button type="submit" style="margin-left:150px;background-color:white; font-size:16px; padding:10px; border-radius:20px; cursor:pointer;">SIGN UP</button>
     <a href="{% url 'login' %}" style="background-color:white; font-size:16px; padding:10px; border-radius:20px; cursor:pointer; color:black; text-decoration:none; ">LOGIN</a>
 
 </form>
-</center>
+
 {% endblock %}
 </body>
 </html>

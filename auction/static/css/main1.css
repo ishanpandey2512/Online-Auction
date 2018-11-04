@@ -1,0 +1,282 @@
+ .navelements{
+        padding:0% 16% 0% 16%;
+        font-size: 120%;
+    }
+
+    .main-text
+{
+    position: absolute;
+    top: 35%;
+    width: 96.66666666666666%;
+    color: #FFF;
+}
+.nav1 a {
+    display: block;
+    color: #fff;
+    text-align: center;
+    padding: 14px 30px;
+    text-decoration: none;
+}
+
+.nav1 a:hover:not(.active) {
+    background-color: #fff;
+    color: black;
+     transition: all 0.2s ease;
+}
+
+.nav1 a.active {
+    color: black;
+    background-color: white;
+}
+
+ .tb{
+    background:rgba(186, 220, 248, 0.849);
+    width:50%;
+    float: none;
+    margin: 5% auto;
+    margin-right:40%;
+
+    font-size: 170%;
+    border: 2px solid rgb(150, 205, 250);
+  }
+  .tm{
+    background:rgba(186, 220, 248, 0.849);
+    width:60%;
+
+    float: none;
+    margin:1% auto;
+
+
+    font-size: 170%;
+    border: 2px solid rgb(150, 205, 250);
+  }
+
+  .box-shadow--6dp {
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5), 0 1px 18px 0 rgba(0, 0, 0, .5), 0 3px 5px -1px rgba(0, 0, 0, .5)
+}
+.abcd{
+background-image:url(/static/01.jpeg);
+
+}
+.sell-more{
+       border:none;
+       border-radius:20px;
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+
+
+}
+.box-shadow--6dp {
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.5), 0 1px 18px 0 rgba(0, 0, 0, .5), 0 3px 5px -1px rgba(0, 0, 0, .5)
+}
+
+    .sz{
+        font-size: 70%;
+        width:90%;
+        padding-left:2%;
+
+
+
+    }
+
+
+    .lbsz{
+        font-size: 90%;
+
+        font-weight:bold;
+        letter-spacing:2px;
+        margin-left:3%;
+    }
+
+ .av{
+        width: 30%;
+        height: 30%;
+        float: none;
+        margin: 2% auto;
+    }
+    .prof{
+        float: none;
+        margin:4% auto;
+    }
+.edit-profile
+{
+    text-decoration:none;
+    margin-right:3%;
+    border-radius: 20px;
+    padding: 10px;
+    color:black;
+    margin-left:3%;
+    background:white;
+}
+.tk{
+background:rgba(186, 220, 248, 0.925);
+    width:50%;
+    float: none;
+    margin: 5% auto;
+    margin-left:25%;
+    font-size: 170%;
+    border: 2px solid rgb(150, 205, 250);
+    padding: 1%;
+}
+        .em{
+    width:30%;
+    margin-left:8%;
+    margin-top:2%;
+
+  }
+
+  .wel{
+    font-size: 300%;
+    font-weight: 200;
+    margin-top: 9%;
+    margin-left:8%;
+
+}
+
+.connected{
+    font-size: 120%;
+    font-weight: 200;
+    margin-left:8%;
+
+}
+
+.logbtn{
+
+  border-radius: 25px;
+  margin-left: 17%;
+  margin-top: 2%;
+}
+.subtn{
+
+  border-radius: 25px;
+  margin-left: 1%;
+  margin-top: 2%;
+}
+
+.logo{
+  margin-top:2%;
+  margin-left: 3%;
+}
+.sr{
+
+  border: 3px solid rgba(10, 10, 10, 0.493);
+  width: 30%;
+  float: none;
+  margin: 2% auto;
+}
+.srip{
+  font-size: 150%;
+  padding: 5%;
+}
+
+.srcard{
+  width: 20%;
+  float: none;
+  margin: 2% auto;
+  background:rgb(178, 209, 245);
+  border-radius: 10px;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 1px 18px 0 rgba(0, 0, 0, .4), 0 3px 5px -1px rgba(0, 0, 0, .2);
+  color: black;
+}
+
+.pro{
+  color: black;
+
+}
+
+.tab{
+      width:40%;
+
+      font-size: 130%;
+      background:rgba(186, 220, 248, 0.925);
+      border: 2px solid rgb(121, 177, 241);
+      margin: 5% auto;
+  }
+.cr{
+    margin-top:5%;
+}
+
+table.table-bordered > tbody > tr > td{
+    border:1.5px solid rgb(8, 8, 8);
+}
+
+.product-list li{
+
+         list-style: disc;
+         color: black;
+         margin-left:45vw;
+         margin-top:5%;
+         font-size:30px;
+}
+.sort1{
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort1:hover{
+       background:white;
+       color:black;
+       transition: all 0.2s ease;
+}
+.sort2{
+
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort2:hover{
+       background:white;
+       transition: all 0.2s ease;
+       color:black;
+}
+.sort3{
+
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort3:hover{
+       background:white;
+       transition: all 0.2s ease;
+       color:black;
+}.sort4{
+
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort4:hover{
+       background:white;
+       transition: all 0.2s ease;
+       color:black;
+}.sort5{
+
+       background:black;
+       color:white;
+       font-size: 15px;
+       border: none;
+       padding: 5px 7px 5px 7px;
+}
+.sort5:hover{
+       background:white;
+       color:black;
+       transition: all 0.2s ease;
+}
+
+#listed{
+background-image: url('/static/images/all.png');
+background-size: cover;
+}
+.erp1{
+background-image:url('/static/images/landing.png');}

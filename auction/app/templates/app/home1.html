@@ -1,0 +1,170 @@
+{% extends 'app/base1.html' %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block javascript %}
+   <script >
+  $("#value").click(function () {
+        console.log("1");
+
+      $.ajax({
+
+
+        url: "{% url 'search' %}",
+
+        data: {
+
+          'value1':$('#value1').val()
+        },
+        dataType: 'json',
+        success: function (data) {
+
+        var res="";
+        var products = data['products'];
+
+        if(products.length!=0)
+        {
+
+         res="<ul>";
+            for(var i = 0; i < products.length; i++ ){
+                 console.log(products[i][0]);
+                 res += "<li> <a href=\"../app/buyer/" + products[i][1] + "\">" +  products[i][0] + "</a></li>";
+
+            }
+            res += "</ul>";}
+            else
+            res="<div><br><br>No results</div>"
+
+
+
+            $("#results").html(res);
+          }
+
+      });
+
+
+    });
+$(function(){
+            console.log("67");
+
+            var t = [
+               "mobiles",
+               "grocery",
+               "clothes",
+               "electronics",
+               "home appliances",
+               "beauty",
+               "toys",
+               "sports",
+               "footwear",
+               "others"
+
+            ];
+
+
+
+
+            $( "#value1" ).autocomplete({
+               minLength:1,
+               delay:500,
+               source:function(req,add){
+               var search=$("#value1").val();
+               $.ajax({
+               url:"{% url 'options' %}",
+               async:false,
+               dataType:'json',
+               type:'GET',
+               data:{'value1':search,},
+               success:function(data){
+               var suggestions=[];
+               $.each(data,function(index,objeto){
+               suggestions.push(objeto);
+               });
+               add(suggestions);
+
+               },
+               error:function(err){
+               alert("error");
+               }
+               });
+               }
+
+            });
+         });
+
+  </script>
+{% endblock %}
+{% block home %}
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="max-height:400px;" >
+            <!-- Indicators
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol> -->
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              <div class="item active">
+                <img src="{% static '/images/c2.jpg' %}" alt="Los Angeles" style="width:100%;max-height:400px;" >
+              </div>
+
+              <div class="item">
+                <img src="{% static '/images/c3.jpg' %}" alt="Chicago" style="width:100%;max-height:400px;">
+              </div>
+
+              <div class="item">
+                <img src="{% static '/images/c4.jpg' %}" alt="New york" style="width:100%;max-height:400px;">
+              </div>
+            </<div>
+
+
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+
+          <div class="main-text">
+                <div class="col-md-12 text-center">
+                    <h1><b>
+                        WELCOME TO ALX</b></h1>
+                    <h3>
+                        SELL, BUY USING AUCTION AND RENT!!!
+                    </h3>
+                    <div class="input-group sr">
+                            <input class="form-control srip" type="text" id="value1"  placeholder="Search" aria-label="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" id="value" type="submit">
+                                    <i class="glyphicon glyphicon-search srip"></i> </button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+
+                   <div class="card bg-primary srcard">
+
+              <div class="card-body text-center" id="results" style="background-color:lightblue;">
+
+
+              </div>
+                </div>
+
+
+{% endblock %}
+</body>
+</html>
+

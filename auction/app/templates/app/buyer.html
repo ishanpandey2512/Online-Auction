@@ -1,4 +1,4 @@
-{% extends 'app/base.html' %}
+{% extends 'app/base1.html' %}
 {% load staticfiles %}
 {% block buyer %}
 
@@ -6,7 +6,7 @@
 <form method="post" style="margin-left:2vw; margin-top:-1vw;  color:black;  position:absolute;">
     <br>
     <br>
-    <h1 style="color:white; font-size:25px; font-family:cursive">SORT-BY:-</h1>
+    <h1 style="color:white; font-size:20px; font-family:cursive">SORT-BY:-</h1>
     {% csrf_token %}
     <br>
 
@@ -23,12 +23,12 @@
 </form>
 
     {% for product in product_list %}
-      <ul class="product-list">
+      <ul class="product-list" style="font-size:10px;">
           <li>
           <h1><a href="{% url 'product' product.id %}" style="text-decoration:none;">{{ product.name }}</a></h1>
-          <h2 >Start Time:-{{product.start}}</h2>
-          <h2>End Time:-{{product.end}}</h2>
-          <h2>Current Bid:-{{product.current_bid}}</h2>
+              <h2 style="font-size:20px;" ><b>Start Time:-{{product.start}}</b></h2>
+              <h2 style="font-size:20px;"><b>End Time:-{{product.end}}</b></h2>
+              <h2 style="font-size:20px;"><b>Current Bid:-{{product.current_bid}}</b></h2>
           </li>
     <br>
     </ul>

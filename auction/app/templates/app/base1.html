@@ -1,0 +1,138 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>alx</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+     <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+    <link rel="stylesheet" href="{% static '/css/main1.css' %}">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+
+<body style="background:rgb(210, 229, 247)">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<nav class="navbar navbar-inverse" style="background:rgba(5, 38, 99, 0.678);border:none">
+  <div class="container-fluid navelements">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href= "{% url 'home' %}">ALX</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'profile' user.id %}" style="color:rgb(3, 3, 3)" ><span class="glyphicon glyphicon-user"></span> PROFILE</a></li>
+        <li><a href="{% url 'logout' %}" style="color:rgb(3, 3, 3)" ><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar navbar-default" style="margin-top:-1.5%;background:rgb(186, 220, 248);border: none">
+        <div class="container " style="font-size:130%" >
+          <ul class="nav navbar-nav">
+            <li class="nav1"><a href="{% url 'buyer' %}" style="color:rgb(3, 3, 3)" >Buyer Section</a></li>
+            <li class="nav1"><a href="{% url 'bids_won' %}" style="color:rgb(3, 3, 3)" >Bids Won</a></li>
+            <li class="nav1"><a href="{% url 'bids_currently_winning' %}" style="color:rgb(3, 3, 3)"  >Bids Curently Winning </a></li>
+            <li class="nav1"><a href="{% url 'rent_list' %}" style="color:rgb(3, 3, 3)">Rent Section</a></li>
+            <li class="nav1"><a href="{% url 'products_rented' %}" style="color:rgb(3, 3, 3)">Products Rented</a></li>
+            <li class="nav1"><a href="{% url 'products_listed' %}" style="color:rgb(3, 3, 3)" >Seller Section</a></li>
+          </ul>
+        </div>
+      </nav>
+
+
+{% block home %}
+
+{% endblock %}
+
+
+{% block bids_currently_winning  %}
+
+{% endblock %}
+
+
+{% block bids_won %}
+
+{% endblock %}
+
+
+{% block buyer %}
+
+{% endblock %}
+
+
+{% block cannot_bid %}
+
+{% endblock %}
+
+
+{% block edit_profile %}
+
+{% endblock %}
+
+
+{% block product_form %}
+
+{% endblock %}
+
+
+{% block product_listed %}
+
+{% endblock %}
+
+
+{% block product_sold %}
+
+{% endblock %}
+
+
+{% block bidding %}
+
+{% endblock %}
+
+
+{% block profile %}
+
+{% endblock %}
+
+{% block rent_list %}
+
+{% endblock %}
+
+
+{% block rent_product %}
+
+{% endblock %}
+
+
+{% block product_already_rented %}
+
+{% endblock %}
+
+{% block products_rented %}
+
+{% endblock %}
+
+
+{% block javascript %}
+
+{% endblock %}
+
+
+</body>
+</html>
