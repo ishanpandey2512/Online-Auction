@@ -1,58 +1,31 @@
+
+
 {% extends 'app/base1.html' %}
 {% load staticfiles %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
 
-    </style>
-</head>
-<body>
 {% block products_rented %}
-{% if product %}
 
-<h1 style="margin-bottom:40px; margin-left:40%; font-size:35px; color:white; font-weight:bold;">PRODUCTS RENTED</h1>
-<div style="text-align:center;  margin-left:30%;">
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Rent</th>
-        <th>Product Owner</th>
-        <th>Fine</th>
-        <th>Return Product</th>
-    </tr>
 
-{% for p in product %}
-    <tr>
-        <td>{{p.name}}</td>
-        <td>{{ p.category }}</td>
-        <td>{{ p.rent_price }}</td>
-        <td>{{ p.rent_id}}</td>
-        <td>{{ p.rent_fine }}</td>
-        <td>
-            <form method="post" style="margin-left:2vw; margin-top:-1vw;  color:black;  position:absolute;">
+{% if rented_product %}
 
-            {% csrf_token %}
-            <br>
-            <button class="issue" type="submit" value="return_product" name="return" style="cursor: pointer;  margin:6px; border-radius:10px;"> RENT PRODUCT </button>
-            <br>
+    {% for product in rented_product %}
+      <ul class="product-list">
+          <li>
+              <h1><a href="{% url 'return_product' product.id %}" style="text-decoration:none;">{{ product.name }}</a></h1>
+              <h2>Category:-{{ product.category }}</h2>
+              <h2>Start:-{{product.rent_time_start}}</h2>
+              <h2>End:-{{product.rent_time_end}}</h2>
+          </li>
+    <br>
+    </ul>
 
-            </form>
-        </td>
-    </tr>
-{% endfor %}
-</table>
+    {% endfor %}
 
 {% else %}
-    <br>
-    <h1 style="text-align:center; font-size:30px; color:white;">YOU HAVE NOT RENTED ANY PRODUCT</h1>
-    <br>
-     {% endif %}
-</div>
+<br>
+    <p style="color:white; font-size:30px; margin-left:30%;">NO PRODUCT IS AVAILABLE FOR RENT</p>
+{% endif %}
+
 {% endblock %}
-</body>
-</html>
+

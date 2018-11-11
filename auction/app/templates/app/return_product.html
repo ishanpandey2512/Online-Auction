@@ -2,9 +2,9 @@
 {% load staticfiles %}
 
 
-{% block rent_products %}
+{% block return_product %}
 <div class="container tab box-shadow--6dp">
-    <h2 style="text-align:center;">Rent Section</h2>
+    <h2 style="text-align:center;">Return Section</h2>
     <table class="table table-bordered" style="font-size:20px;">
       <tbody>
         <tr>
@@ -31,13 +31,26 @@
             <td><b>Owned By:</b></td>
             <td>{{owner}}</td>
 
+        </tr>
+        <tr>
+            <td><b>Rent Fine:</b></td>
+            <td>{{fine}}</td>
 
         </tr>
-        <tr><td>Start time</td>
-            <td>{{start}}</td>
+        <tr>
+            <td><b>Rent Price:</b></td>
+            <td>{{price}}</td>
+
         </tr>
-         <tr><td>End time</td>
+        <tr>
+            <td><b>Start Time:</b></td>
+            <td>{{start}}</td>
+
+        </tr>
+        <tr>
+            <td><b>End Time:</b></td>
             <td>{{end}}</td>
+
         </tr>
         <tr>
             <td><b>Rent Product:</b></td>
@@ -45,7 +58,7 @@
                    <form method="post" style="margin-top:-2vw;  color:black;  position:absolute;">
                          {% csrf_token %}
                           <br>
-                          <button class="issue" type="submit" value="return_product" name="return" style="cursor: pointer;  padding:4px;  border-radius:30px;"> RENT PRODUCT </button>
+                          <button class="issue" type="submit" value="finalreturn1" name="finalreturn" style="cursor: pointer;  padding:4px;  border-radius:30px;"> RETURN PRODUCT </button>
                           <br>
 
                    </form>

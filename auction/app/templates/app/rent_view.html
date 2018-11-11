@@ -11,7 +11,9 @@
       <ul class="product-list">
           <li>
           <h1><a href="{% url 'rent_product' product.id %}" style="text-decoration:none;">{{ product.name }}</a></h1>
-          <h2>Category:-{{ product.categoty }}</h2>
+          <h2>Category:-{{ product.category }}</h2>
+              <h2>Start time:-{{product.rent_time_start}}</h2>
+              <h2>End time:-{{product.rent_time_end}} </h2>
           </li>
     <br>
     </ul>

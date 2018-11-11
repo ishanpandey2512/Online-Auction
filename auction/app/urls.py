@@ -26,6 +26,7 @@ urlpatterns = [
     path('rent/', views.RentView.as_view(), name='rent_list'),
     path('rent/<int:pk>/', views.RentProductView.as_view(), name='rent_product'),
     path('products_rented/', views.ProductsRented.as_view(), name='products_rented'),
+    path('return/<int:pk>/',views.ReturnProduct.as_view(),name='return_product'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
