@@ -16,9 +16,9 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import send_mail
 from auction.settings import EMAIL_HOST_USER
-from .forms import ProductForm,RentForm
-from .models import Product,rent
-from .forms import BidsForm
+from .forms import ProductForm, BidsForm
+from .models import Product
+
 from django.views import View
 
 
