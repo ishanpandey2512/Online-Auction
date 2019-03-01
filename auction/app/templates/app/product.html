@@ -40,19 +40,13 @@
 
 </form>
 </div>
-<!--<script>-->
-
-    <!--var  bidsSocket = new WebSocket("ws://" + window.location.host + "/app/buyer/{{id}}");-->
-    <!--bidsSocket.onmessage = function(e) {-->
-      <!--var bid = document.getElementById("bid");-->
-    <!--}-->
-
-    <!--function live() {-->
-      <!--if(-->
+<script>
+    var loc = window.location;
+    var wsStart = 'ws://';
+    var endpoint = wsStart + loc.host + loc.pathname;
+    var socket = new ReconnectingWebSocket(endpoint);
 
 
 
-<!--</script>-->
+</script>
 {% endblock %}
-</body>
-</html>

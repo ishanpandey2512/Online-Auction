@@ -30,26 +30,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '%^_b!mle&khi2bi3uj_f5zb8kvt4k#0_z$ejy*4c+p**zim(r='
 
-
-
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-
-
 INSTALLED_APPS = [
-    'app.apps.AppConfig',
+    'channels',
+    'app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels',
+
 ]
 
 MIDDLEWARE = [
@@ -90,15 +85,15 @@ WSGI_APPLICATION = 'auction.wsgi.application'
 
 ASGI_APPLICATION = "auction.routing.application"
 
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'asgi_redis.RedisChannelLayer',
-#         'CONFIG': {
-#             'hosts': [('localhost', 6379)],
-#         },
-#         'ROUTING': 'auction.routing.channel_routing',
-#     }
-# }
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgi_redis.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        },
+        'ROUTING': 'auction.routing.channel_routing',
+    }
+}
 
 
 DATABASES = {
