@@ -64,7 +64,7 @@ class Product(models.Model):
     category = models.CharField(max_length=50, blank=True,null=True,choices=CHOICE)
     minimum_price = models.IntegerField(blank=True, validators=[MinValueValidator(1)],default=1)
     start = models.DateTimeField(default=timezone.now, null=True)
-    end = models.DateTimeField(default=timezone.now() + timezone.timedelta(hours=1))
+    end = models.DateTimeField(default=timezone.now() + timezone.timedelta(hours=10))
     current_bid = models.IntegerField(default=0)
     product_sold = models.BooleanField(default=False)
     choose=models.CharField(max_length=50, blank=True,null=True,choices=option)

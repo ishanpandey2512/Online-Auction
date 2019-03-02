@@ -15,9 +15,8 @@ urlpatterns = [
     re_path(r'^profile/(?P<user_id>[0-9]+)/$', views.ProfileView.as_view(), name='profile'),
     re_path(r'^profile/(?P<user_id>[0-9]+)/edit/$', views.ProfileEdit.as_view(), name='edit_profile'),
     re_path('seller/', views.AddProduct.as_view(), name='add_product'),
-
-    path('buyer/<int:pk>/', views.ProductView.as_view(), name='product'),
-    path('buyer/', views.BuyerView.as_view(), name='buyer'),
+    re_path(r'^buyer/(?P<p_id>[0-9]+)/$', views.ProductView.as_view(), name='product'),
+    re_path(r'^buyer/$', views.BuyerView.as_view(), name='buyer'),
     path('products_listed/', views.ProductListed.as_view(), name='products_listed'),
     path('bids_currently_winning/', views.BidsCurrentlyWinning.as_view(), name='bids_currently_winning'),
     path('bids_won/', views.BidsWon.as_view(), name='bids_won'),

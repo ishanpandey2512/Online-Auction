@@ -1,8 +1,8 @@
 # chat/routing.py
-from django.urls import path
+from django.conf.urls import url, re_path
 from . import consumers
 
 websocket_urlpatterns = [
-    path('buyer/<int:pk>/', consumers.LiveBiddingConsumer),
+    url(r'^app/buyer/(?P<p_id>[0-9]+)/$', consumers.LiveBiddingConsumer),
 ]
 

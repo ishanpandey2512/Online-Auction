@@ -84,15 +84,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'auction.wsgi.application'
 
 ASGI_APPLICATION = "auction.routing.application"
-
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'asgi_redis.RedisChannelLayer',
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [('localhost', 6379)],
+            "hosts": [('127.0.0.1', 6379)],
         },
-        'ROUTING': 'auction.routing.channel_routing',
-    }
+    },
 }
 
 

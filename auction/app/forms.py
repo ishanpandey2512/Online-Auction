@@ -16,7 +16,6 @@ class SignupForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         try:
-
             User.objects.get(email=email)
         except User.DoesNotExist:
             return email

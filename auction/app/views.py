@@ -331,9 +331,9 @@ class ProductView(View):
     template_name = 'app/product.html'
 
     @method_decorator(login_required)
-    def get(self, request, *args, **kwargs):
+    def get(self, request, p_id, *args, **kwargs):
         time_now = timezone.now()
-        p = Product.objects.get(id=kwargs['pk'])
+        p = Product.objects.get(pk=p_id)
         if time_now < p.end:
             form = BidsForm()
             context = {
@@ -347,7 +347,7 @@ class ProductView(View):
                 'form': form,
                 'id': p.id
             }
-            return render(request, self.template_name, context)
+            return render(request, self.template_name, context, p_id)
         else:
             p.product_sold = 'True'
             p.save()
@@ -362,11 +362,11 @@ class ProductView(View):
                 'buyer': p.bidder_id,
             }
 
-            return render(request, 'app/product_sold.html', context)
+            return render(request, 'app/product_sold.html', context, p_id)
 
     @method_decorator(login_required)
-    def post(self, request, *args, **kwargs):
-        product = Product.objects.get(id=kwargs["pk"])
+    def post(self, request, p_id, *args, **kwargs):
+        product = Product.objects.get(pk=p_id)
         form = BidsForm(request.POST)
         if form.is_valid():
             product.bidder_id = request.user
@@ -391,7 +391,7 @@ class ProductView(View):
             'currentbid': product.current_bid,
             'form': form
         }
-        return render(request, self.template_name, context)
+        return render(request, self.template_name, context, p_id)
 
 
 # ------------------USER CAN SEE WHAT ALL PRODUCTS HAVE BEEN LISTED FOR SALE-------------------------------------------
