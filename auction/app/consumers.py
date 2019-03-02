@@ -46,3 +46,4 @@ class LiveBiddingConsumer(AsyncConsumer):
             "type": "websocket.send",
             "text": event['text']
         })
+

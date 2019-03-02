@@ -54,7 +54,11 @@
 
     socket.onmessage = function(e){
         console.log("message", e)
-        bid_holder.innerHTML = e.data;
+        <!--console.log(e.data)-->
+        <!--bid_holder.innerHTML = e.data;-->
+        <!--console.log(bid_holder.val(),"1")-->
+        <!--bid_holder.val(e.data)-->
+        bid_holder.html(e.data);
     }
 
     socket.onopen = function(e){
@@ -64,11 +68,11 @@
             event.preventDefault()
             var bid_value = bid_input.val();
             bid_input.val('')
-            console.log(bid_value)
+            <!--console.log(bid_value)-->
             var final_data = {
                 'bid': bid_value
             };
-            <!--socket.send(JSON.stringify(final_data))-->
+            socket.send(JSON.stringify(final_data))
         })
     }
 
