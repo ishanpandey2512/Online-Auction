@@ -37,7 +37,6 @@
 
     </label>
     <br>
-    <!--<button id="bid_button">SUBMIT BID</button>-->
     <input type="submit" value="SUBMIT">
 
 </form>
@@ -46,18 +45,14 @@
     var loc = window.location;
     var wsStart = 'ws://';
     var endpoint = wsStart + loc.host + loc.pathname;
-    var socket = new WebSocket(endpoint);
+    var socket = new ReconnectingWebSocket(endpoint);
 
     var form_data = $('#form_data');
     var bid_input = $('#id_bidder_amount');
-    var bid_holder = $('bid_value');
+    var bid_holder = $('#bid_value');
 
     socket.onmessage = function(e){
         console.log("message", e)
-        <!--console.log(e.data)-->
-        <!--bid_holder.innerHTML = e.data;-->
-        <!--console.log(bid_holder.val(),"1")-->
-        <!--bid_holder.val(e.data)-->
         bid_holder.html(e.data);
     }
 
@@ -68,7 +63,7 @@
             event.preventDefault()
             var bid_value = bid_input.val();
             bid_input.val('')
-            <!--console.log(bid_value)-->
+            console.log(bid_value)
             var final_data = {
                 'bid': bid_value
             };

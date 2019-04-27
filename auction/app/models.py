@@ -67,7 +67,7 @@ class Product(models.Model):
     end = models.DateTimeField(default=timezone.now() + timezone.timedelta(hours=10))
     current_bid = models.IntegerField(default=0)
     product_sold = models.BooleanField(default=False)
-    choose=models.CharField(max_length=50, blank=True,null=True,choices=option)
+    choose = models.CharField(max_length=50, blank=True,null=True,choices=option)
     bidder_id = models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='%(class)s_bidder')
     rent_status = models.BooleanField(default=False)
     rent_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='%(class)s_rent')

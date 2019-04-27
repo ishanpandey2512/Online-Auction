@@ -28,7 +28,7 @@ class LiveBiddingConsumer(AsyncConsumer):
             bid = loaded_dict_data.get('bid')
             user_obj = self.scope['user']
             p_id = self.product_id
-            product = Product.objects.get(id=p_id)
+            await self.update_bid(p_id, bid, user_obj)
 
             await self.channel_layer.group_send(
                 self.product_id,
@@ -47,3 +47,13 @@ class LiveBiddingConsumer(AsyncConsumer):
             "text": event['text']
         })
 
+    @database_sync_to_async
+    def update_bid(self, p_id, bid, user_obj):
+        product = Product.objects.get(id=p_id)
+        if product.seller_id == user_obj:
+            return None
+        else:
+            product.current_bid = bid
+            product.bidder_id = user_obj
+            product.save()
+            return product
