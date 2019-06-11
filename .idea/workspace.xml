@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad1b0052-a58e-40cf-852d-3196cff07b30" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auction/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auction/auction/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/auction/auction/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -56,8 +54,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/auction/auction/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="163" column="54" selection-start-line="163" selection-start-column="54" selection-end-line="163" selection-end-column="54" />
+            <state relative-caret-position="450">
+              <caret line="30" column="56" lean-forward="true" selection-start-line="30" selection-end-line="31" />
             </state>
           </provider>
         </entry>
@@ -608,8 +606,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/auction/auction/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="163" column="54" selection-start-line="163" selection-start-column="54" selection-end-line="163" selection-end-column="54" />
+        <state relative-caret-position="450">
+          <caret line="30" column="56" lean-forward="true" selection-start-line="30" selection-end-line="31" />
         </state>
       </provider>
     </entry>
